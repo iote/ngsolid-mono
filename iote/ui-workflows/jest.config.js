@@ -1,9 +1,10 @@
 module.exports = {
   name: 'external-iote-ui-workflows',
   preset: '../../../../jest.config.js',
-  transform: {
-    '^.+\\.[tj]sx?$': 'ts-jest'
-  },
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
-  coverageDirectory: '../../../../coverage/libs/external/iote/ui-workflows'
+  coverageDirectory: '../../../../coverage/libs/external/iote/ui-workflows',
+  snapshotSerializers: [
+    'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
+    'jest-preset-angular/build/AngularSnapshotSerializer.js',
+    'jest-preset-angular/build/HTMLCommentSerializer.js'
+  ]
 };
