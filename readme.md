@@ -41,7 +41,7 @@ Result should be a folder structure under external which is the same as before
 <i>(this can sometimes need a couple more git mv's. Important though, never move this folder manually!)</i>
 
 ## 4. Link up libraries
-
+### INSTALL NX PROPERLY USING THE PEER SNIPPETS
 Swap out pathNames
 
 <b>In NX root tsconfig.json</b>
