@@ -1,1 +1,1 @@
-export * from './lib/external-ngfire-firestore-qbuilder';
+export * from './lib';

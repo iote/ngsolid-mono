@@ -1,7 +1,4 @@
-# external-ngfire-firestore-qbuilder
+# ngfire-firestore-query-builder
+Part of the NgFire Shared Modules. Includes a Firestore Query Builder and Predicate implementations.
 
-This library was generated with [Nx](https://nx.dev).
-
-## Running unit tests
-
-Run `ng test external-ngfire-firestore-qbuilder` to execute the unit tests via [Jest](https://jestjs.io).
+Adds an abstraction layer between the direct dependency on Firestore.
