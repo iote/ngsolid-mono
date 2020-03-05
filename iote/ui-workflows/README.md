@@ -1,7 +1,3 @@
-# external-iote-ui-workflows
+# IoTe UI Workflows
 
-This library was generated with [Nx](https://nx.dev).
-
-## Running unit tests
-
-Run `nx test external-iote-ui-workflows` to execute the unit tests.
+Library which contains a common set of UI components that contain UI workflows such as confirmation, ...
