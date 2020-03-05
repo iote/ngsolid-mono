@@ -1,1 +1,1 @@
-export * from './lib/external-ngfire-angular.module';
+export * from './lib';
