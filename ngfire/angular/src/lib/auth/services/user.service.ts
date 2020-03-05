@@ -9,7 +9,7 @@ import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { User } from "@iote/bricks";
-import { Query } from '@iote/ngfire-firestore-qbuilder';
+import { Query } from '@ngfire/firestore-qbuilder';
 
 /**
  * Wrapper around Firebase User Services. RxJS subscriptions.

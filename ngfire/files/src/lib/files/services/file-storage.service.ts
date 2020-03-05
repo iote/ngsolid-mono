@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 
 import { AngularFirestore } from '@angular/fire/firestore';
 import { User } from '@iote/bricks';
-import {  Repository, UserService } from '@iote/ngfire-angular';
+import {  Repository, UserService } from '@ngfire/angular';
 
 import { IFile } from '../model/file.interface';
 
