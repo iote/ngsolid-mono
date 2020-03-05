@@ -1,1 +1,5 @@
-export * from './lib/external-iote-ui-workflows.module';
+/*
+ * Public API Surface of iote-ui-workflows
+ */
+
+export * from './lib';
