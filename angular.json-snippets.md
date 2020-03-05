@@ -229,5 +229,60 @@
       "styleext": "scss"
     }
   }
-}
+},
+"@iote/cqrs": {
+  "root": "libs/external/iote/cqrs",
+  "sourceRoot": "libs/external/iote/cqrs/src",
+  "projectType": "library",
+  "schematics": {},
+  "architect": {
+    "lint": {
+      "builder": "@angular-devkit/build-angular:tslint",
+      "options": {
+        "tsConfig": [
+          "libs/external/iote/cqrs/tsconfig.lib.json",
+          "libs/external/iote/cqrs/tsconfig.spec.json"
+        ],
+        "exclude": ["**/node_modules/**", "!libs/external/iote/cqrs/**"]
+      }
+    },
+    "test": {
+      "builder": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/external/iote/cqrs/jest.config.js",
+        "tsConfig": "libs/external/iote/cqrs/tsconfig.spec.json",
+        "passWithNoTests": true
+      }
+    }
+  }
+},
+"@ngfire/admin-data": {
+  "root": "libs/external/ngfire/admin-data",
+  "sourceRoot": "libs/external/ngfire/admin-data/src",
+  "projectType": "library",
+  "schematics": {},
+  "architect": {
+    "lint": {
+      "builder": "@angular-devkit/build-angular:tslint",
+      "options": {
+        "tsConfig": [
+          "libs/external/ngfire/admin-data/tsconfig.lib.json",
+          "libs/external/ngfire/admin-data/tsconfig.spec.json"
+        ],
+        "exclude": [
+          "**/node_modules/**",
+          "!libs/external/ngfire/admin-data/**"
+        ]
+      }
+    },
+    "test": {
+      "builder": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/external/ngfire/admin-data/jest.config.js",
+        "tsConfig": "libs/external/ngfire/admin-data/tsconfig.spec.json",
+        "passWithNoTests": true
+      }
+    }
+  }
+},
 ````

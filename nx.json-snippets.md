@@ -1,4 +1,5 @@
 # Add below snippets to nx.json upon install of libs/external
+````javascript
 "@iote/bricks": {
   "tags": []
 },
@@ -26,3 +27,4 @@
   "tags": [],
   "implicitDependencies": ["@iote/bricks-angular"]
 }
+````
