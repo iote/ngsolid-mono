@@ -1,0 +1,16 @@
+<mat-form-field fxFlex="100">
+
+  <mat-label i18n><ng-content select="[label]"></ng-content></mat-label>
+
+  <input matInput [matAutocomplete]="auto"
+         [(ngModel)]="selectedItemNow" (change)="onTypeSelectedItem($event)"
+         [required]="required" />
+
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectItem($event)">
+    <mat-option *ngFor="let item of items"
+                [value]="item">
+      {{ itemFieldDisplayFn(item) }}
+    </mat-option>
+  </mat-autocomplete>
+
+</mat-form-field>

@@ -4,6 +4,9 @@
 
 export * from './lib/flex-layout/flex-layout.module';
 
+export * from './lib/material-form-bricks/material-form-bricks.module';
+export * from './lib/material-form-bricks/components/autocomplete-action-field/autocomplete-action-field.component';
+
 export * from './lib/material-bricks/material-bricks.module';
 export * from './lib/material-bricks/components/action-tile/action-tile.component';
 export * from './lib/material-bricks/components/breadcrumbs/breadcrumb.interface';
