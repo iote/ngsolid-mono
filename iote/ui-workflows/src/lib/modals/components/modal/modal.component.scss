@@ -14,6 +14,14 @@ mat-form-field {
   margin-bottom: 10px;
 }
 
+.title-line {
+  border: none;
+  border-top: 1px solid #ddd;
+  width: 100%;
+
+  margin-bottom: 10px;
+}
+
 .close-modal-btn:hover {
   cursor: pointer;
 }
