@@ -12,6 +12,6 @@ export abstract class Handler<T>
   constructor() { }
 
   /** Contains the actual logic */
-  public abstract execute(data: T, context: HandlerContext, tools: HandlerTools): Promise<void>;
+  public abstract execute(data: T, context: HandlerContext, tools: HandlerTools): Promise<any>;
 
 }
