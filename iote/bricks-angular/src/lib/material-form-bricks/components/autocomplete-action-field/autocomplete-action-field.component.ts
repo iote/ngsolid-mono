@@ -1,11 +1,11 @@
-import { Component, Input, EventEmitter, Output, OnInit } from '@angular/core';
+import { Component, Input, EventEmitter, Output, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'iote-autocomplete-action-field',
   templateUrl: './autocomplete-action-field.component.html',
   styleUrls: [ './autocomplete-action-field.component.scss' ]
 })
-export class AutocompleteActionFieldComponent<T> implements OnInit
+export class AutocompleteActionFieldComponent<T> implements OnInit, OnChanges
 {
   @Input() items: T[];
   selectedItemNow: string;
@@ -22,6 +22,20 @@ export class AutocompleteActionFieldComponent<T> implements OnInit
     if(this.selectedItem)
       this.selectedItemNow = this.itemFieldDisplayFn(this.selectedItem);
   };
+
+  ngOnChanges(changes: SimpleChanges)
+  {
+    const items = changes['items'];
+    const selectedItem = changes['selectedItem'];
+
+    if(items)
+      this.items = items.currentValue;
+
+    if(selectedItem) {
+      this.selectedItem = selectedItem.currentValue;
+      this.selectedItemNow = this.itemFieldDisplayFn(selectedItem.currentValue);
+    }
+  }
 
   /** Unknown item typed -> Emit event that requests parent to create item. */
   onTypeSelectedItem(newItemName: any)
