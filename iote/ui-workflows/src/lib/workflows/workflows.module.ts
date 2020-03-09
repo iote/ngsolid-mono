@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { MaterialDesignModule } from '@iote/bricks-angular';
 import { DeleteConfirmationDialogComponent } from './components/delete-confirmation-modal/delete-confirmation-modal.component';
+import { InfoPanelComponent } from './components/info-panel/info-panel.component';
 
 /**
  * Workflows Module. Main entrypoint of the module.
@@ -11,7 +12,8 @@ import { DeleteConfirmationDialogComponent } from './components/delete-confirmat
  */
 @NgModule({
   imports: [CommonModule, MaterialDesignModule],
-  declarations: [DeleteConfirmationDialogComponent],
+                                                    // Belongs more in a Layout Module, but temp stored here.
+  declarations: [DeleteConfirmationDialogComponent, InfoPanelComponent],
   providers: [],
   entryComponents: [DeleteConfirmationDialogComponent],
   exports: [DeleteConfirmationDialogComponent]
