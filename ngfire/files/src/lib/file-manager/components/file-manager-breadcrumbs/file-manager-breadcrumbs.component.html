@@ -1,0 +1,19 @@
+<div class="breadcrumb-navbar" fxLayout="row" *ngIf="crumbs$ | async as crumbs">
+  <i (click)="goBack()" *ngIf="crumbs.length > 1" class="fas fa-arrow-left back-ic"></i>
+
+  <div class="breadcrumb-holder" *ngFor="let crumb of crumbs; let i = index">
+
+    <span [ngClass]="(crumb.last) ? 'breadcrumb-item active-breadcrumb' : 'breadcrumb-item'"
+          (click)="crumbClicked(crumb)">
+          {{ crumb.name }}
+    </span>
+    <span *ngIf="!crumb.last">&gt;</span>
+  </div>
+
+  <div fxFlex></div>
+
+  <div fxFlexAlign="end start">
+    <ng-content></ng-content>
+  </div>
+
+</div>

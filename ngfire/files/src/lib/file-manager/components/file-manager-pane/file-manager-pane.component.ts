@@ -1,12 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-
-import { SubSink } from 'subsink';
-
-import { FileManagerService } from '../../services/file-manager.service';
-import { FolderIterator } from '../../model/folder-iterator.class';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Logger } from '@iote/bricks-angular';
+
+import { FolderIterator } from '../../model/folder-iterator.class';
 
 /** */
 @Component({
@@ -17,8 +13,14 @@ import { Logger } from '@iote/bricks-angular';
 export class FileManagerPaneComponent implements OnInit
 {
   @Input() position$: Observable<FolderIterator>;
+  @Output() nodeClicked = new EventEmitter<FolderIterator>();
 
   constructor(private _logger: Logger) { }
 
   ngOnInit() { }
+
+  onNodeClicked(position: FolderIterator)
+  {
+    this.nodeClicked.emit(position);
+  }
 }

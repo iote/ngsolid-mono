@@ -6,7 +6,6 @@ import { MaterialDesignModule, FlexLayoutModule, MaterialBricksModule } from '@i
 
 import { FilesModule } from '../files';
 
-
 import { FileManagerComponent } from './components/file-manager/file-manager.component';
 import { FileManagerNavComponent } from './components/file-manager-nav/file-manager-nav.component';
 
@@ -14,6 +13,7 @@ import { FileManagerService } from './services/file-manager.service';
 import { FileManagerInitalisationService } from './services/file-manager-init.service';
 import { FileManagerPaneComponent } from './components/file-manager-pane/file-manager-pane.component';
 import { FileManagerItemComponent } from './components/file-manager-item/file-manager-item.component';
+import { FileManagerCrumbComponent } from './components/file-manager-breadcrumbs/file-manager-breadcrumbs.component';
 
 /**
  * Module that contains a file manager.
@@ -23,7 +23,7 @@ import { FileManagerItemComponent } from './components/file-manager-item/file-ma
             MaterialDesignModule, MaterialBricksModule, FilesModule,
             AngularFireStorageModule],
 
-  declarations: [FileManagerComponent, FileManagerNavComponent, FileManagerPaneComponent, FileManagerItemComponent],
+  declarations: [FileManagerComponent, FileManagerNavComponent, FileManagerPaneComponent, FileManagerItemComponent, FileManagerCrumbComponent],
   providers: [FileManagerService, FileManagerInitalisationService],
 
   exports: [FileManagerComponent]

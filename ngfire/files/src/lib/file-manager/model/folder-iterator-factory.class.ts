@@ -25,17 +25,17 @@ export class FolderIteratorFactory
                                      rt.contents.prefixes)));
   }
 
-  private _toRootIterator(name: string, base: string, level: number, items: IStorageReference[], subFolders: IStorageReference[], parent?: FolderIterator)
+  private _toRootIterator(name: string, base: string, level: number, items: IStorageReference[], subFolders: IStorageReference[])
   {
-    const fileChildren = items.map(item => new FolderIterator(item.name, `${base}/${item.name}`, level + 1, false, this));
-    const folderChildren = subFolders.map(item => new FolderIterator(item.name, `${base}/${item.name}`, level + 1, true, this));
+    const root = new FolderIterator(name, base, level, true, this);
+
+    const fileChildren = items.map(item => new FolderIterator(item.name, `${base}/${item.name}`, level + 1, false, this, root));
+    const folderChildren = subFolders.map(item => new FolderIterator(item.name, `${base}/${item.name}`, level + 1, true, this, root));
 
     const together = folderChildren.concat(fileChildren);
-    together.forEach(ch => { ch.parent = parent });
+    root.children = together;
 
-    const iterator = new FolderIterator(name, base, level, true, this, parent, true, together);
-
-    return iterator;
+    return root;
   }
 
   getChildren(parent: FolderIterator): Observable<FolderIterator[]>

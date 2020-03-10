@@ -1,10 +1,5 @@
 
-import { Component, OnInit, Input } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { filter } from 'rxjs/operators';
-
-import { SubSink } from 'subsink';
-
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { FolderIterator } from '../../model/folder-iterator.class';
 import { Logger } from '@iote/bricks-angular';
@@ -16,16 +11,14 @@ import * as _ from 'lodash';
   styleUrls: ['./file-manager-item.component.scss'],
   templateUrl: './file-manager-item.component.html'
 })
-export class FileManagerItemComponent implements OnInit
+export class FileManagerItemComponent
 {
   @Input() item: FolderIterator;
+  @Output() nodeClicked = new EventEmitter<FolderIterator>();
 
   constructor(private _logger: Logger) { }
 
-  ngOnInit()
-  {
-
-  }
+  meClicked = () => this.nodeClicked.emit(this.item);
 
   getFileIcon() {
     if(this.item.isFolder)

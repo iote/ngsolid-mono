@@ -1,4 +1,4 @@
-<div class="file-manager-item" fxLayout="column" fxLayoutAlign="center center">
+<div class="file-manager-item" fxLayout="column" fxLayoutAlign="center center" (click)="meClicked()" matRipple>
 
   <div class="fm-item-icon-holder">
     <i *ngIf="!item.isFolder" class="fm-item-icon" [ngClass]="getFileIcon()"></i>

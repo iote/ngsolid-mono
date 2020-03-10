@@ -1,4 +1,4 @@
-<div class="file-manager mat-elevation-z2" fxLayout="column" [fxFlex]="100">
+<div class="file-manager mat-elevation-z1" fxLayout="column" [fxFlex]="100">
 
   <div class="file-manager-header" fxLayout="row">
     <div class="file-manager-title"><ng-content select="[title]"></ng-content></div>
@@ -18,8 +18,9 @@
       </ngfire-file-manager-nav>
     </mat-drawer>
 
-    <mat-drawer-content class="drawer-content">
-      <ngfire-file-manager-pane [position$]="currentPosition$"></ngfire-file-manager-pane>
+    <mat-drawer-content class="drawer-content" fxLayout="column" [fxFlex]="100">
+      <ngfire-file-manager-breadcrumbs [position$]="currentPosition$" (nodeClicked)="onNodeClicked($event)"></ngfire-file-manager-breadcrumbs>
+      <ngfire-file-manager-pane        [position$]="currentPosition$" (nodeClicked)="onNodeClicked($event)"></ngfire-file-manager-pane>
     </mat-drawer-content>
 
     <!-- <mat-drawer class="drawer-side" [fxFlex]="10"
