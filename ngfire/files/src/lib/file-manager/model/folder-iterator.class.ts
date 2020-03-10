@@ -1,6 +1,9 @@
 import { Observable, of } from 'rxjs';
-import { FolderIteratorFactory } from './folder-iterator-factory.class';
 import { take, map } from 'rxjs/operators';
+
+import * as _ from 'lodash';
+
+import { FolderIteratorFactory } from './folder-iterator-factory.class';
 
 export class FolderIterator
 {
@@ -30,6 +33,12 @@ export class FolderIterator
     }
 
     else throw new Error('Child is not known.');
+  }
+
+  getChildren()
+  {
+    return this._children.map(child => { const exp = this._childrenExpanded.find(e => e.name = child);
+                                         return exp ? exp : child; });
   }
 
   parent(): FolderIterator

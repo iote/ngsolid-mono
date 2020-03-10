@@ -24,6 +24,7 @@ export class FileManagerComponent implements OnInit
   currentPath: string;
 
   iterator: FolderIterator;
+  currentPosition: FolderIterator;
   isLoaded = false;
 
   constructor(private _fileManagerService: FileManagerService) { }
@@ -34,6 +35,7 @@ export class FileManagerComponent implements OnInit
 
     this._sbS.sink = iterator$.subscribe(iterator => {
       this.iterator = iterator;
+      this.currentPosition = iterator;
       this.isLoaded = false;
     });
   }
