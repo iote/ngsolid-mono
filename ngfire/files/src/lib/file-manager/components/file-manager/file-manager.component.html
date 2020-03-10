@@ -1,6 +1,6 @@
-<div class="file-manager mat-elevation-z2" fxLayout="column" fxLayoutAlign="center center" [fxFlex]="100">
+<div class="file-manager mat-elevation-z2" fxLayout="column" [fxFlex]="100">
 
-  <div class="file-manager-header" fxLayout="row center">
+  <div class="file-manager-header" fxLayout="row">
     <div class="file-manager-title"><ng-content select="[title]"></ng-content></div>
     <div class="flex-spacer"></div>
     <div class="card-actions">
@@ -9,16 +9,16 @@
   </div>
 
   <mat-drawer-container *ngIf="isLoaded; else loading"
-                        fxLayout="row" class="explorer-container" [fxFlex]="100">
+                        fxLayout="row" fxLayoutAlign="start" class="explorer-container">
 
     <mat-drawer class="drawer-nav"
-                mode="side" opened [fxFlex]="35">
+                mode="side" opened>
       <ngfire-file-manager-nav [structure]="root"
                                (nodeClicked)="onNodeClicked($event)">
       </ngfire-file-manager-nav>
     </mat-drawer>
 
-    <mat-drawer-content class="drawer-content" [fxFlex]="65">
+    <mat-drawer-content class="drawer-content">
       <ngfire-file-manager-pane [position$]="currentPosition$"></ngfire-file-manager-pane>
     </mat-drawer-content>
 

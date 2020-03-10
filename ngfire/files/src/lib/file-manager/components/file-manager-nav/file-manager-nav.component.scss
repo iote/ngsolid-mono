@@ -9,3 +9,8 @@ li {
 .sidenav {
   width: 200px;
 }
+
+.mat-tree-node:hover {
+  background-color: #eee;
+  cursor: pointer;
+}
