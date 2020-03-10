@@ -4,11 +4,15 @@ import { CommonModule } from '@angular/common';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { MaterialDesignModule, FlexLayoutModule } from '@iote/bricks-angular';
 
-import { FileManagerDiscoveryService } from './services/file-manager-discovery.service';
+import { FilesModule } from '../files';
+
 
 import { FileManagerComponent } from './components/file-manager/file-manager.component';
 import { FileManagerNavComponent } from './components/file-manager-nav/file-manager-nav.component';
-import { FilesModule } from '../files';
+
+import { FileManagerService } from './services/file-manager.service';
+import { FileManagerInitalisationService } from './services/file-manager-init.service';
+import { FileManagerDiscoveryService } from './services/file-manager-discovery.service';
 
 
 /**
@@ -20,7 +24,7 @@ import { FilesModule } from '../files';
             AngularFireStorageModule],
 
   declarations: [FileManagerComponent, FileManagerNavComponent],
-  providers: [FileManagerDiscoveryService],
+  providers: [FileManagerService, FileManagerDiscoveryService, FileManagerInitalisationService],
 
   exports: [FileManagerComponent]
 })

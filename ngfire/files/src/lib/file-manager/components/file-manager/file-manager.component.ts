@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AngularFireStorage,  } from '@angular/fire/storage';
-
-import { Logger } from '@iote/bricks-angular';
+import { SubSink } from 'subsink';
+import { FileManagerService } from '../../services/file-manager.service';
+import { FolderIterator } from '../../model/folder-iterator.class';
 
 /**
  *
@@ -13,6 +13,8 @@ import { Logger } from '@iote/bricks-angular';
 })
 export class FileManagerComponent implements OnInit
 {
+  private _sbS = new SubSink();
+
   /** Base path from where to load the initial files. Explorer will not be able to go below this basePath. */
   @Input() basePath: string;
   /** In case Base Path display name is different from base path root folder. This can be useful if for example an id is used as part of base folder structure.
@@ -21,14 +23,18 @@ export class FileManagerComponent implements OnInit
   @Input() basePathName?: string;
   currentPath: string;
 
-  constructor(private _storage: AngularFireStorage,
-              private _logger: Logger)
-  { }
+  iterator: FolderIterator;
+  isLoaded = false;
+
+  constructor(private _fileManagerService: FileManagerService) { }
 
   ngOnInit()
   {
-    const root = this._storage.ref(this.basePath);
-    root.getMetadata().subscribe(m => { debugger; })
-  }
+    const iterator$ = this._fileManagerService.getIterator(this.basePath);
 
+    this._sbS.sink = iterator$.subscribe(iterator => {
+      this.iterator = iterator;
+      this.isLoaded = false;
+    });
+  }
 }
