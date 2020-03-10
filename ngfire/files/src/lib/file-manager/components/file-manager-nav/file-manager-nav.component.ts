@@ -1,17 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
 
 import { Logger } from '@iote/bricks-angular';
 
 import { FolderIterator } from '../../model/folder-iterator.class';
-import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-
-/**
- *
- */
+/** */
 @Component({
   selector: 'ngfire-file-manager-nav',
   styleUrls: ['./file-manager-nav.component.scss'],
@@ -21,8 +17,7 @@ export class FileManagerNavComponent implements OnInit
 {
   /** Root of the folder structure. */
   @Input() structure: FolderIterator;
-
-  source$$: BehaviorSubject<FolderIterator>;
+  @Output() nodeClicked = new EventEmitter<FolderIterator>();
 
   dataSource  = new MatTreeNestedDataSource<FolderIterator>();
   treeControl  = new NestedTreeControl<FolderIterator>(node => this.loadChildren(node));
@@ -53,5 +48,7 @@ export class FileManagerNavComponent implements OnInit
       return node.children;
     }));
   }
+
+  goToNode = (node: FolderIterator) => this.nodeClicked.emit(node);
 
 }

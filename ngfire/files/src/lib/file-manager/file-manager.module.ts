@@ -12,6 +12,8 @@ import { FileManagerNavComponent } from './components/file-manager-nav/file-mana
 
 import { FileManagerService } from './services/file-manager.service';
 import { FileManagerInitalisationService } from './services/file-manager-init.service';
+import { FileManagerPaneComponent } from './components/file-manager-pane/file-manager-pane.component';
+import { FileManagerItemComponent } from './components/file-manager-item/file-manager-item.component';
 
 /**
  * Module that contains a file manager.
@@ -21,7 +23,7 @@ import { FileManagerInitalisationService } from './services/file-manager-init.se
             MaterialDesignModule, MaterialBricksModule, FilesModule,
             AngularFireStorageModule],
 
-  declarations: [FileManagerComponent, FileManagerNavComponent],
+  declarations: [FileManagerComponent, FileManagerNavComponent, FileManagerPaneComponent, FileManagerItemComponent],
   providers: [FileManagerService, FileManagerInitalisationService],
 
   exports: [FileManagerComponent]

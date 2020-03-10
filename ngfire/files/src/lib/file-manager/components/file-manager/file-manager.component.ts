@@ -46,4 +46,10 @@ export class FileManagerComponent implements OnInit
       this.isLoaded = true;
     });
   }
+
+  onNodeClicked(node: FolderIterator)
+  {
+    if(node.isFolder)
+      this.currentPosition$$.next(node);
+  }
 }

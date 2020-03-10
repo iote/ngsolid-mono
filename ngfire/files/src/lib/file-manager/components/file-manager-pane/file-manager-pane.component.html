@@ -1,0 +1,8 @@
+<div *ngIf="position$ | async as position"
+     class="file-manager-pane" [fxFlex]="100" fxLayout="row wrap" fxLayoutAlign="start" >
+
+  <ngfire-file-manager-item *ngFor="let item of position.children"
+                            [item]="item">
+  </ngfire-file-manager-item>
+
+</div>

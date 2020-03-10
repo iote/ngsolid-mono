@@ -1,0 +1,12 @@
+<div class="file-manager-item" fxLayout="column" fxLayoutAlign="center center">
+
+  <div class="fm-item-icon-holder">
+    <i *ngIf="!item.isFolder" class="fm-item-icon" [ngClass]="getFileIcon()"></i>
+    <i *ngIf="item.isFolder" class="fm-item-icon far fa-folder"></i>
+  </div>
+
+  <div class="fm-item-info">
+    {{ item.name }}
+  </div>
+
+</div>
