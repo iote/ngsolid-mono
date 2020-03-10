@@ -4,6 +4,10 @@
   width: 150px;
 }
 
+  .file-manager-item:hover {
+    background-color: #eee;
+    cursor: pointer;
+  }
 
 .fm-item-icon-holder {
   padding-bottom: 15px;
