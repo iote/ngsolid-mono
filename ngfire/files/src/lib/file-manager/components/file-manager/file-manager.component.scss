@@ -1,3 +1,27 @@
+@import '~@angular/material/theming';
+@import 'libs/theming/s4y-theme.scss';
+
 .explorer-container {
   min-height: 500px;
+  border-top-left-radius:  15px;
+  border-top-right-radius: 15px;
+}
+
+.file-manager {
+  margin-top: 20px;
+}
+
+.file-manager-header {
+  border-top-left-radius:  15px;
+  border-top-right-radius: 15px;
+  padding: 20px 20px 15px 20px;
+  background-color: mat-color($primary, A400);
+  color: white;
+  text-align: left;
+  width: 100%;
+}
+
+.file-manager-title {
+  font-weight: 500;
+  line-height: 2em;
 }

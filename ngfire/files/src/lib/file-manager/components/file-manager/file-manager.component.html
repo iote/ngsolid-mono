@@ -1,6 +1,16 @@
-<div fxLayout="row" fxLayoutAlign="center center" [fxFlex]="100">
+<div class="file-manager mat-elevation-z2" fxLayout="column" fxLayoutAlign="center center" [fxFlex]="100">
 
-  <mat-drawer-container *ngIf="isLoaded; else loading" class="explorer-container" [fxFlex]="100">
+  <div class="file-manager-header" fxLayout="row center">
+    <div class="file-manager-title"><ng-content select="[title]"></ng-content></div>
+    <div class="flex-spacer"></div>
+    <div class="card-actions">
+      <!-- <ng-content select="[cardActions]"></ng-content> -->
+    </div>
+  </div>
+
+  <mat-drawer-container *ngIf="isLoaded; else loading"
+                        fxLayout="row" class="explorer-container" [fxFlex]="100">
+
     <mat-drawer class="drawer-nav"
                 mode="side" opened [fxFlex]="35">
       <ngfire-file-manager-nav [structure]="root"
@@ -16,6 +26,7 @@
                 position="end" mode="push">
       <!-- Current File -->
     <!-- </mat-drawer> -->
+
   </mat-drawer-container>
 
 </div>
