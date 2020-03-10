@@ -1,13 +1,14 @@
-<div fxLayout="row" fxLayoutAlign="center center">
+<div fxLayout="row" fxLayoutAlign="center center" [fxFlex]="100">
 
-  <mat-drawer-container class="explorer-container">
+  <mat-drawer-container *ngIf="isLoaded; else loading" class="explorer-container" [fxFlex]="100">
     <mat-drawer class="drawer-nav"
-                mode="side" opened>
-      <ngfire-file-manager-nav></ngfire-file-manager-nav>
+                mode="side" opened [fxFlex]="25">
+      <ngfire-file-manager-nav [structure]="root"></ngfire-file-manager-nav>
     </mat-drawer>
 
-    <mat-drawer-content class="drawer-content">
+    <mat-drawer-content class="drawer-content" [fxFlex]="75">
       <!-- <ngfire-file-manager-pane></ngfire-file-manager-pane> -->
+      Test
     </mat-drawer-content>
 
     <mat-drawer class="drawer-side"
@@ -18,3 +19,4 @@
 
 </div>
 
+<ng-template #loading><app-spinner></app-spinner></ng-template>

@@ -3,7 +3,7 @@ import { __DateToStorage } from '@ngfire/time';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Logger } from '@iote/bricks-angular';
 
-import { IStorageContents, IStorageReference, IFolderReference } from '../file-manager-types.types';
+import { IStorageReference, IFolderReference } from '../file-manager-types.types';
 import { Observable, from } from 'rxjs';
 import { FolderIteratorFactory } from '../model/folder-iterator-factory.class';
 import { FolderIterator } from '../model/folder-iterator.class';
@@ -15,9 +15,9 @@ export class FileManagerService
               private _logger: Logger)
   {}
 
-  public getIterator(rootPath: string): Observable<FolderIterator>
+  public getIterator(rootPath: string, rootPathName?: string): Observable<FolderIterator>
   {
-    const factory = new FolderIteratorFactory(rootPath, this);
+    const factory = new FolderIteratorFactory(rootPath, this, rootPathName);
 
     return factory.root();
   }

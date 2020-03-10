@@ -9,7 +9,8 @@ import { FileManagerService } from '../services/file-manager.service';
 export class FolderIteratorFactory
 {
   constructor(public rootPath: string,
-              private _fileManagerService: FileManagerService)
+              private _fileManagerService: FileManagerService,
+              public rootPathName?: string)
   { }
 
   root(): Observable<FolderIterator>
@@ -17,26 +18,39 @@ export class FolderIteratorFactory
     const root$ = this._fileManagerService.getRootRef(this.rootPath);
 
     return root$.pipe(
-      map(rt => this._toIterator('.',
-                                 this.rootPath,
-                                 rt.contents.items,
-                                 rt.contents.prefixes)));
+      map(rt => this._toRootIterator(this.rootPathName ? this.rootPathName : '.',
+                                     this.rootPath,
+                                     0,
+                                     rt.contents.items,
+                                     rt.contents.prefixes)));
   }
 
-  forChild(path: string, childName: string, parent: FolderIterator): Observable<FolderIterator>
+  private _toRootIterator(name: string, base: string, level: number, items: IStorageReference[], subFolders: IStorageReference[], parent?: FolderIterator)
   {
-    const path$ = this._fileManagerService.getPath(`${path}/${childName}`);
+    const fileChildren = items.map(item => new FolderIterator(item.name, `${base}/${item.name}`, level + 1, false, this));
+    const folderChildren = subFolders.map(item => new FolderIterator(item.name, `${base}/${item.name}`, level + 1, true, this));
+
+    const together = folderChildren.concat(fileChildren);
+    together.forEach(ch => { ch.parent = parent });
+
+    const iterator = new FolderIterator(name, base, level, true, this, parent, true, together);
+
+    return iterator;
+  }
+
+  getChildren(parent: FolderIterator): Observable<FolderIterator[]>
+  {
+    const path$ = this._fileManagerService.getPath(parent.path);
 
     return path$.pipe(
-      map(rt => this._toIterator(childName,
-                                 this.rootPath,
-                                 rt.contents.items,
-                                 rt.contents.prefixes,
-                                 parent)));
+      map(rt =>{
+        const fileChildren = rt.contents.items.map(item => new FolderIterator(item.name, `${parent.path}/${item.name}`, parent.level + 1, false, this));
+        const folderChildren = rt.contents.prefixes.map(item => new FolderIterator(item.name, `${parent.path}/${item.name}`, parent.level + 1, true, this));
+
+        const together = folderChildren.concat(fileChildren);
+        together.forEach(ch => { ch.parent = parent });
+        return together;
+      }));
   }
 
-  private _toIterator(name: string, base: string, items: IStorageReference[], subFolders: IStorageReference[], parent?: FolderIterator)
-  {
-    return new FolderIterator(name, base, items.map(item => item.name), subFolders.map(folder => folder.name), this, parent);
-  }
 }

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AngularFireStorageModule } from '@angular/fire/storage';
-import { MaterialDesignModule, FlexLayoutModule } from '@iote/bricks-angular';
+import { MaterialDesignModule, FlexLayoutModule, MaterialBricksModule } from '@iote/bricks-angular';
 
 import { FilesModule } from '../files';
 
@@ -12,19 +12,17 @@ import { FileManagerNavComponent } from './components/file-manager-nav/file-mana
 
 import { FileManagerService } from './services/file-manager.service';
 import { FileManagerInitalisationService } from './services/file-manager-init.service';
-import { FileManagerDiscoveryService } from './services/file-manager-discovery.service';
-
 
 /**
  * Module that contains a file manager.
  */
 @NgModule({
   imports: [CommonModule, FlexLayoutModule,
-            MaterialDesignModule, FilesModule,
+            MaterialDesignModule, MaterialBricksModule, FilesModule,
             AngularFireStorageModule],
 
   declarations: [FileManagerComponent, FileManagerNavComponent],
-  providers: [FileManagerService, FileManagerDiscoveryService, FileManagerInitalisationService],
+  providers: [FileManagerService, FileManagerInitalisationService],
 
   exports: [FileManagerComponent]
 })

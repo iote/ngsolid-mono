@@ -1,5 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { filter } from 'rxjs/operators';
+
 import { SubSink } from 'subsink';
+
 import { FileManagerService } from '../../services/file-manager.service';
 import { FolderIterator } from '../../model/folder-iterator.class';
 
@@ -23,20 +27,23 @@ export class FileManagerComponent implements OnInit
   @Input() basePathName?: string;
   currentPath: string;
 
-  iterator: FolderIterator;
-  currentPosition: FolderIterator;
+  root: FolderIterator;
+
+  currentPosition$$ = new BehaviorSubject<FolderIterator>(null);
+  currentPosition$ = this.currentPosition$$.asObservable().pipe(filter(pos => pos != null));
+
   isLoaded = false;
 
   constructor(private _fileManagerService: FileManagerService) { }
 
   ngOnInit()
   {
-    const iterator$ = this._fileManagerService.getIterator(this.basePath);
+    const iterator$ = this._fileManagerService.getIterator(this.basePath, this.basePathName);
 
     this._sbS.sink = iterator$.subscribe(iterator => {
-      this.iterator = iterator;
-      this.currentPosition = iterator;
-      this.isLoaded = false;
+      this.root = iterator;
+      this.currentPosition$$.next(iterator);
+      this.isLoaded = true;
     });
   }
 }

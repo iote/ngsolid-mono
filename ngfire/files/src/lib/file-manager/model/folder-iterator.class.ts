@@ -1,53 +1,31 @@
-import { Observable, of } from 'rxjs';
-import { take, map } from 'rxjs/operators';
-
+import { map } from 'rxjs/operators';
 import * as _ from 'lodash';
 
 import { FolderIteratorFactory } from './folder-iterator-factory.class';
 
 export class FolderIterator
 {
-  private _childrenExpanded: FolderIterator[] = [];
+  public expanding = false;
 
   constructor(public name: string,
               public path: string,
-              public files: string[],
-              private _children: string[],
+              public level: number,
+              public isFolder: boolean,
               private _factory: FolderIteratorFactory,
-              private _parent?: FolderIterator)
+              public parent: FolderIterator = null,
+              public hasExpanded: boolean = false,
+              public children: FolderIterator[] = [])
   { }
 
-  expand(childName: string): Observable<FolderIterator>
+  expand()
   {
-    if(this._children.find(ch => ch === childName) )
+    if(!this.hasExpanded)
     {
-      const eChild =  this._childrenExpanded.find(ch => ch.name === childName);
-      if(!eChild)
-      {
-        const expanded$ = this._factory.forChild(this.path, childName, this);
-
-        return expanded$.pipe(take(1),
-                              map(exp => { this._childrenExpanded.push(exp); return exp; }));
-      }
-      else return of(eChild);
+      return this._factory
+                 .getChildren(this)
+                 .pipe(map(children =>{ this.children = children ? children : this.children; this.hasExpanded = true; }));
     }
-
-    else throw new Error('Child is not known.');
   }
 
-  getChildren()
-  {
-    return this._children.map(child => { const exp = this._childrenExpanded.find(e => e.name = child);
-                                         return exp ? exp : child; });
-  }
-
-  parent(): FolderIterator
-  {
-    if(this._parent)
-      return this._parent;
-
-    throw new Error('Parent is not known. Already in root element');
-  }
-
-  isRoot = () => this.parent != null;
+  isRoot = () => this.parent == null;
 }
