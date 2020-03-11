@@ -1,5 +1,10 @@
 li {
   list-style: none;
+  min-height: 30px;
+}
+
+ul {
+  padding-left: 20px;
 }
 
 .invisible {
@@ -8,6 +13,7 @@ li {
 
 .sidenav {
   width: 200px;
+  padding-left: 10px;
 }
 
 .mat-tree-node:hover {
@@ -16,7 +22,7 @@ li {
 }
 
 .folder-root {
-  padding: 5px;
+  padding: 0 15px;
   border-bottom: 1px solid #eee;
 }
 
