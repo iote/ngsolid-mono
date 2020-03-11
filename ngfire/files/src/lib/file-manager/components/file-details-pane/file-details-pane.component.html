@@ -1,32 +1,8 @@
 <div class="file-details-pane" fxLayout="column" fxLayoutAlign="start center">
 
-  <ngfire-file-icon [file]="file" size="1.6em"></ngfire-file-icon>
+  <ngfire-file-details-path [file]="file"></ngfire-file-details-path>
 
-  <form #form fxLayout="row" fxLayoutAlign="center">
+  <div class="flex-spacer"></div>
 
-    <mat-form-field (click)="editName.editing = true"
-                    class="name" [class.editable]="!editName.editing" [fxFlex]="editName.editing ? 60 : 80">
-
-      <mat-label i18n>File name</mat-label>
-      <input matInput [(ngModel)]="editName.name"
-                      [disabled]="!editName.editing" name="name"
-                      required />
-
-      <mat-error *ngIf="editName.name == ''">A name for this file is required.</mat-error>
-      <mat-error *ngIf="isDuplicate(editName.name)">Another file with this name already exists.</mat-error>
-    </mat-form-field>
-
-    <div [fxFlex]="15" class="file-type">.{{ editName.type }}</div>
-
-
-    <button *ngIf="editName.editing && !isSaving"
-            [disabled]="editName.name == '' || isDuplicate(editName.name)"
-            (click)="save()"
-            mat-icon-button class="save-btn" [fxFlex]="10">
-      <i class="far fa-save"></i>
-    </button>
-    <app-spinner *ngIf="isSaving" [diameter]="5" [fxFlex]="10"></app-spinner>
-  </form>
-
-  <div class="file-path">{{ getFilePath() }}</div>
+  <button mat-raised-button color="accent"><i class="btn-icon fas fa-download"></i> Download</button>
 </div>

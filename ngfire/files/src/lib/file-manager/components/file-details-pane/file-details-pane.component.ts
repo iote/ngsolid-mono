@@ -4,7 +4,7 @@ import { Logger } from '@iote/bricks-angular';
 
 import { FolderIterator } from '../../model/folder-iterator.class';
 import * as _ from 'lodash';
-import { Form, FormBuilder } from '@angular/forms';
+import { Form } from '@angular/forms';
 
 /** */
 @Component({
@@ -21,30 +21,10 @@ export class FileDetailsPaneComponent implements OnInit
 
   @ViewChild('form') form: Form;
 
-  constructor(private _logger: Logger, private _fb: FormBuilder) { }
+  constructor(private _logger: Logger) { }
 
   ngOnInit() {
-    // Seperate file and type - note that a filename can contain multiple '.' in the name. The filetype is the last part.
-    const name = this.file.name.split('.');
-    const type = name.pop();
-    this.editName = { name: name.join('.'), editing: false, type };
-  }
 
-  getFilePath() {
-    const path = this.file.path.split('/');
-    path.shift();
-    path.pop();
-    path.push(`${this.editName.name}.${this.editName.type}`);
-    return _.join(path, '/');
-  }
-
-  isDuplicate = (name) => this.file.parent.children.find(pCh => pCh.name === name && pCh.path !== this.file.path);
-
-  save() {
-    this.isSaving = true;
-    this.file
-        .updateName(this.editName.name, this.editName.type)
-        .subscribe(() => { this.isSaving = false; this.editName.editing = false; });
   }
 
 }

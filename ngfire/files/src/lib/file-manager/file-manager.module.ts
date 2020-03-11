@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { FormsModule } from '@angular/forms';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+
 import { MaterialDesignModule, FlexLayoutModule, MaterialBricksModule } from '@iote/bricks-angular';
 
 import { FilesModule } from '../files';
@@ -16,7 +17,7 @@ import { FileManagerItemComponent } from './components/file-manager-item/file-ma
 import { FileManagerCrumbComponent } from './components/file-manager-breadcrumbs/file-manager-breadcrumbs.component';
 import { FileDetailsPaneComponent } from './components/file-details-pane/file-details-pane.component';
 import { FileIconComponent } from './components/file-icon/file-icon.component';
-import { FormsModule } from '@angular/forms';
+import { FileDetailsPathComponent } from './components/file-details-path/file-details-path.component';
 
 /**
  * Module that contains a file manager.
@@ -28,7 +29,7 @@ import { FormsModule } from '@angular/forms';
 
   declarations: [FileManagerComponent, FileManagerNavComponent,
                  FileManagerPaneComponent, FileManagerItemComponent, FileManagerCrumbComponent,
-                 FileDetailsPaneComponent, FileIconComponent],
+                 FileDetailsPaneComponent, FileDetailsPathComponent, FileIconComponent],
   providers: [FileManagerService, FileManagerInitalisationService],
 
   exports: [FileManagerComponent]

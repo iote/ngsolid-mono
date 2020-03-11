@@ -1,0 +1,27 @@
+
+.file-path {
+  word-wrap: break-word;
+  font-size: 0.8em;
+}
+
+.name {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.editable:hover {
+  background-color: #eee;
+  cursor: pointer;
+}
+
+.file-type, .save-btn, app-spinner {
+  align-self: center;
+}
+
+.save-btn {
+  font-size: 0.8em;
+}
+
+form {
+  margin-bottom: 15px;
+}

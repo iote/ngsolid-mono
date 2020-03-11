@@ -1,31 +1,13 @@
 .file-details-pane {
   width: 250px;
   padding: 25px 20px 20px 20px;
+  height: 100%;
 }
 
-.file-path {
-  word-wrap: break-word;
-  font-size: 0.8em;
+button {
+  min-width: 150px;
+  text-align: center;
 }
-
-.name {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.editable:hover {
-  background-color: #eee;
-  cursor: pointer;
-}
-
-.file-type, .save-btn, app-spinner {
-  align-self: center;
-}
-
-.save-btn {
-  font-size: 0.8em;
-}
-
-form {
-  margin-bottom: 15px;
-}
+  .btn-icon {
+    margin-right: 10px;
+  }
