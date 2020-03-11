@@ -16,6 +16,7 @@ import { map } from 'rxjs/operators';
 export class FileManagerNavComponent implements OnInit
 {
   /** Root of the folder structure. */
+  @Input() rootIcon: string = 'far fa-folder-open';
   @Input() structure: FolderIterator;
   @Output() nodeClicked = new EventEmitter<FolderIterator>();
 
@@ -27,7 +28,7 @@ export class FileManagerNavComponent implements OnInit
   ngOnInit()
   {
     // There's only one root element. Just pack it in there.
-    this.dataSource.data = [this.structure];
+    this.dataSource.data = this.structure.children;
   }
 
   isExpandable(_: number, node: FolderIterator) {

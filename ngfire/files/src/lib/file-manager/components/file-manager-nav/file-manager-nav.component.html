@@ -1,3 +1,7 @@
+<div class="folder-root mat-tree-node" (click)="goToNode(structure)">
+  <i class="root-icon" [ngClass]="rootIcon"></i> {{ structure.name }}
+</div>
+
 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="sidenav">
   <!-- This is the tree node template for leaf nodes -->
   <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matRipple>
