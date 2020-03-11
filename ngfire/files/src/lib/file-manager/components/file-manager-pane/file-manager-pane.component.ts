@@ -23,4 +23,8 @@ export class FileManagerPaneComponent implements OnInit
   {
     this.nodeClicked.emit(position);
   }
+
+  uploadFile(any) {
+    debugger;
+  }
 }

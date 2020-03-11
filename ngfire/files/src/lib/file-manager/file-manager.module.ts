@@ -19,6 +19,7 @@ import { FileManagerCrumbComponent } from './components/file-manager-breadcrumbs
 import { FileDetailsPaneComponent } from './components/file-details-pane/file-details-pane.component';
 import { FileIconComponent } from './components/file-icon/file-icon.component';
 import { FileDetailsPathComponent } from './components/file-details-path/file-details-path.component';
+import { FileDragUploadDirective } from './directives/file-drag-upload/file-drag-upload.directive';
 
 /**
  * Module that contains a file manager.
@@ -28,7 +29,7 @@ import { FileDetailsPathComponent } from './components/file-details-path/file-de
             MaterialDesignModule, MaterialBricksModule, FilesModule,
             AngularFireStorageModule],
 
-  declarations: [FileManagerComponent, FileManagerNavComponent,
+  declarations: [FileManagerComponent, FileManagerNavComponent, FileDragUploadDirective,
                  FileManagerPaneComponent, FileManagerItemComponent, FileManagerCrumbComponent,
                  FileDetailsPaneComponent, FileDetailsPathComponent, FileIconComponent],
   providers: [FileManagerService, FileManagerInitalisationService],

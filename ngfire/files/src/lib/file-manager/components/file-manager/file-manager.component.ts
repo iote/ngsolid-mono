@@ -51,4 +51,5 @@ export class FileManagerComponent implements OnInit
   {
     this.currentPosition$$.next(node);
   }
+
 }

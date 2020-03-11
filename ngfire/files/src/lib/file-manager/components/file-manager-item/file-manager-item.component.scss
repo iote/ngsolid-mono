@@ -1,13 +1,18 @@
 .file-manager-item {
+  width: 150px;
+  text-align: center;
+}
+
+ .file-manager-item:hover {
+    background-color: #eee;
+    cursor: pointer;
+  }
+
+.file-manager-item-inner {
   text-align: center;
   padding: 15px;
   width: 150px;
 }
-
-  .file-manager-item:hover {
-    background-color: #eee;
-    cursor: pointer;
-  }
 
 .fm-item-icon-holder {
   padding-bottom: 15px;

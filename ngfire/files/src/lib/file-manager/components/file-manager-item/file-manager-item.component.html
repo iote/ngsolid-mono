@@ -1,12 +1,18 @@
-<div class="file-manager-item" fxLayout="column" fxLayoutAlign="center center" (click)="meClicked()" matRipple>
+<div (click)="meClicked()"
+     class="file-manager-item" fxLayout="column" fxLayoutAlign="center center" matRipple>
 
-  <div class="fm-item-icon-holder">
-    <ngfire-file-icon *ngIf="!item.isFolder"  [file]="item"></ngfire-file-icon>
-    <i *ngIf="item.isFolder" class="fm-item-icon far fa-folder"></i>
-  </div>
+  <div ngfireFileDragUpload (onFileDropped)="uploadFile($event)" (dragOver)="onDrag('in')" (dragLeave)="onDrag('out')"
+       class="file-manager-item-inner"  dragColor="#83aac7">
 
-  <div class="fm-item-info">
-    {{ item.name }}
+    <div class="fm-item-icon-holder">
+      <ngfire-file-icon *ngIf="!item.isFolder"  [file]="item"></ngfire-file-icon>
+      <i *ngIf="item.isFolder" class="fm-item-icon" [ngClass]="getFolderIcon()"></i>
+    </div>
+
+    <div class="fm-item-info">
+      {{ item.name }}
+    </div>
+
   </div>
 
 </div>

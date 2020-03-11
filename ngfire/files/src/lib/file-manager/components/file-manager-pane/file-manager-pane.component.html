@@ -1,11 +1,17 @@
 <mat-drawer-container *ngIf="position$ | async as position"
                       fxLayout="row" fxLayoutAlign="start" class="explorer-container" fxFlexFill>
 
-  <mat-drawer-content class="drawer-content" fxLayout="file-manager-pane row wrap" fxLayoutAlign="start" [fxFlex]="100">
-    <ngfire-file-manager-item *ngFor="let item of position.isFolder ? position.children : position.parent.children"
-                              [item]="item"
-                              (nodeClicked)="onNodeClicked($event)">
-    </ngfire-file-manager-item>
+  <mat-drawer-content class="drawer-content" [fxFlex]="100">
+
+    <div ngfireFileDragUpload (onFileDropped)="uploadFile($event)"
+         class="drawer-content-inner" fxLayout="row wrap" fxLayoutAlign="start">
+
+      <ngfire-file-manager-item *ngFor="let item of position.isFolder ? position.children : position.parent.children"
+                                [item]="item"
+                                (nodeClicked)="onNodeClicked($event)">
+      </ngfire-file-manager-item>
+
+    </div>
   </mat-drawer-content>
 
 

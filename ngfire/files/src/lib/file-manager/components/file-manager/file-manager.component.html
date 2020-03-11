@@ -16,8 +16,10 @@
     </mat-drawer>
 
     <mat-drawer-content class="drawer-content" fxLayout="column" [fxFlex]="100">
+
       <ngfire-file-manager-breadcrumbs [position$]="currentPosition$" (nodeClicked)="onNodeClicked($event)"></ngfire-file-manager-breadcrumbs>
-      <ngfire-file-manager-pane        [position$]="currentPosition$" (nodeClicked)="onNodeClicked($event)"></ngfire-file-manager-pane>
+      <ngfire-file-manager-pane        [position$]="currentPosition$" (nodeClicked)="onNodeClicked($event)" ></ngfire-file-manager-pane>
+
     </mat-drawer-content>
 
   </mat-drawer-container>
