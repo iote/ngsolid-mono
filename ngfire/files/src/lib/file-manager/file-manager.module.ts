@@ -16,12 +16,13 @@ import { FileManagerItemComponent } from './components/file-manager-item/file-ma
 import { FileManagerCrumbComponent } from './components/file-manager-breadcrumbs/file-manager-breadcrumbs.component';
 import { FileDetailsPaneComponent } from './components/file-details-pane/file-details-pane.component';
 import { FileIconComponent } from './components/file-icon/file-icon.component';
+import { FormsModule } from '@angular/forms';
 
 /**
  * Module that contains a file manager.
  */
 @NgModule({
-  imports: [CommonModule, FlexLayoutModule,
+  imports: [CommonModule, FlexLayoutModule, FormsModule,
             MaterialDesignModule, MaterialBricksModule, FilesModule,
             AngularFireStorageModule],
 

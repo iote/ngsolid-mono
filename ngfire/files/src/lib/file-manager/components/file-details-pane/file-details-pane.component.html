@@ -2,7 +2,24 @@
 
   <ngfire-file-icon [file]="file" size="1.6em"></ngfire-file-icon>
 
-  <h4 class="file-title">{{ file.name }}</h4>
+  <form #form>
+
+    <div class="form-row" fxLayout="row">
+      <mat-form-field class="name" [class.editable]="!editName.editing" (click)="editName.editing = true" [fxFlex]="80">
+        <mat-label i18n>File name</mat-label>
+        <input matInput [(ngModel)]="editName.name"
+                        [disabled]="!editName.editing" name="name"
+                        required />
+        <mat-error>
+          <div *ngIf="editName.name == ''">A name for this file is required.</div>
+          <div *ngIf="isDuplicate(editName.name)">Another file with this name already exists.</div>
+        </mat-error>
+      </mat-form-field>
+
+      <div [fxFlex]="20" class="file-type">.{{ editName.type }}</div>
+    </div>
+
+  </form>
 
   <div class="file-path">{{ getFilePath() }}</div>
 </div>

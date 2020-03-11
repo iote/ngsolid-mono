@@ -9,7 +9,7 @@
   </mat-drawer-content>
 
 
-  <mat-drawer class="drawer-side"
+  <mat-drawer class="drawer-side" *ngIf="!position.isFolder"
               position="end" mode="over"
               [opened]="!position.isFolder"
               (closed)="onNodeClicked(position.parent)">

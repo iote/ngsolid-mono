@@ -7,3 +7,17 @@
   word-wrap: break-word;
   font-size: 0.8em;
 }
+
+.name {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.editable:hover {
+  background-color: #eee;
+  cursor: pointer;
+}
+
+.file-type {
+  align-self: center;
+}

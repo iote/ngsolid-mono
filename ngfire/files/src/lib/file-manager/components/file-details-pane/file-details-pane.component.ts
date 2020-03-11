@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 
 import { Logger } from '@iote/bricks-angular';
 
 import { FolderIterator } from '../../model/folder-iterator.class';
 import * as _ from 'lodash';
+import { Form, FormBuilder } from '@angular/forms';
 
 /** */
 @Component({
@@ -15,13 +16,27 @@ export class FileDetailsPaneComponent implements OnInit
 {
   @Input() file: FolderIterator;
 
-  constructor(private _logger: Logger) { }
+  editName: { name: string, editing: boolean, type: string;};
 
-  ngOnInit() { }
+  @ViewChild('form') form: Form;
+
+  constructor(private _logger: Logger, private _fb: FormBuilder) { }
+
+  ngOnInit() {
+    // Seperate file and type - note that a filename can contain multiple '.' in the name. The filetype is the last part.
+    const name = this.file.name.split('.');
+    const type = name.pop();
+    this.editName = { name: name.join('.'), editing: false, type };
+  }
 
   getFilePath() {
     const path = this.file.path.split('/');
     path.shift();
+    path.pop();
+    path.push(`${this.editName.name}.${this.editName.type}`);
     return _.join(path, '/');
   }
+
+  isDuplicate = (name) => !this.file.parent.children.find(pCh => pCh.name === name && pCh.path !== this.file.path);
+
 }
