@@ -53,4 +53,8 @@ export class FolderIteratorFactory
       }));
   }
 
+  movePath(oldPath, newPath) {
+    return this._fileManagerService.movePath(oldPath, newPath);
+  }
+
 }

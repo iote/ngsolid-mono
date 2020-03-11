@@ -15,6 +15,7 @@ import { Form, FormBuilder } from '@angular/forms';
 export class FileDetailsPaneComponent implements OnInit
 {
   @Input() file: FolderIterator;
+  isSaving: boolean;
 
   editName: { name: string, editing: boolean, type: string;};
 
@@ -37,6 +38,13 @@ export class FileDetailsPaneComponent implements OnInit
     return _.join(path, '/');
   }
 
-  isDuplicate = (name) => !this.file.parent.children.find(pCh => pCh.name === name && pCh.path !== this.file.path);
+  isDuplicate = (name) => this.file.parent.children.find(pCh => pCh.name === name && pCh.path !== this.file.path);
+
+  save() {
+    this.isSaving = true;
+    this.file
+        .updateName(this.editName.name, this.editName.type)
+        .subscribe(() => { this.isSaving = false; this.editName.editing = false; });
+  }
 
 }

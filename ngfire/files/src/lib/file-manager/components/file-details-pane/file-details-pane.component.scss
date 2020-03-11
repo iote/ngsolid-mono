@@ -18,6 +18,14 @@
   cursor: pointer;
 }
 
-.file-type {
+.file-type, .save-btn, app-spinner {
   align-self: center;
+}
+
+.save-btn {
+  font-size: 0.8em;
+}
+
+form {
+  margin-bottom: 15px;
 }

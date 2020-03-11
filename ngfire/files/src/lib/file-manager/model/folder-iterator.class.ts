@@ -27,5 +27,21 @@ export class FolderIterator
     }
   }
 
+  updateName(newName: string, newType: string) {
+
+    const oldPath = this.path;
+
+    const split = this.path.split('/');
+    split.pop();
+    split.push(`${newName}.${newType}`);
+    const newPath = split.join('/');
+
+    return this._factory.movePath(oldPath, newPath)
+               .pipe(map(() => {
+                 this.path = newPath;
+                 this.name = `${newName}.${newType}`;
+               }));
+  }
+
   isRoot = () => this.parent == null;
 }

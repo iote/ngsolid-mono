@@ -7,6 +7,7 @@ import { IStorageReference, IFolderReference } from '../file-manager-types.types
 import { Observable, from } from 'rxjs';
 import { FolderIteratorFactory } from '../model/folder-iterator-factory.class';
 import { FolderIterator } from '../model/folder-iterator.class';
+import { __MoveFirebaseFile } from './util/move-file.function';
 
 @Injectable()
 export class FileManagerService
@@ -42,5 +43,9 @@ export class FileManagerService
   {
     return from(path.list()
                     .then(contents => ({ folder: path, contents })));
+  }
+
+  public movePath(oldPath, newPath) {
+    return from(__MoveFirebaseFile(this._storage, oldPath, newPath));
   }
 }
