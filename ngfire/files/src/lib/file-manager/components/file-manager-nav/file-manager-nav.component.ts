@@ -16,7 +16,7 @@ import { map } from 'rxjs/operators';
 export class FileManagerNavComponent implements OnInit
 {
   /** Root of the folder structure. */
-  @Input() rootIcon: string = 'far fa-folder-open';
+  @Input() rootIcon = 'far fa-folder-open';
   @Input() structure: FolderIterator;
   @Output() nodeClicked = new EventEmitter<FolderIterator>();
 
