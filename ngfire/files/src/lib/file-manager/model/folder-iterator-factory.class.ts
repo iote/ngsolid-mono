@@ -69,6 +69,15 @@ export class FolderIteratorFactory
     return done.map(f => new FolderIterator(f.metadata.name, `${item.path}/${f.metadata.name}`, item.level + 1, false, this, item));
   }
 
+  deleteChild(parent: FolderIterator, child: FolderIterator)
+  {
+    const childPath = child.path;
+    // Sever connection between parent and child. This will in the near term result in gc (garbage collection) of the child.
+    parent.children = parent.children.filter(ch => ch.path !== childPath);
+
+    return this._fileManagerService.delete(childPath);
+  }
+
   movePath(oldPath, newPath) {
     return this._fileManagerService.movePath(oldPath, newPath);
   }

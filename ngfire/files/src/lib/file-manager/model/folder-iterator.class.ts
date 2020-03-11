@@ -59,7 +59,14 @@ export class FolderIterator
                 }));
   }
 
+  delete()
+  {
+    if(this.parent == null)
+      throw new Error('Root element cannot be deleted');
 
+    return this._factory
+               .deleteChild(this.parent, this);
+  }
 
   isRoot = () => this.parent == null;
 }

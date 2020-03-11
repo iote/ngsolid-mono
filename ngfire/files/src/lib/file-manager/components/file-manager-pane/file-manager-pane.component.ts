@@ -14,6 +14,7 @@ export class FileManagerPaneComponent implements OnInit
 {
   @Input() position$: Observable<FolderIterator>;
   position: FolderIterator;
+  /** Mock event. Only used in case of delete of current item. In that case, will be triggered to navigate to parent. */
   @Output() nodeClicked = new EventEmitter<FolderIterator>();
 
   constructor(private _logger: Logger) { }

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { UIWorkflowModule } from '@iote/ui-workflows';
 
 import { MaterialDesignModule, FlexLayoutModule, MaterialBricksModule } from '@iote/bricks-angular';
 
@@ -26,7 +27,7 @@ import { FileDragUploadDirective } from './directives/file-drag-upload/file-drag
 @NgModule({
   imports: [CommonModule, FlexLayoutModule, FormsModule,
             MaterialDesignModule, MaterialBricksModule, FilesModule,
-            AngularFireStorageModule],
+            AngularFireStorageModule, UIWorkflowModule],
 
   declarations: [FileManagerComponent, FileManagerNavComponent, FileDragUploadDirective,
                  FileManagerPaneComponent, FileManagerItemComponent, FileManagerCrumbComponent,

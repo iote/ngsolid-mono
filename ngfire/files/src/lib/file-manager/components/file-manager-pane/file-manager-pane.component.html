@@ -20,7 +20,9 @@
               [opened]="!position.isFolder"
               (closed)="onNodeClicked(position.parent)">
     <!-- Current File -->
-    <ngfire-file-details-pane [file]="position"></ngfire-file-details-pane>
+    <ngfire-file-details-pane [file]="position"
+                              (nodeClicked)="onNodeClicked($event)">
+    </ngfire-file-details-pane>
   </mat-drawer>
 
 </mat-drawer-container>

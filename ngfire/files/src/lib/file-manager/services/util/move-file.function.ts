@@ -9,7 +9,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
  */
 export function __MoveFirebaseFile(storage: AngularFireStorage, currentPath: string, destinationPath: string)
 {
-  const oldRef = storage.storage.ref().child(currentPath)
+  const oldRef = storage.storage.ref().child(currentPath);
 
   return oldRef
         .getDownloadURL()

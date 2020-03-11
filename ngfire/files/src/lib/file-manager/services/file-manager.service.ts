@@ -60,4 +60,10 @@ export class FileManagerService
     return from(__UploadFiles(this._storage, path, files));
   }
 
+  public delete(path: string) {
+    const ref = this._storage.storage.ref().child(path);
+
+    return from(ref.delete());
+  }
+
 }
