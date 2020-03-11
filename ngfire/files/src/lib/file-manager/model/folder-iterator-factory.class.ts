@@ -44,8 +44,9 @@ export class FolderIteratorFactory
     const path$ = this._fileManagerService.getPath(parent.path);
 
     return path$.pipe(
-      map(rt =>{
-        const fileChildren = rt.contents.items.map(item => new FolderIterator(item.name, `${parent.path}/${item.name}`, parent.level + 1, false, this));
+      map(rt =>{                              // filter out folders stubs (.keep files are used to keep folder structures intact)
+        const fileChildren = rt.contents.items.filter(f => f.name !== '.keep')
+                               .map(item => new FolderIterator(item.name, `${parent.path}/${item.name}`, parent.level + 1, false, this));
         const folderChildren = rt.contents.prefixes.map(item => new FolderIterator(item.name, `${parent.path}/${item.name}`, parent.level + 1, true, this));
 
         const together = folderChildren.concat(fileChildren);
