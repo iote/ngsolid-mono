@@ -24,8 +24,7 @@ export class FileManagerItemComponent
 
   uploadFile(files: FileList)
   {
-    debugger;
-    this.item.upload(files).subscribe(() => { debugger; });
+    this.item.upload(files).subscribe(() => true);
   }
 
   onDrag = (evt: 'in' | 'out') => this.fileOver = (evt === 'in');
