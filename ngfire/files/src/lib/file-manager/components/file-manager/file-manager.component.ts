@@ -49,7 +49,6 @@ export class FileManagerComponent implements OnInit
 
   onNodeClicked(node: FolderIterator)
   {
-    if(node.isFolder)
-      this.currentPosition$$.next(node);
+    this.currentPosition$$.next(node);
   }
 }

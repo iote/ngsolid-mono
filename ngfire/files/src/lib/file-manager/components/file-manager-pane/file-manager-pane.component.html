@@ -1,9 +1,20 @@
-<div *ngIf="position$ | async as position"
-     class="file-manager-pane" [fxFlex]="100" fxLayout="row wrap" fxLayoutAlign="start" >
+<mat-drawer-container *ngIf="position$ | async as position"
+                      fxLayout="row" fxLayoutAlign="start" class="explorer-container" fxFlexFill>
 
-  <ngfire-file-manager-item *ngFor="let item of position.children"
-                            [item]="item"
-                            (nodeClicked)="onNodeClicked($event)">
-  </ngfire-file-manager-item>
+  <mat-drawer-content class="drawer-content" fxLayout="file-manager-pane row wrap" fxLayoutAlign="start" [fxFlex]="100">
+    <ngfire-file-manager-item *ngFor="let item of position.isFolder ? position.children : position.parent.children"
+                              [item]="item"
+                              (nodeClicked)="onNodeClicked($event)">
+    </ngfire-file-manager-item>
+  </mat-drawer-content>
 
-</div>
+
+  <mat-drawer class="drawer-side"
+              position="end" mode="over"
+              [opened]="!position.isFolder"
+              (closed)="onNodeClicked(position.parent)">
+    <!-- Current File -->
+    <ngfire-file-details-pane [file]="position"></ngfire-file-details-pane>
+  </mat-drawer>
+
+</mat-drawer-container>

@@ -3,13 +3,10 @@
   <div class="file-manager-header" fxLayout="row">
     <div class="file-manager-title"><ng-content select="[title]"></ng-content></div>
     <div class="flex-spacer"></div>
-    <div class="card-actions">
-      <!-- <ng-content select="[cardActions]"></ng-content> -->
-    </div>
   </div>
 
   <mat-drawer-container *ngIf="isLoaded; else loading"
-                        fxLayout="row" fxLayoutAlign="start" class="explorer-container">
+                        fxLayout="row" fxLayoutAlign="start" class="explorer-container" [fxFlex]="100">
 
     <mat-drawer class="drawer-nav"
                 mode="side" opened>
@@ -22,11 +19,6 @@
       <ngfire-file-manager-breadcrumbs [position$]="currentPosition$" (nodeClicked)="onNodeClicked($event)"></ngfire-file-manager-breadcrumbs>
       <ngfire-file-manager-pane        [position$]="currentPosition$" (nodeClicked)="onNodeClicked($event)"></ngfire-file-manager-pane>
     </mat-drawer-content>
-
-    <mat-drawer class="drawer-side" [fxFlex]="20"
-                position="end" mode="push">
-      <!-- Current File -->
-    </mat-drawer>
 
   </mat-drawer-container>
 
