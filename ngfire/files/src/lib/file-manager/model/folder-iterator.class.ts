@@ -48,5 +48,18 @@ export class FolderIterator
     return this._factory.downloadUrl(this);
   }
 
+  upload(files: FileList)
+  {
+    return this._factory
+               .upload(this, files)
+               .pipe(map(doneFiles => {
+                  const nChildren= this._factory.getChildrenFromUpload(this, doneFiles);
+                  this.children = this.children.concat(nChildren);
+                  return this;
+                }));
+  }
+
+
+
   isRoot = () => this.parent == null;
 }

@@ -22,8 +22,10 @@ export class FileManagerItemComponent
 
   meClicked = () => this.nodeClicked.emit(this.item);
 
-  uploadFile(any) {
+  uploadFile(files: FileList)
+  {
     debugger;
+    this.item.upload(files).subscribe(() => { debugger; });
   }
 
   onDrag = (evt: 'in' | 'out') => this.fileOver = (evt === 'in');

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AngularFireStorageModule } from '@angular/fire/storage';
-import { HttpClientModule } from '@angular/common/http';
 
 import { MaterialDesignModule, FlexLayoutModule, MaterialBricksModule } from '@iote/bricks-angular';
 
@@ -25,7 +24,7 @@ import { FileDragUploadDirective } from './directives/file-drag-upload/file-drag
  * Module that contains a file manager.
  */
 @NgModule({
-  imports: [CommonModule, FlexLayoutModule, FormsModule, HttpClientModule,
+  imports: [CommonModule, FlexLayoutModule, FormsModule,
             MaterialDesignModule, MaterialBricksModule, FilesModule,
             AngularFireStorageModule],
 

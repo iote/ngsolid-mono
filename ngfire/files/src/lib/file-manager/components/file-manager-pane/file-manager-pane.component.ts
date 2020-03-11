@@ -13,18 +13,23 @@ import { FolderIterator } from '../../model/folder-iterator.class';
 export class FileManagerPaneComponent implements OnInit
 {
   @Input() position$: Observable<FolderIterator>;
+  position: FolderIterator;
   @Output() nodeClicked = new EventEmitter<FolderIterator>();
 
   constructor(private _logger: Logger) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.position$.subscribe(pos => this.position = pos);
+  }
 
   onNodeClicked(position: FolderIterator)
   {
     this.nodeClicked.emit(position);
   }
 
-  uploadFile(any) {
-    debugger;
+  uploadFile(files: FileList)
+  {
+    this.position
+        .upload(files).subscribe(() => true);
   }
 }

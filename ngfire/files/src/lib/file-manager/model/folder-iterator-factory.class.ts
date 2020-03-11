@@ -5,6 +5,7 @@ import { IStorageReference } from '../file-manager-types.types';
 import { FolderIterator } from './folder-iterator.class';
 
 import { FileManagerService } from '../services/file-manager.service';
+import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
 
 export class FolderIteratorFactory
 {
@@ -55,6 +56,17 @@ export class FolderIteratorFactory
 
   downloadUrl(item: FolderIterator) {
     return this._fileManagerService.getDownloadUrl(item.path);
+  }
+
+  upload(item: FolderIterator, files: FileList) {
+    return this._fileManagerService.uploadToFoler(item.path, files)
+  }
+
+  getChildrenFromUpload(item: FolderIterator, doneFiles: UploadTaskSnapshot[])
+  {
+    const done = doneFiles.filter(d => d.state === 'success');
+
+    return done.map(f => new FolderIterator(f.metadata.name, `${item.path}/${f.metadata.name}`, item.level + 1, false, this, item));
   }
 
   movePath(oldPath, newPath) {
