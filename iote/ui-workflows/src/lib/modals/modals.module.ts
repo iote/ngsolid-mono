@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { MaterialDesignModule, FlexLayoutModule } from '@iote/bricks-angular';
 import { UIModalComponent } from './components/modal/modal.component';
+import { PDFModalComponent } from './components/pdf-modal/pdf-modal.component';
 
 /**
  * Modals Module. Main entrypoint of the module.
@@ -12,9 +13,9 @@ import { UIModalComponent } from './components/modal/modal.component';
 @NgModule({
   imports: [CommonModule,
             MaterialDesignModule, FlexLayoutModule],
-  declarations: [UIModalComponent],
+  declarations: [UIModalComponent, PDFModalComponent],
   providers: [],
-  entryComponents: [],
+  entryComponents: [PDFModalComponent],
   exports: [UIModalComponent]
 })
 export class UIModalsModule { }

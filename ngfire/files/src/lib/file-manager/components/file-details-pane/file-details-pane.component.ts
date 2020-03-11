@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 import { MatDialog } from '@angular/material/dialog';
 
 import { Logger } from '@iote/bricks-angular';
-import { DeleteConfirmationDialogComponent, DELETE_DIALOG_WIDTH } from '@iote/ui-workflows';
+import { DeleteConfirmationDialogComponent, DELETE_DIALOG_WIDTH, PDFModalComponent } from '@iote/ui-workflows';
 
 import { FolderIterator } from '../../model/folder-iterator.class';
 
@@ -37,6 +37,14 @@ export class FileDetailsPaneComponent implements OnInit
     urlFetch.subscribe(url => {
       window.location.href = url;
     });
+  }
+
+  view() {
+    if(this.type === 'pdf')
+      this.file.downloadUrl()
+               .subscribe(url => this._dialog.open(PDFModalComponent,
+                                                   { data: { path: url } })
+                                             .afterClosed().subscribe(() => true));
   }
 
   del() {

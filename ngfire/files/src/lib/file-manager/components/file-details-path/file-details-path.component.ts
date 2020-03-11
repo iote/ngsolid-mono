@@ -4,7 +4,7 @@ import { Logger } from '@iote/bricks-angular';
 
 import { FolderIterator } from '../../model/folder-iterator.class';
 import * as _ from 'lodash';
-import { Form, FormBuilder } from '@angular/forms';
+import { Form } from '@angular/forms';
 
 /** */
 @Component({

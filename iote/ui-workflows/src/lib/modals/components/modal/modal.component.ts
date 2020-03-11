@@ -1,5 +1,4 @@
-import { Component, Output } from "@angular/core";
-import { EventEmitter } from 'events';
+import { Component, Output, EventEmitter } from "@angular/core";
 
 /**
  * Standard Modal Layout
@@ -11,11 +10,11 @@ import { EventEmitter } from 'events';
 })
 export class UIModalComponent
 {
-  @Output() exit = new EventEmitter();
+  @Output() exit = new EventEmitter<boolean>();
 
   constructor() { }
 
   exitModal(): void {
-    this.exit.emit('exit');
+    this.exit.emit(true);
   }
 }
