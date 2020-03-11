@@ -19,15 +19,15 @@ export class FileManagerInitalisationService
   /** Initialises the root folder structure if root is empty */
   initialiseFolderStructure(basePath: string, baseFolders: MultiLangFolder[])
   {
-    const root = this._getRoot(basePath);
-
-    return from(root.list()
-                    .then(contents => this._initFolderStructureInner(root, contents, baseFolders)));
+    return from(this._makeRoot(basePath)
+                    .then(() => this._getRoot(basePath))
+                    .then(root => root.list()
+                                      .then(contents => this._initFolderStructureInner(root, contents, baseFolders))));
   }
 
   private _initFolderStructureInner(root: IStorageReference, rootContents: IStorageContents, baseFolders: MultiLangFolder[])
   {
-    if(rootContents.items.length === 0 && rootContents.prefixes.length === 0)
+    if(rootContents.items.length === 1 && rootContents.prefixes.length === 0)
     {
       const emptyFile = this._toByteArray('');
       const creates = baseFolders.map(base => root.child(`${base.key}/.keep`).put(emptyFile));
@@ -37,6 +37,7 @@ export class FileManagerInitalisationService
   }
 
   /** Gets the root folder structure. */
+  private _makeRoot = (basePath: string) => this._storage.storage.ref('').child(`${basePath}/.keep`).put(this._toByteArray(''));
   private _getRoot = (basePath: string) => this._storage.storage.ref('/').child(basePath);
 
   private _toByteArray(str: string) : Uint8Array
