@@ -41,6 +41,11 @@ export class FolderIterator
                  this.path = newPath;
                  this.name = `${newName}.${newType}`;
                }));
+
+  }
+
+  downloadUrl() {
+    return this._factory.downloadUrl(this);
   }
 
   isRoot = () => this.parent == null;

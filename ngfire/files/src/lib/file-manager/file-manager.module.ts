@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { HttpClientModule } from '@angular/common/http';
 
 import { MaterialDesignModule, FlexLayoutModule, MaterialBricksModule } from '@iote/bricks-angular';
 
@@ -23,7 +24,7 @@ import { FileDetailsPathComponent } from './components/file-details-path/file-de
  * Module that contains a file manager.
  */
 @NgModule({
-  imports: [CommonModule, FlexLayoutModule, FormsModule,
+  imports: [CommonModule, FlexLayoutModule, FormsModule, HttpClientModule,
             MaterialDesignModule, MaterialBricksModule, FilesModule,
             AngularFireStorageModule],
 

@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { Logger } from '@iote/bricks-angular';
 
 import { FolderIterator } from '../../model/folder-iterator.class';
 import * as _ from 'lodash';
-import { Form } from '@angular/forms';
+
+declare const window: Window;
 
 /** */
 @Component({
@@ -15,16 +16,19 @@ import { Form } from '@angular/forms';
 export class FileDetailsPaneComponent implements OnInit
 {
   @Input() file: FolderIterator;
-  isSaving: boolean;
-
-  editName: { name: string, editing: boolean, type: string;};
-
-  @ViewChild('form') form: Form;
 
   constructor(private _logger: Logger) { }
 
   ngOnInit() {
 
+  }
+
+  download() {
+    const urlFetch = this.file.downloadUrl();
+
+    urlFetch.subscribe(url => {
+      window.location.href = url;
+    });
   }
 
 }

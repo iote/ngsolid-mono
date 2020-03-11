@@ -53,6 +53,10 @@ export class FolderIteratorFactory
       }));
   }
 
+  downloadUrl(item: FolderIterator) {
+    return this._fileManagerService.getDownloadUrl(item.path);
+  }
+
   movePath(oldPath, newPath) {
     return this._fileManagerService.movePath(oldPath, newPath);
   }

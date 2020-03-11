@@ -8,11 +8,14 @@ import { Observable, from } from 'rxjs';
 import { FolderIteratorFactory } from '../model/folder-iterator-factory.class';
 import { FolderIterator } from '../model/folder-iterator.class';
 import { __MoveFirebaseFile } from './util/move-file.function';
+import { __FileDownloadUrl } from './util/download-file.function';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class FileManagerService
 {
   constructor(private _storage: AngularFireStorage,
+              private _httpClient: HttpClient,
               private _logger: Logger)
   {}
 
@@ -48,4 +51,9 @@ export class FileManagerService
   public movePath(oldPath, newPath) {
     return from(__MoveFirebaseFile(this._storage, oldPath, newPath));
   }
+
+  public getDownloadUrl(path: string) {
+    return from(__FileDownloadUrl(this._storage, path));
+  }
+
 }
