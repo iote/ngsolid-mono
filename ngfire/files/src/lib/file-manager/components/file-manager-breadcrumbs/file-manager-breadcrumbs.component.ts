@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -16,6 +16,7 @@ export class FileManagerCrumbComponent implements OnInit
   curr: FolderIterator;
 
   @Output() nodeClicked = new EventEmitter<FolderIterator>();
+  @ViewChild('fileInput') fileInput: ElementRef;
 
   crumbs$: Observable<FileManagerCrumb[]>;
 
@@ -32,6 +33,13 @@ export class FileManagerCrumbComponent implements OnInit
   }
 
   goBack = () => this.nodeClicked.emit(this.curr.parent);
+
+  addFiles = () => this.fileInput.nativeElement.click();
+  filesSelected = (files: any) => this.curr.upload(files.target.files).subscribe();
+
+  addFolder() {
+
+  }
 
   private _toCrumbs(position: FolderIterator, first?: boolean) : FileManagerCrumb[]
   {

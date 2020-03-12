@@ -1,19 +1,29 @@
-<div class="breadcrumb-navbar" fxLayout="row" *ngIf="crumbs$ | async as crumbs">
+<div class="breadcrumb-navbar" fxLayout="row" fxLayoutAlign="start center" *ngIf="crumbs$ | async as crumbs">
   <i (click)="goBack()" *ngIf="crumbs.length > 1" class="fas fa-arrow-left back-ic"></i>
 
-  <div class="breadcrumb-holder" *ngFor="let crumb of crumbs; let i = index">
+  <div class="breadcrumbs" fxLayout="row">
+    <div class="breadcrumb-holder" *ngFor="let crumb of crumbs; let i = index">
 
-    <span [ngClass]="(crumb.last) ? 'breadcrumb-item active-breadcrumb' : 'breadcrumb-item'"
-          (click)="crumbClicked(crumb)">
-          {{ crumb.name }}
-    </span>
-    <span *ngIf="!crumb.last">&gt;</span>
+      <span [ngClass]="(crumb.last) ? 'breadcrumb-item active-breadcrumb' : 'breadcrumb-item'"
+            (click)="crumbClicked(crumb)">
+            {{ crumb.name }}
+      </span>
+      <span *ngIf="!crumb.last">&gt;</span>
+    </div>
   </div>
 
-  <div fxFlex></div>
+  <div class="flex-spacer"></div>
 
   <div fxFlexAlign="end start">
-    <ng-content></ng-content>
+    <button mat-raised-button color="primary" class="btn-first" (click)="addFiles()">
+      <i class="btn-icon fas fa-file-medical"></i>
+    </button>
+    <button mat-raised-button color="primary" (click)="addFolder()">
+      <i class="btn-icon fas fa-folder-plus"></i>
+    </button>
   </div>
 
+  <form>
+    <input id="file-input" type="file" name="name" style="display: none;" multiple (change)="filesSelected($event)" #fileInput />
+  </form>
 </div>

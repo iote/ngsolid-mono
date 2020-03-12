@@ -4,7 +4,7 @@
   <mat-drawer-content class="drawer-content" [fxFlex]="100">
 
     <div ngfireFileDragUpload (onFileDropped)="uploadFile($event)"
-         class="drawer-content-inner" fxLayout="row wrap" fxLayoutAlign="start">
+         class="drawer-content-inner" fxLayout="row wrap" fxLayoutAlign="start start">
 
       <ngfire-file-manager-item *ngFor="let item of position.isFolder ? position.children : position.parent.children"
                                 [item]="item"
