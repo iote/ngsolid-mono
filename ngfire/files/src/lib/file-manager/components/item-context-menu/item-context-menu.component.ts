@@ -17,6 +17,7 @@ import { DELETE_DIALOG_WIDTH } from '@iote/ui-workflows';
 export class ItemContextMenuComponent
 {
   @Input() item: FolderIterator;
+  @Input() disallowDelete = false;
   @Output() nodeClicked = new EventEmitter();
   @Output() closeMe = new EventEmitter();
 

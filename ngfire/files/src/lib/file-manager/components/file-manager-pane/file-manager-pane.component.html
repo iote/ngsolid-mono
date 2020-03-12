@@ -30,9 +30,9 @@
 </mat-drawer-container>
 
 <ng-template #itemMenu let-item>
-  <ngfire-item-context-menu [item]="item"
-
-      (nodeClicked)="onNodeClicked(item)"
+  <ngfire-item-context-menu
+      [item]="item.item" [disallowDelete]="item.isCurrent"
+      (nodeClicked)="onNodeClicked(item.item)"
       (closeMe)="close()">
 
   </ngfire-item-context-menu>

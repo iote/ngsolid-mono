@@ -11,7 +11,7 @@
     <i matListIcon class="fas fa-folder-plus"></i>
     <h3 matLine><span i18n>Add Folder</span></h3>
   </button>
-  <button mat-list-item  class="sub" (click)="deleteMe()">
+  <button *ngIf="!disallowDelete" mat-list-item  class="sub" (click)="deleteMe()">
     <i matListIcon class="fas fa-trash"></i>
     <h3 matLine><span i18n>Delete</span></h3>
   </button>

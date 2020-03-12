@@ -66,7 +66,7 @@ export class FileManagerPaneComponent implements OnInit
       scrollStrategy: this._overlay.scrollStrategies.close()
     });
 
-    this.overlayRef.attach(new TemplatePortal(this.itemMenu, this._viewContainerRef, {  $implicit: item ? item : this.position }));
+    this.overlayRef.attach(new TemplatePortal(this.itemMenu, this._viewContainerRef, {  $implicit: item ? ({ item }) : ({ item: this.position, isCurrent: true })}));
 
     this.contextMenuSub = fromEvent<MouseEvent>(document, 'click')
                             .pipe(filter(event => {
