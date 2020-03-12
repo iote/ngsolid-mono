@@ -70,6 +70,16 @@ export class FolderIteratorFactory
     return done.map(f => new FolderIterator(f.metadata.name, `${item.path}/${f.metadata.name}`, item.level + 1, false, this, item));
   }
 
+  addChildFolder(me: FolderIterator, name: string)
+  {
+    const addFolder$ = this._fileManagerService.addChildFolder(me.path, name);
+
+    return addFolder$.pipe(map(() => {
+      me.children.push(new FolderIterator(name, `${me.path}/${name}`, me.level + 1, true, this, me));
+      return true;
+    }));
+  }
+
   deleteChild(parent: FolderIterator, child: FolderIterator)
   {
     const childPath = child.path;

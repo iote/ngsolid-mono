@@ -6,6 +6,7 @@ import { Logger } from '@iote/bricks-angular';
 
 import { MultiLangFolder } from '../model/multi-lang-folder.interface';
 import { IStorageReference, IStorageContents } from '../file-manager-types.types';
+import { __GetEmptyFile } from './util/get-empty-file.function';
 
 
 /** Service to initialise the file manager. Feeds the initial folder structure. */
@@ -29,7 +30,7 @@ export class FileManagerInitalisationService
   {
     if(rootContents.items.length === 1 && rootContents.prefixes.length === 0)
     {
-      const emptyFile = this._toByteArray('');
+      const emptyFile = __GetEmptyFile();
       const creates = baseFolders.map(base => root.child(`${base.key}/.keep`).put(emptyFile));
 
       return Promise.all(creates);
@@ -37,18 +38,7 @@ export class FileManagerInitalisationService
   }
 
   /** Gets the root folder structure. */
-  private _makeRoot = (basePath: string) => this._storage.storage.ref('').child(`${basePath}/.keep`).put(this._toByteArray(''));
+  private _makeRoot = (basePath: string) => this._storage.storage.ref('').child(`${basePath}/.keep`).put(__GetEmptyFile());
   private _getRoot = (basePath: string) => this._storage.storage.ref('/').child(basePath);
-
-  private _toByteArray(str: string) : Uint8Array
-  {
-    const utf8 = unescape(encodeURIComponent(str));
-
-    const arr  = [];
-    for (let i = 0; i < utf8.length; i++) {
-      arr.push(utf8.charCodeAt(i));
-    }
-    return new Uint8Array(arr);
-  }
 
 }

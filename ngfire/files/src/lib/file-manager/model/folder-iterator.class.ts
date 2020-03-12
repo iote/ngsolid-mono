@@ -68,5 +68,9 @@ export class FolderIterator
                .deleteChild(this.parent, this);
   }
 
+  addFolder(name: string) {
+    return this._factory.addChildFolder(this, name);
+  }
+
   isRoot = () => this.parent == null;
 }

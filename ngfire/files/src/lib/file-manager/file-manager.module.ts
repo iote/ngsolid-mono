@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { UIWorkflowModule, UIModalsModule } from '@iote/ui-workflows';
 
@@ -20,18 +20,20 @@ import { FileDetailsPaneComponent } from './components/file-details-pane/file-de
 import { FileIconComponent } from './components/file-icon/file-icon.component';
 import { FileDetailsPathComponent } from './components/file-details-path/file-details-path.component';
 import { FileDragUploadDirective } from './directives/file-drag-upload/file-drag-upload.directive';
+import { AddFolderModalComponent } from './components/add-folder-modal/add-folder-modal.component';
 
 /**
  * Module that contains a file manager.
  */
 @NgModule({
-  imports: [CommonModule, FlexLayoutModule, FormsModule,
+  imports: [CommonModule, FlexLayoutModule, FormsModule, ReactiveFormsModule,
             MaterialDesignModule, MaterialBricksModule, FilesModule, UIModalsModule,
             AngularFireStorageModule, UIWorkflowModule],
 
   declarations: [FileManagerComponent, FileManagerNavComponent, FileDragUploadDirective,
                  FileManagerPaneComponent, FileManagerItemComponent, FileManagerCrumbComponent,
-                 FileDetailsPaneComponent, FileDetailsPathComponent, FileIconComponent],
+                 FileDetailsPaneComponent, FileDetailsPathComponent, FileIconComponent, AddFolderModalComponent],
+  entryComponents: [AddFolderModalComponent],
   providers: [FileManagerService, FileManagerInitalisationService],
 
   exports: [FileManagerComponent]

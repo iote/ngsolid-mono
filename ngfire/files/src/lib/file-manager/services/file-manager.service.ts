@@ -9,8 +9,8 @@ import { FolderIteratorFactory } from '../model/folder-iterator-factory.class';
 import { FolderIterator } from '../model/folder-iterator.class';
 import { __MoveFirebaseFile } from './util/move-file.function';
 import { __FileDownloadUrl } from './util/download-file.function';
-import { HttpClient } from '@angular/common/http';
 import { __UploadFiles } from './util/upload-files.function';
+import { __GetEmptyFile } from './util/get-empty-file.function';
 
 @Injectable()
 export class FileManagerService
@@ -64,6 +64,13 @@ export class FileManagerService
     const ref = this._storage.storage.ref().child(path);
 
     return from(ref.delete());
+  }
+
+  addChildFolder(path: string, name: string) {
+    const ref = this._storage.storage.ref().child(path);
+
+    const emptyFile = __GetEmptyFile();
+    return from(ref.child(`${name}/.keep`).put(emptyFile));
   }
 
 }
