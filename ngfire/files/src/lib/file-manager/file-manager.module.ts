@@ -21,6 +21,7 @@ import { FileIconComponent } from './components/file-icon/file-icon.component';
 import { FileDetailsPathComponent } from './components/file-details-path/file-details-path.component';
 import { FileDragUploadDirective } from './directives/file-drag-upload/file-drag-upload.directive';
 import { AddFolderModalComponent } from './components/add-folder-modal/add-folder-modal.component';
+import { ItemContextMenuComponent } from './components/item-context-menu/item-context-menu.component';
 
 /**
  * Module that contains a file manager.
@@ -32,7 +33,8 @@ import { AddFolderModalComponent } from './components/add-folder-modal/add-folde
 
   declarations: [FileManagerComponent, FileManagerNavComponent, FileDragUploadDirective,
                  FileManagerPaneComponent, FileManagerItemComponent, FileManagerCrumbComponent,
-                 FileDetailsPaneComponent, FileDetailsPathComponent, FileIconComponent, AddFolderModalComponent],
+                 FileDetailsPaneComponent, FileDetailsPathComponent, FileIconComponent, AddFolderModalComponent,
+                 ItemContextMenuComponent],
   entryComponents: [AddFolderModalComponent],
   providers: [FileManagerService, FileManagerInitalisationService],
 

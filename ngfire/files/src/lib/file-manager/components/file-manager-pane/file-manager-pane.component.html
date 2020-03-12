@@ -4,11 +4,13 @@
   <mat-drawer-content class="drawer-content" [fxFlex]="100">
 
     <div ngfireFileDragUpload (onFileDropped)="uploadFile($event)"
+         (contextmenu)="openContextMenu($event)"
          class="drawer-content-inner" fxLayout="row wrap" fxLayoutAlign="start start">
 
       <ngfire-file-manager-item *ngFor="let item of position.isFolder ? position.children : position.parent.children"
                                 [item]="item"
-                                (nodeClicked)="onNodeClicked($event)">
+                                (nodeClicked)="onNodeClicked($event)"
+                                (contextmenu)="openContextMenu($event, item)">
       </ngfire-file-manager-item>
 
     </div>
@@ -26,3 +28,12 @@
   </mat-drawer>
 
 </mat-drawer-container>
+
+<ng-template #itemMenu let-item>
+  <ngfire-item-context-menu [item]="item"
+
+      (nodeClicked)="onNodeClicked(item)"
+      (closeMe)="close()">
+
+  </ngfire-item-context-menu>
+</ng-template>
