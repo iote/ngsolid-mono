@@ -1,32 +1,36 @@
-.mat-dialog-container {
-  padding: 0px !important;
-}
-
 .modal-header {
   padding: 20px;
   color: #fff;
   font-size: 18px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
 }
+  .headerNoBorder {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
 
 .danger {
   background: #ff4444 !important;
 }
 
 .modal-content {
-  padding: 20px 40px; 
+  padding: 20px 40px;
   font-size: 16px;
-  line-height: 24px;  
+  line-height: 24px;
 }
 
 .close-btn-top {
-  float: right; 
+  float: right;
   cursor: pointer;
 }
 
 .modal-footer {
   padding: 20px;
-  background: #efefef;
 }
+  .footerBeShaded {
+    background: #efefef;
+  }
 
 .delete-btn {
   background-color: #ff4444;
@@ -39,5 +43,5 @@
 }
 
 .loading-btn {
-  opacity: .5; 
+  opacity: .5;
 }
