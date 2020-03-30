@@ -1,6 +1,6 @@
 <mat-form-field fxFlex="100">
 
-  <mat-label i18n><ng-content select="[label]"></ng-content></mat-label>
+  <mat-label><ng-content select="[label]"></ng-content></mat-label>
 
   <input matInput [matAutocomplete]="auto"
          [(ngModel)]="selectedItemNow" (change)="onTypeSelectedItem($event)"
