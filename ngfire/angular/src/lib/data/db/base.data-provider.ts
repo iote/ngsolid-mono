@@ -1,6 +1,6 @@
 import { User, IObject } from '@iote/bricks';
 
-import { DbReference } from './db-reference.type';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 import { UserService } from '../../auth/services/user.service';
 
@@ -11,7 +11,7 @@ import { Repository } from '../repositories/repository.model';
  */
 export abstract class BaseDataProvider
 {
-  constructor(private _db: DbReference,
+  constructor(private _db: AngularFirestore,
               private _userService: UserService<User>)
   {}
 
