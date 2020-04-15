@@ -1,17 +1,16 @@
 <iote-modal>
-  <div modalTitle i18n>Add folder</div>
+  <div modalTitle>Add folder</div>
 
   <form [formGroup]="createFolderForm" (ngSubmit)="createFolder(createFolderForm.value)">'
 
     <mat-form-field>
-      <mat-label i18n>Name</mat-label>
+      <mat-label>Name</mat-label>
       <input matInput type="text" formControlName="name" name="name" />
     </mat-form-field>
 
     <div footer>
       <button type="submit" [disabled]="!createFolderForm.valid"
-              fxLayoutAlign="end" mat-raised-button color="accent"
-              i18n>
+              fxLayoutAlign="end" mat-raised-button color="accent">
         Create
       </button>
     </div>
