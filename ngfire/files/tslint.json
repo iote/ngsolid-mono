@@ -3,5 +3,8 @@
   "rules": {
     "directive-selector": [true, "attribute", "ngfire", "camelCase"],
     "component-selector": [true, "element", "ngfire", "kebab-case"]
+  },
+  "linterOptions": {
+    "exclude": ["!**/*"]
   }
 }
