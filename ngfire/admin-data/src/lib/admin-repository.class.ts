@@ -20,9 +20,12 @@ export class AdminRepository<T extends IObject> implements Repository<T>
     return this._db.collection(this._collectionName)
                    .doc(id).get()
                    .then(d => {
+                     if(d && d.data()) {
                       const obj = <T> d.data();
                       obj.id = id;
                       return obj;
+                     }
+                     else return null;
                     });
   }
 
@@ -34,7 +37,7 @@ export class AdminRepository<T extends IObject> implements Repository<T>
            .then(this._mergeWithDocId);
   }
 
-  public create(data: T): Promise<T>
+  public create(data: T, id?: string, extendId = false): Promise<T>
   {
     data.createdOn = new Date();
 
@@ -42,13 +45,28 @@ export class AdminRepository<T extends IObject> implements Repository<T>
       // Watch out for race conditions. Not single threaded, should find safer RNG
       data.createdBy = 'admin-' + data.createdOn.getTime();
 
-    return this._db.collection(this._collectionName)
-                   .add(data)
-                   // All values filled here. Safe since will return catch clause on error.
-                   .then(v => {
-                      data.id = v.id;
-                      return data;
-                    });
+    return (id ? this._createWithId(data, id, extendId)
+
+               : this._db.collection(this._collectionName)
+                         .add(data).then(v => { data.id = v.id;  return data; }));
+  }
+
+  /** @param allowExtend: if true, will not throw error when id already exists */
+  private _createWithId(data: T, id: string, allowExtend: boolean)
+  {
+    const doc = this._db.collection(this._collectionName)
+                         .doc(id);
+    return doc.get()
+              .then(d => {
+                if(d && d.data())
+                {
+                  if(allowExtend) {
+                    data.id = `${data.id}_${this._generateGuid()}`;
+                    return this._db.collection(this._collectionName).doc(data.id).set(data).then(() => data);
+                  }
+                  else throw new Error('cant_create_existing');
+                }
+                else return doc.set(data).then(() => data) });
   }
 
   public update(t: T): Promise<T>
@@ -93,4 +111,9 @@ export class AdminRepository<T extends IObject> implements Repository<T>
       return data;
     });
   }
+
+  private _generateGuid = () => 'xxxxxxxxx'
+                                    .replace(/[xy]/g, function(c) { const r = Math.random() * 10 | 0,
+                                                                    v = c == 'x' ? r : (r & 0x3 | 0x8);
+                                                                    return v.toString(10); });
 }

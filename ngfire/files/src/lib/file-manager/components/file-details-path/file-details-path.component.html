@@ -7,7 +7,7 @@
     <mat-form-field (click)="editName.editing = true"
                     class="name" [class.editable]="!editName.editing" [fxFlex]="editName.editing ? 60 : 80">
 
-      <mat-label i18n>File name</mat-label>
+      <mat-label>File name</mat-label>
       <input matInput [(ngModel)]="editName.name"
                       [disabled]="!editName.editing" name="name"
                       required />

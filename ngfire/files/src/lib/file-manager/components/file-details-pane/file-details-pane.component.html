@@ -3,9 +3,9 @@
   <ngfire-file-details-path [file]="file"></ngfire-file-details-path>
 
   <div class="flex-spacer"></div>
-  <button *ngIf="type == 'pdf'" (click)="view()"  mat-raised-button><i class="btn-icon fas fa-eye"></i> <span i18n>View</span></button>
+  <button *ngIf="type == 'pdf'" (click)="view()"  mat-raised-button><i class="btn-icon fas fa-eye"></i> <span>View</span></button>
   <div class="flex-spacer"></div>
 
-  <button (click)="download()" mat-raised-button color="accent"><i class="btn-icon fas fa-download"></i> <span i18n>Download</span></button>
-  <button (click)="del()"  mat-raised-button color="error"><i class="btn-icon fas fa-trash"></i> <span i18n>Delete</span></button>
+  <button (click)="download()" mat-raised-button color="accent"><i class="btn-icon fas fa-download"></i> <span>Download</span></button>
+  <button (click)="del()"  mat-raised-button color="error"><i class="btn-icon fas fa-trash"></i> <span>Delete</span></button>
 </div>
