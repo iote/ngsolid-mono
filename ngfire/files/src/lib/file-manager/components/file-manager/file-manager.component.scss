@@ -6,13 +6,16 @@
 }
 
 .file-manager {
-  border-top-left-radius:  15px;
-  border-top-right-radius: 15px;
+  margin-top: 5px;
+  border-radius:  5px;
+}
+mat-drawer-container {
+  border-radius: 5px;
 }
 
 .file-manager-header {
-  border-top-left-radius:  15px;
-  border-top-right-radius: 15px;
+  border-top-left-radius:  5px;
+  border-top-right-radius: 5px;
   padding: 20px 20px 15px 20px;
   background-color: mat-color($primary, A400);
   color: white;
