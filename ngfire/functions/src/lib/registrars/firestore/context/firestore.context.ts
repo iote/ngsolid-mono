@@ -1,7 +1,7 @@
-import { Context } from '../../../context/context.interface';
+import { FunctionContext } from '../../../context/context.interface';
 import { EventContext } from 'firebase-functions';
 
-export interface FirestoreContext extends Context
+export interface FirestoreContext extends FunctionContext
 {
   eventContext: EventContext;
 }

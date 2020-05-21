@@ -1,7 +1,6 @@
-import { Handler } from '@iote/cqrs';
+import { Handler, HandlerTools } from '@iote/cqrs';
 
 import { FunctionContext } from './context/context.interface';
-import { FunctionTools } from './function-tools.interface';
 
 /**
  * The handler which contains the logic of a Firebase Function of type T (input) -> R (result).
@@ -16,6 +15,6 @@ export abstract class FunctionHandler<T, R> extends Handler<T>
   }
 
   /** Contains the actual logic */
-  public abstract execute(data: T, context: FunctionContext, tools: FunctionTools): Promise<R>;
+  public abstract execute(data: T, context: FunctionContext, tools: HandlerTools): Promise<R>;
 
 }
