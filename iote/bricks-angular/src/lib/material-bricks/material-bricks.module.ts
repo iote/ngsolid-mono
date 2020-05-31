@@ -19,6 +19,7 @@ import { ItemCardRowComponent } from './components/item-card-row/item-card-row.c
 import { DataTableComponent } from './components/data-table/data-table.component';
 import { ModuleCardComponent } from './components/module-card/module-card.component';
 import { ThemingService } from './services/theming.service';
+import { CalendarComponent } from './components/calendar/calendar.component';
 
 /**
  * Base reusable dumb front end components and directives.
@@ -39,7 +40,8 @@ import { ThemingService } from './services/theming.service';
     ModuleCardComponent,
 
     ItemCardRowComponent,
-    DataTableComponent
+    DataTableComponent,
+    CalendarComponent
   ],
 
   providers: [ToastService, DialogService, ThemingService],
@@ -55,7 +57,8 @@ import { ThemingService } from './services/theming.service';
     ModuleCardComponent,
 
     ItemCardRowComponent,
-    DataTableComponent
+    DataTableComponent,
+    CalendarComponent
   ]
 })
 export class MaterialBricksModule {}

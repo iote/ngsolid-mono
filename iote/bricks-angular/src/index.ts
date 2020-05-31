@@ -20,6 +20,7 @@ export * from './lib/material-bricks/components/module-card/module-card.componen
 export * from './lib/material-bricks/components/navbar/navbar.component';
 export * from './lib/material-bricks/components/page/page.component';
 export * from './lib/material-bricks/components/spinner/spinner.component';
+export * from './lib/material-bricks/components/calendar/calendar.component';
 
 export * from './lib/material-bricks/services/dialog.service';
 export * from './lib/material-bricks/services/theming.service';
