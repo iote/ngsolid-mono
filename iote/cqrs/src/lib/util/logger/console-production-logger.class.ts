@@ -6,11 +6,11 @@ import { Logger } from './logger.interface';
  */
 export class ConsoleProductionLogger implements Logger
 {
-  log(msg: () => any) { console.log(msg()); }
+  log(msg: () => any) { console.log(this._toStr(msg())) }
 
-  // In production, we can choose to make sure logger.debug will not execute the method and thus not evaluate the argments.
-  debug(_: () => any) { /* Noop */ }
+  debug(msg: () => any) { console.debug(this._toStr(msg())); }
+  warn(msg: () => any)  { console.warn(this._toStr(msg())); }
+  error(msg: () => any) { console.error(this._toStr(msg())); }
 
-  warn(msg: () => any)  { console.warn(msg()); }
-  error(msg: () => any) { console.error(msg()); }
+  private _toStr = (x: any) => x instanceof String ? x : JSON.stringify(x);
 }

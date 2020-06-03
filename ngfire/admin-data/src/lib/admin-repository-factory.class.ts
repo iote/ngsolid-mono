@@ -8,10 +8,14 @@ let store: any;
 
 function _createRepository<T extends IObject>(path: string)
 {
+  return new AdminRepository<T>(path, getStore());
+}
+
+function getStore() {
   if (store == null)
     store = _getStore();
 
-  return new AdminRepository<T>(path, store);
+  return store;
 }
 
 function _getStore()
@@ -29,5 +33,6 @@ function _getStore()
 }
 
 export const AdminRepositoryFactory = {
-  create: _createRepository
+  create: _createRepository,
+  ___createRaw: (path) => getStore().collection(path)
 } as DbFactory;
