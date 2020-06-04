@@ -5,7 +5,9 @@
 
   <mat-calendar #calendar
           [(selected)]="date" (selectedChange)="dateChanged()"
+          [startAt]="focus"
           (monthSelected)="monthSelected($event)"
-          [minDate]="min" [maxDate]="max">
+          [minDate]="min" [maxDate]="max"
+          [dateClass]="determineDateClass">
   </mat-calendar>
 </div>

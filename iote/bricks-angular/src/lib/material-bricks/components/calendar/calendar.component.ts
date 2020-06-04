@@ -1,5 +1,7 @@
 import { Component, Output, EventEmitter, ViewChild, Renderer2, AfterViewInit, Input } from '@angular/core';
-import { MatCalendar } from '@angular/material/datepicker';
+import { MatCalendar, MatCalendarCellCssClasses } from '@angular/material/datepicker';
+import { AppDate } from '@ngfire/time';
+
 import { Moment } from 'moment';
 import * as moment from 'moment';
 import { Logger } from '../../../util/services/logger.service';
@@ -13,8 +15,10 @@ export class CalendarComponent implements AfterViewInit {
 
   @Output() dateSelected: EventEmitter<Moment> = new EventEmitter();
   @Input() date;
-  @Input() min;
-  @Input() max;
+  @Input() focus;
+  @Input() min  : Moment;
+  @Input() max  : Moment;
+  @Input() determineClass: (date: AppDate) => MatCalendarCellCssClasses;
 
   @ViewChild('calendar')
   calendar: MatCalendar<Moment>;
@@ -34,6 +38,10 @@ export class CalendarComponent implements AfterViewInit {
         });
       });
     }
+  }
+
+  determineDateClass(date: AppDate) {
+    return this.determineClass ? this.determineClass(date) : '';
   }
 
   monthSelected(date: Moment) {
