@@ -26,7 +26,7 @@ export class RestRegistrar<T, R> extends FunctionRegistrar<T, R>
   }
 
   onError(e: Error) {
-    return new Promise((_) => { throw e; });
+    return new Promise((_) => { console.error(e.message); console.error(e.stack); throw e; });
   }
 
 }
