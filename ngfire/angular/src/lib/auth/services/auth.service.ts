@@ -131,9 +131,10 @@ export class AuthService {
     this._toastService.doSimpleToast(errorMsg, 3000);
   }
 
-  signOut() {
-    this.afAuth.auth.signOut().then(() => {
-      this.router.navigate(['/']);
+  signOut(route?: string)
+  {
+    return this.afAuth.auth.signOut().then(() => {
+      this.router.navigate([route ?? '/']);
     });
   }
 }
