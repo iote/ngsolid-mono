@@ -24,8 +24,8 @@
 
   <div class="flex-spacer"></div>
 
-  <i class="fas fa-plus"  *ngIf="isNew" (click)="approve()" matTooltip="Opgepast, je maakt een nieuwe categorie aan!"></i>
-  <i class="fas fa-check" *ngIf="isCustomApproved"></i>
+  <i class="fas fa-plus"  *ngIf="isNew" (click)="approve()" [matTooltip]="tooltipNeedApproval"></i>
+  <i class="fas fa-check" *ngIf="isCustomApproved" [matTooltip]="tooltipIsApproved"></i>
 
   <div class="flex-spacer"></div>
 </div>

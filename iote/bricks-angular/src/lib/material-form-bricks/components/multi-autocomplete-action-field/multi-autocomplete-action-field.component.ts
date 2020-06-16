@@ -23,9 +23,11 @@ export class MultiAutocompleteActionFieldComponent<G,I> implements OnInit, OnCha
   @Input() highlightFn:        (I) => boolean;
 
   @Input() required: boolean;
+  @Input() tooltipIsApproved: string;
+  @Input() tooltipNeedApproval: string;
 
   @Output() itemSelected = new EventEmitter<I>();
-  @Output() newItemTyped  = new EventEmitter<string>();
+  @Output() newItemTyped  = new EventEmitter<string | false>();
   isLoaded = false;
   isNew = false;
   isCustomApproved = false;
@@ -34,7 +36,7 @@ export class MultiAutocompleteActionFieldComponent<G,I> implements OnInit, OnCha
 
   groupsDisplay$: Observable<G[]>;
 
-  @ViewChild(MatAutocompleteTrigger) trigger;
+  @ViewChild(MatAutocompleteTrigger) trigger: MatAutocompleteTrigger;
 
   // Hack to make filter open on first focus.
   private firstFocus = true;
@@ -101,7 +103,7 @@ export class MultiAutocompleteActionFieldComponent<G,I> implements OnInit, OnCha
   {
     this.isNew = false;
     this.isCustomApproved = false;
-    this.newItemTyped.emit(null);
+    this.newItemTyped.emit(false);
     this.filter$$.next(this.selectedItemNow);
   }
 
@@ -123,18 +125,9 @@ export class MultiAutocompleteActionFieldComponent<G,I> implements OnInit, OnCha
   onTypeSelectedItem(newItemName: any)
   {
     this.isNew = true;
-    this.newItemTyped.emit(null);
-  }
-
-  /** Item selected -> Set item. */
-  onSelectItem(evt: any)
-  {
-    this.isNew = false;
-    this.isCustomApproved = false;
-
-    const item = evt.option.value;
-    this.selectedItemNow = this.itemFieldDisplayFn(item);
-    this.itemSelected.emit(item);
+    // Item transferred upon approval below
+    this.newItemTyped.emit(false);
+    this.trigger.closePanel();
   }
 
   approve() {
@@ -142,4 +135,16 @@ export class MultiAutocompleteActionFieldComponent<G,I> implements OnInit, OnCha
     this.isCustomApproved = true;
     this.newItemTyped.emit(this.selectedItemNow);
   }
+
+   /** Item selected -> Set item. */
+   onSelectItem(evt: any)
+   {
+     this.isNew = false;
+     this.isCustomApproved = false;
+
+     const item = evt.option.value;
+     this.selectedItemNow = this.itemFieldDisplayFn(item);
+     this.itemSelected.emit(item);
+   }
+
 }
