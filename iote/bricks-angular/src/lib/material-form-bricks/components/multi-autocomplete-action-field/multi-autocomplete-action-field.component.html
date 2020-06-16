@@ -1,0 +1,31 @@
+<div fxFlex="100" fxLayout="row" fxLayoutAlign="start center">
+
+  <mat-form-field [fxFlex]="isNew || isCustomApproved ? 95 : 100">
+
+    <mat-label><ng-content select="[label]"></ng-content></mat-label>
+
+    <input matInput [matAutocomplete]="auto"
+          [(ngModel)]="selectedItemNow" (focus)="onFocus($event)"
+          (keyup)="onKeyUp($event)" (change)="onTypeSelectedItem($event)"
+          [required]="required"
+          fxFlex="90"/>
+
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectItem($event)">
+      <mat-optgroup *ngFor="let group of groupsDisplay$ | async" [label]="groupName(group)">
+
+        <mat-option *ngFor="let item of groupItemsInner(group)" [value]="item">
+          <span fxFlex="100" [class.highlight]="highlightFn && highlightFn(item)">{{ itemFieldDisplayFn(item) }}</span> <span *ngIf="highlightFn && highlightFn(item)">IND</span>
+        </mat-option>
+
+      </mat-optgroup>
+    </mat-autocomplete>
+
+  </mat-form-field>
+
+  <div class="flex-spacer"></div>
+
+  <i class="fas fa-plus"  *ngIf="isNew" (click)="approve()" matTooltip="Opgepast, je maakt een nieuwe categorie aan!"></i>
+  <i class="fas fa-check" *ngIf="isCustomApproved"></i>
+
+  <div class="flex-spacer"></div>
+</div>

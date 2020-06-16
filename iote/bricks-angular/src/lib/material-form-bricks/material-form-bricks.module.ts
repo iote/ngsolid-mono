@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 
 import { MaterialDesignModule } from '../material-design/material-design.module';
 import { AutocompleteActionFieldComponent } from './components/autocomplete-action-field/autocomplete-action-field.component';
+import { MultiAutocompleteActionFieldComponent } from './components/multi-autocomplete-action-field/multi-autocomplete-action-field.component';
 
 /**
  * Base reusable form front end components and directives.
@@ -21,13 +22,15 @@ import { AutocompleteActionFieldComponent } from './components/autocomplete-acti
   ],
 
   declarations: [
-    AutocompleteActionFieldComponent
+    AutocompleteActionFieldComponent,
+    MultiAutocompleteActionFieldComponent
   ],
 
   providers: [],
 
   exports: [
-    AutocompleteActionFieldComponent
+    AutocompleteActionFieldComponent,
+    MultiAutocompleteActionFieldComponent
   ]
 })
 export class MaterialFormBricksModule {}
