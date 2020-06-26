@@ -11,6 +11,7 @@ export interface Repository<T extends IObject>
 
   create(data: T, id?: string, extendId?: boolean): Promise<T>;
   update(t: T): Promise<T>;
+  write(t: T, id: string): Promise<T>;
   delete(id: string): Promise<boolean>;
 
   /** Gets documents owned by user (user_id field == uid). */

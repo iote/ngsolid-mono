@@ -112,6 +112,21 @@ export class Repository<T extends IObject> {
                               catchError(e => { throw new Error(e.message ); }));
   }
 
+  public write(t: T, id: string): Observable<T>
+  {
+    t.id = id;
+    if(!t.createdOn)
+      t.createdOn = new Date();
+    else
+      t.updatedOn = new Date();
+
+    return from(this._db.collection(this._collectionName)
+                        .doc(t.id)
+                        .set(t))
+                        .pipe(map(() => t),
+                              catchError(e => { throw new Error(e.message ); }));
+  }
+
   public delete(t: T): Observable<T>
   {
     if (!t.id)

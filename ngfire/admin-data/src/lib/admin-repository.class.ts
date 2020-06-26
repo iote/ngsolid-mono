@@ -3,6 +3,7 @@ import { FirebaseFirestore } from '@firebase/firestore-types'
 import { IObject } from '@iote/bricks';
 import { Repository } from '@iote/cqrs';
 import { Query } from '@ngfire/firestore-qbuilder';
+import { time } from 'console';
 
 /**
  * Repository to be used inside of Firebase Functions.
@@ -79,6 +80,22 @@ export class AdminRepository<T extends IObject> implements Repository<T>
     return this._db.collection(this._collectionName)
                         .doc(t.id)
                         .update(t)
+                        .then(wr => t);
+  }
+
+  public write(t: T, id: string): Promise<T>
+  {
+    t.id = id;
+    if(! t.createdOn) {
+      t.createdOn = new Date();
+      t.createdBy = 'admin';
+    }
+    else
+      t.updatedOn = new Date();
+
+    return this._db.collection(this._collectionName)
+                        .doc(t.id)
+                        .set(t)
                         .then(wr => t);
   }
 
