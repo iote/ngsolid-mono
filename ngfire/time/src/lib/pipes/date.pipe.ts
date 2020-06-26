@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Timestamp } from '@firebase/firestore-types';
 
-import { __FormatDateFromStorage } from '../conversion/dates-time.util';
+import { __FormatDateFromStorage } from '@iote/time';
 
 /*
  * Format a Date. Expects Date to be of type Moment.
