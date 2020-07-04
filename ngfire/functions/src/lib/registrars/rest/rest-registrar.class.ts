@@ -1,7 +1,8 @@
 import { FunctionRegistrar } from "../function-registrar.interface";
-import { CloudFunction, https } from 'firebase-functions';
+import * as functions from 'firebase-functions';
 
 import { FunctionContext } from "../../context/context.interface";
+import { FIREBASE_REGIONS } from '../regions.type';
 
 /**
  * Firestore registrar.
@@ -10,11 +11,11 @@ import { FunctionContext } from "../../context/context.interface";
  */
 export class RestRegistrar<T, R> extends FunctionRegistrar<T, R>
 {
-  constructor() { super(); }
+  constructor(private _region: FIREBASE_REGIONS = 'europe-west1') { super(); }
 
-  register(func: (dataSnap: any, context: any) => Promise<R>): CloudFunction<any>
+  register(func: (dataSnap: any, context: any) => Promise<R>): functions.CloudFunction<any>
   {
-    return https.onCall(func);
+    return functions.region(this._region).https.onCall(func);
   }
 
   before(dataSnap: any, context: any): { data: T; context: FunctionContext; } {

@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import * as firebase from "firebase/app";
-import 'firebase/functions';
-
+import { AngularFireFunctions } from '@angular/fire/functions';
 import { from } from 'rxjs';
 
 /**
@@ -11,17 +9,18 @@ import { from } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class BackendService
 {
-  
+  constructor(private _fns: AngularFireFunctions) { }
+
   /**
    * Call Firebase Cloud Function
-   * 
+   *
    * @param fName:  Function Name
    * @param params: Function Parameter Object
    */
   callFunction(fName: string, params: any) {
-    const toCall = firebase.functions().httpsCallable(fName);
+    const toCall = this._fns.httpsCallable(fName);
 
-    return from(toCall(params));
+    return toCall(params);
   }
 
 }
