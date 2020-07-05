@@ -24,7 +24,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { MatDatepickerModule} from '@angular/material/datepicker';
-import { MatNativeDateModule, MatRippleModule } from '@angular/material/core'
+import { MatRippleModule } from '@angular/material/core'
 import { MatDividerModule } from '@angular/material/divider';
 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -44,7 +44,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
-  
+
 // src= https://stackoverflow.com/questions/45166844/how-to-import-angular-material-in-project
 // export function mapMaterialModules() {
 //   return Object.keys(MATERIAL_MODULES).filter((k) => {
@@ -64,12 +64,12 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
  */
 @NgModule({
     imports: [],
-    exports: [ MatNativeDateModule, MatRippleModule, 
+    exports: [ MatRippleModule, MatDatepickerModule,
                MatButtonModule, MatStepperModule, MatCheckboxModule, MatToolbarModule, MatProgressSpinnerModule, MatProgressBarModule, MatMenuModule,
                MatCardModule, MatFormFieldModule, MatRadioModule, MatSelectModule, MatIconModule,
                MatTableModule, MatDialogModule, MatListModule, MatSnackBarModule, MatInputModule,
-               MatSortModule, MatAutocompleteModule, MatTooltipModule, MatSliderModule, MatSlideToggleModule, MatTreeModule, MatExpansionModule, MatTabsModule, 
-               ScrollingModule, MatDatepickerModule, MatGridListModule, MatPaginatorModule, MatSidenavModule, MatButtonToggleModule, MatDividerModule,
+               MatSortModule, MatAutocompleteModule, MatTooltipModule, MatSliderModule, MatSlideToggleModule, MatTreeModule, MatExpansionModule, MatTabsModule,
+               ScrollingModule, MatGridListModule, MatPaginatorModule, MatSidenavModule, MatButtonToggleModule, MatDividerModule,
                MatChipsModule, MatBottomSheetModule]
 })
 export class MaterialDesignModule { }
