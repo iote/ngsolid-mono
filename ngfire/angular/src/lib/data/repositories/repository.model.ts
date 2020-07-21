@@ -1,5 +1,5 @@
 import { Observable, from } from 'rxjs';
-import { flatMap, map, catchError } from 'rxjs/operators';
+import { map, catchError, take, switchMap } from 'rxjs/operators';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 
 import { Query } from '@ngfire/firestore-qbuilder';
@@ -21,8 +21,9 @@ export class Repository<T extends IObject> {
   public getUserDocuments(query = new Query()): Observable<T[]>
   {
     return this._userService.getUserId()
-                            .pipe(flatMap(uid =>
-                              {
+                            .pipe(
+                              take(1),
+                              switchMap(uid => {
                                 query.where('createdBy', '==', uid);
 
                                 return this.getDocuments(query);
@@ -74,12 +75,14 @@ export class Repository<T extends IObject> {
 
     const query = this._userService
                       .getUserId()
-                      .pipe(flatMap(uid => {
-                                      t.createdBy = uid;
-                                      // Turn promise into observable
-                                      return setId ? this._createWithId(this._db.collection(this._collectionName), setId, t)
-                                                   : from(this._db.collection(this._collectionName).add(t));
-                                    }),
+                      .pipe(take(1),
+                            switchMap(uid =>
+                            {
+                              t.createdBy = uid;
+                              // Turn promise into observable
+                              return setId ? this._createWithId(this._db.collection(this._collectionName), setId, t)
+                                            : from(this._db.collection(this._collectionName).add(t));
+                            }),
     );
 
     return query.pipe(map((r, i) => { t.id = r.id; return t; }),
@@ -94,6 +97,7 @@ export class Repository<T extends IObject> {
         .then(i => {
           if (i.exists)
             throw new Error("Object with that id already exists! Cannot create");
+
           return collection.doc(id).set(obj).then(_ => collection.doc(id).ref.get());
         }));
   }
@@ -108,7 +112,8 @@ export class Repository<T extends IObject> {
     return from(this._db.collection(this._collectionName)
                         .doc(t.id)
                         .update(t))
-                        .pipe(map(() => t),
+                        .pipe(take(1),
+                              map(() => t),
                               catchError(e => { throw new Error(e.message ); }));
   }
 
@@ -123,7 +128,8 @@ export class Repository<T extends IObject> {
     return from(this._db.collection(this._collectionName)
                         .doc(t.id)
                         .set(t))
-                        .pipe(map(() => t),
+                        .pipe(take(1),
+                              map(() => t),
                               catchError(e => { throw new Error(e.message ); }));
   }
 
@@ -135,7 +141,8 @@ export class Repository<T extends IObject> {
     return from(this._db.collection(this._collectionName)
                         .doc(t.id)
                         .delete())
-                        .pipe(map(() => t),
+                        .pipe(take(1),
+                              map(() => t),
                               catchError(e => { throw new Error(e.message ); }));
   }
 
