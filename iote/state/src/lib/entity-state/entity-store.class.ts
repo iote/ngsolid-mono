@@ -42,7 +42,7 @@ export abstract class EntityStore<T> implements Stateful<T[]>
   {
     this.previous.unshift(_.cloneDeep(this.state));
 
-    const newState = new EntityState( _.concat(this.state.entities, newValues));
+    const newState = new EntityState<T>( _.concat(this.state.entities, newValues));
 
     console.groupCollapsed(`[${this.store} store] [patch] [event: ${event}]`);
     console.log("Change", newValues)
