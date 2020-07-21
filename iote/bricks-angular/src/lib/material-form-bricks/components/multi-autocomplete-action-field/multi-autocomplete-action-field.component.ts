@@ -112,6 +112,7 @@ export class MultiAutocompleteActionFieldComponent<G,I> implements OnInit, OnCha
     // this.isCustomApproved = false;
     // this.newItemTyped.emit(false);
     this.filter$$.next(this.selectedItemNow);
+    this.newItemTyped.emit(this.selectedItemNow);
   }
 
   ngOnChanges(changes: SimpleChanges)
