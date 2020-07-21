@@ -19,7 +19,7 @@ export class AutocompleteActionFieldComponent<T> implements OnInit, OnChanges
   @Output() itemSelected = new EventEmitter<T>();
   @Output() newItemTyped  = new EventEmitter<string>();
 
-  private _filter: string;
+  private _filter = '';
 
   constructor() { }
 
@@ -46,12 +46,14 @@ export class AutocompleteActionFieldComponent<T> implements OnInit, OnChanges
   }
 
   /** Unknown item typed -> Emit event that requests parent to create item. */
-  onTypeSelectedItem(newItemName: any)
+  onTypeSelectedItem(evt: any)
   {
-    this._filter = newItemName;
-    this.displayItems = this._getItems(this.items);
+    this.newItemTyped.emit(evt.target.value);
+  }
 
-    this.newItemTyped.emit(newItemName.target.value);
+  onType(evt: any) {
+    this._filter = evt.target.value;
+    this.displayItems = this._getItems(this.items);
   }
 
   /** Item selected -> Set item. */
@@ -64,8 +66,17 @@ export class AutocompleteActionFieldComponent<T> implements OnInit, OnChanges
 
   private _getItems = (items: T[]) => this.displayItems = this._sortFn(this._filterFn(items));
 
-  private _filterFn = (items: T[]) => _.filter(items, i => this._getName(i).replace(' ', '').toLowerCase().indexOf(this._filter.replace(' ', '').toLowerCase())) as T[];
-  private _sortFn   = (items: T[]) => _.orderBy(items, i => this.itemFieldDisplayFn ? this.itemFieldDisplayFn(i) : i, 'asc');
+  private _filterFn(items: T[])
+  {
+    if((!this._filter || this._filter.length === 0))
+      return items;
+
+    const filter = this._sanitize(this._filter);
+    return _.filter(items, i =>  this._sanitize(this._getName(i)).indexOf(filter) >= 0) as T[];
+  }
+  private _sanitize = (tr: String) => tr.replace(' ', '').toLowerCase()
+
+  private _sortFn   = (items: T[]) => _.orderBy(items, i => this._getName(i), 'asc');
 
   private _getName  = (item: T)    => this.itemFieldDisplayFn ? this.itemFieldDisplayFn(item) : (item as any) as string;
 }

@@ -3,7 +3,7 @@
   <mat-label><ng-content select="[label]"></ng-content></mat-label>
 
   <input matInput [matAutocomplete]="auto"
-         [(ngModel)]="selectedItemNow" (change)="onTypeSelectedItem($event)"
+         [(ngModel)]="selectedItemNow" (keyup)="onType($event)" (change)="onTypeSelectedItem($event)"
          [required]="required" />
 
   <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectItem($event)">
