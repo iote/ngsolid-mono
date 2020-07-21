@@ -25,7 +25,7 @@ export class AuthService {
   { }
 
   public createUserWithEmailAndPassword(displayName: string, email: string, password: string, userProfile: UserProfile, roles: Roles) {
-    return this.afAuth.createUserWithEmailAndPassword(email, password)
+    return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((res) => {
         this._updateUserData(res.user, displayName, userProfile, roles);
         return <User> <unknown> res.user;
@@ -39,7 +39,7 @@ export class AuthService {
 
     return new Promise((resolve, reject) => {
 
-      this.afAuth.signInWithEmailAndPassword(email, password)
+      this.afAuth.auth.signInWithEmailAndPassword(email, password)
         .then(() => {
           this._logger.log(() => `AuthService.signInWithEmailAndPassword: Successfully logged user in with Email and Password.`);
 
@@ -75,7 +75,7 @@ export class AuthService {
   }
 
   private _oAuthLogin(provider: auth.AuthProvider) {
-    return this.afAuth
+    return this.afAuth.auth
       .signInWithPopup(provider)
       .then((credential) => {
         this._logger.log(() => "Successful firebase user sign in");
@@ -133,7 +133,7 @@ export class AuthService {
 
   signOut(route?: string)
   {
-    return this.afAuth.signOut().then(() => {
+    return this.afAuth.auth.signOut().then(() => {
       this.router.navigate([route ?? '/']);
     });
   }
