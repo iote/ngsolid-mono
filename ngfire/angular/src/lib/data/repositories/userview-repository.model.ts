@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { flatMap, map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 
 import { UserService } from '../../auth/services/user.service';
@@ -23,7 +23,7 @@ export class UserViewRepository<T extends IUserObject>
   public getDocuments(query = new Query()): Observable<T[]>
   {
     return this._userService.getUserId()
-                            .pipe(flatMap(uid =>  this.getDocumentsOfUser(uid, query)));
+                            .pipe(switchMap(uid =>  this.getDocumentsOfUser(uid, query)));
   }
 
   private getDocumentsOfUser(uid: string, query: Query): Observable<T[]>
@@ -40,7 +40,7 @@ export class UserViewRepository<T extends IUserObject>
   public getDocumentById(id: string): Observable<T>
   {
     return this._userService.getUserId()
-                            .pipe(flatMap(uid => this.getDocumentOfUserById(uid, id)));
+                            .pipe(switchMap(uid => this.getDocumentOfUserById(uid, id)));
   }
 
   private getDocumentOfUserById(uid: string, id: string)
