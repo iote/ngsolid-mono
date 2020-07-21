@@ -1,12 +1,12 @@
 <div fxFlex="100" fxLayout="row" fxLayoutAlign="start center">
 
-  <mat-form-field [fxFlex]="isNew || isCustomApproved ? 95 : 100">
+  <mat-form-field fxFlex="100"> <!-- [fxFlex]="isNew || isCustomApproved ? 95 : 100"> -->
 
     <mat-label><ng-content select="[label]"></ng-content></mat-label>
 
     <input matInput [matAutocomplete]="auto"
-          [(ngModel)]="selectedItemNow" (focus)="onFocus($event)"
-          (keyup)="onKeyUp($event)" (change)="onTypeSelectedItem($event)"
+          [(ngModel)]="selectedItemNow"
+          (keyup)="onKeyUp($event)"
           [required]="required"
           fxFlex="90"/>
 
@@ -22,10 +22,11 @@
 
   </mat-form-field>
 
-  <div class="flex-spacer"></div>
+  <!-- <div class="flex-spacer"></div> -->
 
-  <i class="fas fa-plus"  *ngIf="isNew" (click)="approve()" [matTooltip]="tooltipNeedApproval"></i>
-  <i class="fas fa-check" *ngIf="isCustomApproved" [matTooltip]="tooltipIsApproved"></i>
+  <!--
+  <i class="fas fa-plus"  [class.hidden]="!isNew || (isNew && isCustomApproved)" (click)="approve()" [matTooltip]="tooltipNeedApproval"></i>
+  <i class="fas fa-check" [class.hidden]="!isCustomApproved" [matTooltip]="tooltipIsApproved"></i> -->
 
-  <div class="flex-spacer"></div>
+  <!-- <div class="flex-spacer"></div> -->
 </div>

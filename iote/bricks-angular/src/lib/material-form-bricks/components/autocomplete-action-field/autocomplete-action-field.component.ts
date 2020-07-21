@@ -74,7 +74,9 @@ export class AutocompleteActionFieldComponent<T> implements OnInit, OnChanges
     const filter = this._sanitize(this._filter);
     return _.filter(items, i =>  this._sanitize(this._getName(i)).indexOf(filter) >= 0) as T[];
   }
-  private _sanitize = (tr: String) => tr.replace(' ', '').toLowerCase()
+
+  // Src: https://stackoverflow.com/questions/990904/remove-accents-diacritics-in-a-string-in-javascript
+  private _sanitize = (tr: String) => tr.replace(' ', '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
   private _sortFn   = (items: T[]) => _.orderBy(items, i => this._getName(i), 'asc');
 
