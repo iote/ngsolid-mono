@@ -1,5 +1,5 @@
 import { Observable, from } from 'rxjs';
-import { map, catchError, take, switchMap } from 'rxjs/operators';
+import { map, catchError, take, mergeMap } from 'rxjs/operators';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 
 import { Query } from '@ngfire/firestore-qbuilder';
@@ -23,7 +23,7 @@ export class Repository<T extends IObject> {
     return this._userService.getUserId()
                             .pipe(
                               take(1),
-                              switchMap(uid => {
+                              mergeMap(uid => {
                                 query.where('createdBy', '==', uid);
 
                                 return this.getDocuments(query);
@@ -76,7 +76,7 @@ export class Repository<T extends IObject> {
     const query = this._userService
                       .getUserId()
                       .pipe(take(1),
-                            switchMap(uid =>
+                            mergeMap(uid =>
                             {
                               t.createdBy = uid;
                               // Turn promise into observable
