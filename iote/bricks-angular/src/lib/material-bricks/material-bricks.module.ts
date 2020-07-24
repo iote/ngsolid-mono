@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 
 import { MaterialDesignModule } from '../material-design/material-design.module';
 import { CommonModule } from '@angular/common';
@@ -44,8 +44,6 @@ import { CalendarComponent } from './components/calendar/calendar.component';
     CalendarComponent
   ],
 
-  providers: [ToastService, DialogService, ThemingService],
-
   exports: [
     NavbarComponent,
     PageComponent,
@@ -61,4 +59,17 @@ import { CalendarComponent } from './components/calendar/calendar.component';
     CalendarComponent
   ]
 })
-export class MaterialBricksModule {}
+export class MaterialBricksModule {
+
+  static forRoot(): ModuleWithProviders
+  {
+    return {
+      ngModule: MaterialBricksModule,
+      providers: [
+        ToastService,
+        DialogService,
+        ThemingService
+      ]
+    };
+  }
+}
