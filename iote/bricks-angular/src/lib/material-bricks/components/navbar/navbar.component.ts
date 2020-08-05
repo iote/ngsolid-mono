@@ -14,8 +14,6 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
   @Input() logo: string;
 
-  // This should be deprecated
-  @Input() isLMS = false; 
 
   constructor(
     private _logger: Logger,
@@ -42,12 +40,6 @@ export class NavbarComponent implements OnInit, AfterViewInit {
     history.back();
   }
 
-  getLogo() {
-    if(this.logo)
-      return 'assets/images/' + this.logo;
-    else if(this.isLMS) 
-      return 'assets/images/elewa_logo_black.png'
-    else 
-      return 'assets/images/elewa_logo_white.png'
-  }
+  getLogo = () => 'assets/images/elewa-ksa.png'
+
 }

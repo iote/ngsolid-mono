@@ -1,4 +1,4 @@
-/** @TODO: Merge with BreadCrumb - Duplicate originating from @elewa-apps/app-web */
+/** @TODO: Merge with BreadCrumb - Duplicate originating from elewa/app-web */
 export interface BreadCrumbData
 {
   text: string;
