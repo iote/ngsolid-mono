@@ -61,7 +61,7 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 })
 export class MaterialBricksModule {
 
-  static forRoot(): ModuleWithProviders
+  static forRoot(): ModuleWithProviders<MaterialBricksModule>
   {
     return {
       ngModule: MaterialBricksModule,

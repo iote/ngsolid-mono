@@ -5,6 +5,6 @@
     "component-selector": [true, "element", "ngfire", "kebab-case"]
   },
   "linterOptions": {
-    "exclude": ["!**/*"]
+    "exclude": ["!**/*", "!**/*"]
   }
 }
