@@ -38,6 +38,6 @@ import { ItemContextMenuComponent } from './components/item-context-menu/item-co
   entryComponents: [AddFolderModalComponent],
   providers: [FileManagerService, FileManagerInitalisationService],
 
-  exports: [FileManagerComponent]
+  exports: [FileManagerComponent, FileDragUploadDirective]
 })
 export class FileManagerModule { }
