@@ -34,5 +34,6 @@ function _getStore()
 
 export const AdminRepositoryFactory = {
   create: _createRepository,
+  __getStore: getStore,
   ___createRaw: (path) => getStore().collection(path)
 } as DbFactory;
