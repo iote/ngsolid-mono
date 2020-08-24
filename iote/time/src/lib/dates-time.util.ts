@@ -28,12 +28,20 @@ export function __DateFromStorage(unixDate: Timestamp | Date) : AppDate
                 : moment((unixDate as any).seconds * 1000);
 }
 
-export function __DateToStorage(date: AppDate)
+/** Turns a date into a Firebase Timestamp.
+ *    Important! For use in httpsCallable, pass the serialize parameter.
+ *    Warning: Serialize will use fake ducktyping so do not expect the file to still be a Timestamp. */
+export function __DateToStorage(date: AppDate, serialize?: boolean) : Timestamp
 {
   /** Mock as though the date is a timestamp,
    *    but actually work with regular dates.
-   * Firestore API will change the dates into timestamps automagically. */
-  return <Timestamp> <any> date.toDate();
+   *  Firestore API will change the dates into timestamps automagically if we use client library.
+   *
+   *  For HTTP and/or Cloud Fn serialization, use number values.
+   *  @see https://stackoverflow.com/questions/30363973/serializing-dates-in-moment-js*/
+
+  return <Timestamp> <any> (serialize ? date.valueOf()
+                                      : date.toDate());
 }
 
 export function __FormatDateFromStorage(date: Timestamp | Date, format?: string)
