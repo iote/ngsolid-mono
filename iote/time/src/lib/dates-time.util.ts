@@ -7,7 +7,7 @@ export type AppDateInput = moment.MomentInput;
 /**
  * Utility that turns an object into a Date.
  */
-export const __NewDate = (input: AppDateInput) => <AppDate> moment(input);
+export const __NewDate = (input?: AppDateInput) => <AppDate> (input ? moment(input) : moment());
 
 /**
  * Utility that turns an object into a Date and immediately prepares it for storage.
