@@ -1,4 +1,4 @@
-import { CloudFunction } from 'firebase-functions';
+import { CloudFunction, HttpsFunction } from 'firebase-functions';
 
 import { Logger, getLogger, HandlerContext } from '@iote/cqrs';
 import { AdminRepositoryFactory } from '@ngfire/admin-data';
@@ -40,7 +40,7 @@ export class GCFunction<T, R> {
   /**
    * Turns the registered function into an actual cloud function.
    */
-  build(): CloudFunction<any>
+  build(): CloudFunction<any> | HttpsFunction
   {
     // Start with the inner core function which is the handler logic or this._handler.execute
     // From there, move up the chain by adding extra layers and steps.

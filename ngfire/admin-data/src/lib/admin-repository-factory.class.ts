@@ -20,6 +20,7 @@ function getStore() {
 
 function _getStore()
 {
+  admin.initializeApp();
   const fireStore = admin.firestore();
 
   // Firestore Db Change -- With this change, timestamps stored in Cloud Firestore will be read back as Firebase Timestamp objects

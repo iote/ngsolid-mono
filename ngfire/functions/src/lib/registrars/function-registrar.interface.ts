@@ -1,4 +1,4 @@
-import { CloudFunction } from "firebase-functions";
+import { CloudFunction, HttpsFunction } from "firebase-functions";
 
 import { Logger, getLogger } from '@iote/cqrs';
 
@@ -23,7 +23,7 @@ export abstract class FunctionRegistrar<T, R>
   /**
    * Action before execution of function. Registers the passed function as a cloudfunction.
    */
-  abstract register(func: (dataSnap: any, context: FunctionContext) => Promise<R>): CloudFunction<any>;
+  abstract register(func: (dataSnap: any, context: FunctionContext) => Promise<R>): CloudFunction<any> | HttpsFunction;
 
   /**
    * Convert params of specific registrar into parameters tailored to FunctionHandler
@@ -35,7 +35,7 @@ export abstract class FunctionRegistrar<T, R>
    *
    * SEALED! Do not override!
    */
-  wrap(func: (data: T, context: FunctionContext) => Promise<R>): CloudFunction<any>
+  wrap(func: (data: T, context: FunctionContext) => Promise<R>): CloudFunction<any> | HttpsFunction
   {
     return this.register((data, context) =>
     {
