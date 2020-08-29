@@ -1,9 +1,8 @@
-import { FirebaseFirestore } from '@firebase/firestore-types'
+import { FirebaseFirestore, Transaction } from '@firebase/firestore-types'
 
 import { IObject } from '@iote/bricks';
 import { Repository } from '@iote/cqrs';
 import { Query } from '@ngfire/firestore-qbuilder';
-import { time } from 'console';
 
 /**
  * Repository to be used inside of Firebase Functions.
@@ -15,6 +14,11 @@ export class AdminRepository<T extends IObject> implements Repository<T>
   constructor(private _collectionName: string,
               private _db: FirebaseFirestore)
   { }
+
+  public performTransaction(trFn: (tr: Transaction, _db: FirebaseFirestore) => Promise<any>)
+  {
+    return this._db.runTransaction((tr: Transaction) => trFn(tr, this._db));
+  }
 
   public getDocumentById(id: string): Promise<T>
   {
@@ -29,6 +33,8 @@ export class AdminRepository<T extends IObject> implements Repository<T>
                      else return null;
                     });
   }
+
+
 
   public getDocuments(query: Query): Promise<T[]>
   {

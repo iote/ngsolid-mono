@@ -1,3 +1,4 @@
+import { Transaction, FirebaseFirestore } from '@firebase/firestore-types';
 import { IObject } from '@iote/bricks';
 import { Query } from '@ngfire/firestore-qbuilder';
 
@@ -16,4 +17,6 @@ export interface Repository<T extends IObject>
 
   /** Gets documents owned by user (user_id field == uid). */
   getUserDocuments(query: Query, uid: string): Promise<T[]>;
+
+  performTransaction(trFn: (tr: Transaction, _db: FirebaseFirestore) => Promise<any>): Promise<any>;
 }
