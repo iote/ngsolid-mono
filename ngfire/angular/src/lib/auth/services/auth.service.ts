@@ -24,6 +24,17 @@ export class AuthService {
               private _toastService: ToastService)
   { }
 
+  public resetPassword(email: string) {
+    return this.afAuth.auth.sendPasswordResetEmail(
+      email,
+      { url: 'http://localhost:4200/auth' });
+    }
+
+    public getAuth() {
+      return this.afAuth.auth;
+    }
+
+
   public createUserWithEmailAndPassword(displayName: string, email: string, password: string, userProfile: UserProfile, roles: Roles) {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((res) => {
