@@ -2,6 +2,7 @@ import { map } from 'rxjs/operators';
 import * as _ from 'lodash';
 
 import { FolderIteratorFactory } from './folder-iterator-factory.class';
+import { UploadTaskSnapshot, UploadTask } from '@angular/fire/storage/interfaces';
 
 export class FolderIterator
 {
@@ -52,7 +53,7 @@ export class FolderIterator
   {
     return this._factory
                .upload(this, files)
-               .pipe(map(doneFiles => {
+               .pipe(map((doneFiles : UploadTaskSnapshot[]) => {
                   const nChildren= this._factory.getChildrenFromUpload(this, doneFiles);
                   this.children = this.children.concat(nChildren);
                   return this;

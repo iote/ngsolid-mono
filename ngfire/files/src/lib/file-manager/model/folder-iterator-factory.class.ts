@@ -1,11 +1,12 @@
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { IStorageReference } from '../file-manager-types.types';
-import { FolderIterator } from './folder-iterator.class';
-
-import { FileManagerService } from '../services/file-manager.service';
 import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
+
+import { IStorageReference } from '../file-manager-types.types';
+import { FileManagerService } from '../services/file-manager.service';
+
+import { FolderIterator } from './folder-iterator.class';
 
 export class FolderIteratorFactory
 {
@@ -59,11 +60,11 @@ export class FolderIteratorFactory
     return this._fileManagerService.getDownloadUrl(item.path);
   }
 
-  upload(item: FolderIterator, files: FileList) {
-    return this._fileManagerService.uploadToFoler(item.path, files)
+  upload(item: FolderIterator, files: FileList): Observable<UploadTaskSnapshot[]> {
+    return this._fileManagerService.uploadToFolder(item.path, files);
   }
 
-  getChildrenFromUpload(item: FolderIterator, doneFiles: UploadTaskSnapshot[])
+  getChildrenFromUpload(item: FolderIterator, doneFiles: UploadTaskSnapshot[]): FolderIterator[]
   {
     const done = doneFiles.filter(d => d.state === 'success');
 
