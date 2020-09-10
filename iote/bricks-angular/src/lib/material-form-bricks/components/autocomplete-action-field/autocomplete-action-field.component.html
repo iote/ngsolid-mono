@@ -2,6 +2,7 @@
 
   <mat-label><ng-content select="[label]"></ng-content></mat-label>
 
+  <span matPrefix *ngIf="icon"> <i [class]="icon"></i> </span>
   <input matInput [matAutocomplete]="auto"
          [(ngModel)]="selectedItemNow" (keyup)="onType($event)" (change)="onTypeSelectedItem($event)"
          [required]="required" />

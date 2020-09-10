@@ -29,6 +29,8 @@ export class MultiAutocompleteActionFieldComponent<G,I> implements OnInit, OnCha
 
   @Output() itemSelected = new EventEmitter<I>();
   @Output() newItemTyped  = new EventEmitter<string | false>();
+  @Input() icon :string;
+
 
   isLoaded = false;
   // isNew = false;
