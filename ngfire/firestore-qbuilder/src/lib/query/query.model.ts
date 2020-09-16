@@ -6,6 +6,7 @@ import { OrderByPredicate } from '../predicate/order-by.predicate';
 import { LimitPredicate } from '../predicate/limit.predicate';
 import { MaxPredicate } from '../predicate/max.predicate';
 import { MinPredicate } from '../predicate/min.predicate';
+import { SkipTakePredicate } from '../predicate/skiptake.predicate';
 
 export class Query {
 
@@ -15,20 +16,20 @@ export class Query {
 
   /**
    * Add where statement to query
-   * 
+   *
    * @param fieldName  'Targetted fieldname in the database'
    * @param comparitor '==', '>=', >', '<=', '<'
    * @param value      'Value for targetted fieldname
    */
   where(fieldName: string, comparitor: '==' | '>=' | '>' | '<=' | '<' | 'array-contains' | 'array-contains-any' | 'in', value: any) {
     this._addPredicate(new WherePredicate(fieldName, comparitor, value));
-    
+
     return this;
   }
 
   /**
    * Add orderBy statement to query
-   * 
+   *
    * @param fieldName The field on which to order
    * @param order The order - asc, desc
    */
@@ -40,7 +41,7 @@ export class Query {
 
   /**
    * Add limit statement to query
-   * 
+   *
    * @param n Number to take.
    */
   limit(n: number) {
@@ -63,15 +64,22 @@ export class Query {
     return this;
   }
 
+  /** Get (n?) record(s) with first value for fieldName */
+  skipTake(startAt: number, n: number) {
+    this._addPredicate(new SkipTakePredicate(startAt, n));
+
+    return this;
+  }
+
   private _addPredicate(p: Predicate) {
     this._predicates.push(p);
   }
 
-  /** 
+  /**
    * Builds query for FireStore.
    */
   public __buildForFireStore(collRef: CollectionReference)
-  { 
+  {
     let query = <FirestoreQuery> collRef;
 
     for (const pred of this._predicates) {
