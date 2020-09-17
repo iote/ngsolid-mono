@@ -2,11 +2,13 @@
 
   <mat-label><ng-content select="[label]"></ng-content></mat-label>
 
-  <span matPrefix *ngIf="icon"> <i [class]="icon"></i> </span>
-  <input matInput [matAutocomplete]="auto"
-         [(ngModel)]="selectedItemNow" (keyup)="onType($event)" (change)="onTypeSelectedItem($event)"
-         [required]="required" />
+  <span matPrefix *ngIf="icon"><i [class]="icon"></i>&nbsp;</span>
 
+  <input matInput
+         [matAutocomplete]="auto"
+         [(ngModel)]="selectedItemNow" (keyup)="onType($event)" (change)="onTypeSelectedItem($event)"
+         />
+  <!-- [required]="required" -->
   <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectItem($event)">
     <mat-option *ngFor="let item of displayItems"
                 [value]="item">
