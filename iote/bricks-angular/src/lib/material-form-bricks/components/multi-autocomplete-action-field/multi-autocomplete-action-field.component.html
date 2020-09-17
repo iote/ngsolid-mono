@@ -2,14 +2,14 @@
 
   <mat-form-field fxFlex="100"> <!-- [fxFlex]="isNew || isCustomApproved ? 95 : 100"> -->
 
-    <!-- <mat-label><ng-content select="[label]"></ng-content></mat-label> -->
+    <mat-label><ng-content select="[label]"></ng-content></mat-label>
 
     <span matPrefix *ngIf="icon"> <i [class]="icon"></i>&nbsp;&nbsp;</span>
     <input matInput [matAutocomplete]="auto"
-          [(ngModel)]="selectedItemNow"
-          (keyup)="onKeyUp($event)"
-          [required]="required"
-          fxFlex="90"/>
+                    [(ngModel)]="selectedItemNow"
+                    (keyup)="onKeyUp($event)"
+                    [required]="required"
+                    fxFlex="90"/>
 
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectItem($event)">
       <mat-optgroup *ngFor="let group of groupsDisplay$ | async" [label]="groupName(group)">
