@@ -9,6 +9,7 @@ import { AngularFirestore, AngularFirestoreDocument } from "@angular/fire/firest
 import { User, UserProfile, Roles, } from "@iote/bricks";
 import { ToastService, Logger } from '@iote/bricks-angular';
 
+
 /**
  * Authentication Service
  *
@@ -25,14 +26,17 @@ export class AuthService {
   { }
 
   public resetPassword(email: string) {
-    return this.afAuth.auth.sendPasswordResetEmail(
-      email,
-      { url: 'http://localhost:4200/auth' });
-    }
+    return this.afAuth.auth.sendPasswordResetEmail( email )
+      .then(function(){
+        alert('A password reset link has been sent to your email address')
+      }).catch(function(error){
+        alert('An error occurred while attempting to reset your password')
+      })
+  }
 
-    public getAuth() {
-      return this.afAuth.auth;
-    }
+  public getAuth() {
+    return this.afAuth.auth;
+  }
 
 
   public createUserWithEmailAndPassword(displayName: string, email: string, password: string, userProfile: UserProfile, roles: Roles) {
