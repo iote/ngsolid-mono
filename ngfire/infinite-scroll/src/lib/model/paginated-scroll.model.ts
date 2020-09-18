@@ -1,10 +1,13 @@
+import { CollectionReference } from '@firebase/firestore-types';
 import { Injectable } from '@angular/core';
 
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { scan, take, tap } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import * as _ from 'lodash';
 
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, DocumentData, QuerySnapshot } from '@angular/fire/firestore';
 import { IObject } from '@iote/bricks';
+import { __DateFromStorage } from '@ngfire/time';
 
 import { PaginationConfig } from './pagination-config.interface';
 
@@ -14,6 +17,7 @@ import { PaginationConfig } from './pagination-config.interface';
  * Used in e.g. scrolling through the chats.
  *
  * @see https://fireship.io/lessons/infinite-scroll-firestore-angular/ - Inspiration for this design.
+ * @see https://medium.com/@650egor/firestore-reactive-pagination-db3afb0bf42e for making it work properly
  *
  * @export
  * @class PaginatedScroll
@@ -21,113 +25,108 @@ import { PaginationConfig } from './pagination-config.interface';
 @Injectable()
 export class PaginatedScroll<T extends IObject>
 {
-  // Source data
-  private _done = new BehaviorSubject(false);
-  private _loading = new BehaviorSubject(false);
-  private _data = new BehaviorSubject([]);
+  /** List of Messages */
+  docs: T[] = [];
+  docs$$ = new BehaviorSubject<T[]>(null);
 
-  private query: PaginationConfig;
+  /** Firebase active db listeners (on segments of the db) */
+  listeners = [];
 
-  // Observable data
-  data: Observable<T[]>;
-  done: Observable<boolean> = this._done.asObservable();
-  loading: Observable<boolean> = this._loading.asObservable();
+  /** Start & End position of the listener */
+  start = null;
+  end = null;
 
+  constructor(private _opts: PaginationConfig,
+              private _afs: AngularFirestore)
+  { }
 
-  constructor(private _afs: AngularFirestore,
-              path: string, field: string, opts?: any)
+  get()
   {
-    this._init(path, field, opts);
-  }
+    const collection = this._getMessageCollection();
 
-  private _init(path: string, field: string, opts?: any)
-  {
-    // Initial query sets options and defines the Observable
-    // passing opts will override the defaults
-    this.query = { path, field,
-      limit: 10,
-      reverse: false,
-      prepend: false,
-      ...opts };
+    // 1. Configure query behaviour
+    const docs$ = collection.orderBy(this._opts.orderByField, this._opts.reverse ? 'desc' : 'asc')
+                            .limit(this._opts.limit).get();
 
-    const first = this._afs.collection(this.query.path, ref => {
-      return ref
-              .orderBy(this.query.field, this.query.reverse ? 'desc' : 'asc')
-              .limit(this.query.limit);
+    // 2. Get a single snapshot. Will only fire once on get!
+    docs$.then((snapshots) => {
+        // 2.1. The goal of this startAt is to identify the end position of the first listener (the listener which does not have a left boundary).
+        this.start = snapshots.docs[snapshots.docs.length - 1];
+
+        // create listener using startAt snapshot (starting boundary)
+        const listener = collection
+                            // 2.2. Our start listener is different from the snapshot as it is sorted in the opposite way.
+                            .orderBy(this._opts.orderByField, this._opts.reverse ? 'asc' : 'desc')
+                            //      We only set a startAt param and no limit so that we keep adding the newest messages.
+                            .startAt(this.start)
+                            //      Whenever a new message comes in or one of the messages is updated, we process the change.
+                            .onSnapshot((docs) => this._processDataChange(docs));
+
+      // 3. Add our listener to the list of listeners (to later deactivate all on destroy).
+      this.listeners.push(listener);
     });
 
-    this._mapAndUpdate(first)
-
-    // Create the observable array for consumption in components
-    this.data = this._data.asObservable()
-                          // Scan reducer - https://www.learnrxjs.io/learn-rxjs/operators/transformation/scan
-                          .pipe(scan((acc, val: T[]) => this.query.prepend
-                            	  	                              ? val.concat(acc)
-                                                                : acc.concat(val)));
+    // 4. The _processDataChanges will manage our documents behaviour subject.
+    //    Return an active subject that has all the data.
+    return this.docs$$.asObservable().pipe(filter(o => o != null));
   }
 
-  // Retrieves additional data from firestore
-  more()
+  more() : void
   {
-    const cursor = this.getCursor();
+    const collection = this._getMessageCollection();
 
-    const more = this._afs.collection(this.query.path, ref => {
-      return ref
-              .orderBy(this.query.field, this.query.reverse ? 'desc' : 'asc')
-              .limit(this.query.limit)
-              .startAfter(cursor);
+    // 1. Configure next query behaviour
+    const docs$ = collection.orderBy(this._opts.orderByField, this._opts.reverse ? 'desc' : 'asc')
+                                .startAt(this.start)
+                                .limit(this._opts.limit).get();
+
+    // 2. Get the next snapshot. Will only fire once on get!
+    docs$.then((snapshots) => {
+      // previous starting boundary becomes new ending boundary
+      this.end = this.start;
+      this.start = snapshots.docs[snapshots.docs.length - 1];
+
+      // create another listener using new boundaries
+      const listener = collection.orderBy(this._opts.orderByField, this._opts.reverse ? 'asc' : 'desc')
+                                 .startAt(this.start)
+                                 .endBefore(this.end)
+                                 .onSnapshot((docs) => this._processDataChange(docs));
+
+      this.listeners.push(listener);
     });
-
-    this._mapAndUpdate(more);
   }
 
 
-  // Determines the doc snapshot to paginate query
-  private getCursor()
+  /** Reducer that turns path e.g. ['chats', chatId, 'messages'] into a firebase doc ref. */
+  private _getMessageCollection() : CollectionReference
   {
-    const current = this._data.value;
+    const coll = (this._opts.path.reduce(({db, mode}, path) => mode === 'coll' ? ({ db: db.collection(path), mode: 'doc'})
+                                                                               : ({ db: db.doc(path),        mode: 'coll'}) as any,
+                                         { db: this._afs, mode: 'coll' })
+                    .db) as AngularFirestoreCollection<T>;
 
-    if (current.length)
+    return coll.ref;
+  }
+
+  /** Processes a change in one of the data listeners. Updates the total loaded data. */
+  private _processDataChange(data: QuerySnapshot<DocumentData>)
+  {
+    for(const doc of data.docs)
     {
-      return this.query.prepend ? current[0].doc
-                                : current[current.length - 1].doc;
+      // filter out any duplicates (from modify/delete events)
+      this.docs = this.docs.filter(x => x.id !== doc.id);
+      this.docs.push({ id: doc.id, ...doc.data() } as T);
     }
 
-    return null;
+                                             // orderByFn converts value into orderable value e.g. __DateFromStorage
+    this.docs = _.orderBy(this.docs, m => this._opts.orderByFn(m[this._opts.orderByField]), this._opts.prepend ? 'asc' : 'desc');
+    this.docs$$.next(this.docs);
   }
 
-  // Maps the snapshot to usable format the updates source
-  private _mapAndUpdate(col: AngularFirestoreCollection<any>) : Subscription
+  // call to detach all listeners
+  detachListeners()
   {
-    if (this._done.value || this._loading.value)
-      return;
-
-    // loading
-    this._loading.next(true);
-
-    // Map snapshot with doc ref (needed for cursor)
-    return col.snapshotChanges()
-              .pipe(tap(arr => {
-                let values = arr.map(snap => {
-                  const data = snap.payload.doc.data();
-                  const doc = snap.payload.doc;
-                  return { ...data, doc }
-                });
-
-                // If prepending, reverse the batch order
-                values = this.query.prepend ? values.reverse()
-                                            : values;
-
-                // update source with new values, done loading
-                this._data.next(values);
-                this._loading.next(false);
-
-                // no more values, mark done
-                if (!values.length)
-                  this._done.next(true);
-              }),
-              take(1))
-            .subscribe();
+    this.listeners.forEach(listener => listener())
   }
 
 }

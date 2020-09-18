@@ -1,13 +1,17 @@
 export interface PaginationConfig
 {
-  /** Path to collection */
-  path: string,
+  /** Path to root collection. Interchanges collection and doc. */
+  path: string[];
+
+  /** Fn to orderBy - Prepares value into orderable value */
+  orderByFn: (any) => any;
   /** Field to orderBy */
-  field: string,
+  orderByField: string;
+
   /** Limit per query */
-  limit: number, //
+  limit: number;
   /** Reverse order? */
-  reverse: boolean,
+  reverse: boolean;
    /** Prepend to source? */
-  prepend: boolean
+  prepend: boolean;
 }
