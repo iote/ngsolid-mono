@@ -55,11 +55,12 @@ export class Repository<T extends IObject> {
               .pipe(map(this._mergeWithDocId));
   }
 
-  public getLatestDocument(query: Query = new Query()): Observable<T[]> {
+  public getLatestDocument(query: Query = new Query()): Observable<T[]>
+  {
     return <Observable<T[]>>
       this._db.collection(this._collectionName,
                           // Execute query builder
-                          s => query.__buildForFireStore(<any> s).orderBy('createdOn', 'desc').limit(1))
+                          s => query.__buildForFireStore(s).orderBy('createdOn', 'desc').limit(1))
               .snapshotChanges()
               .pipe(map(this._mergeWithDocId));
   }

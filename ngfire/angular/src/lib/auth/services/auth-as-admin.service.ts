@@ -31,9 +31,9 @@ export class AuthAsAdminService {
   {
     this._logger.log(() => `AuthService.createUserWithEmailAndPassword: Creating a user with Email and Password.`);
 
-    return from(this.afAuth.auth.createUserWithEmailAndPassword(email, password))
+    return from(this.afAuth.createUserWithEmailAndPassword(email, password))
             // tslint:disable-next-line:max-line-length
-            .pipe(switchMap((res) => creatingUser ? from(this.afAuth.auth.updateCurrentUser(creatingUser)).pipe(switchMap(_ => this._updateUserData(res.user, displayName, userProfile, roles, creatingUser.uid)))
+            .pipe(switchMap((res) => creatingUser ? from(this.afAuth.updateCurrentUser(creatingUser)).pipe(switchMap(_ => this._updateUserData(res.user, displayName, userProfile, roles, creatingUser.uid)))
                                                   : this._updateUserData(res.user, displayName, userProfile, roles)),
                   catchError(e => throwError(this._throwError(e))));
   }
@@ -44,7 +44,7 @@ export class AuthAsAdminService {
 
     return new Promise((resolve, reject) => {
 
-      this.afAuth.auth.signInWithEmailAndPassword(email, password)
+      this.afAuth.signInWithEmailAndPassword(email, password)
         .then(() => {
           this._logger.log(() => `AuthService.signInWithEmailAndPassword: Successfully logged user in with Email and Password.`);
 
@@ -80,7 +80,7 @@ export class AuthAsAdminService {
   }
 
   private _oAuthLogin(provider: auth.AuthProvider) {
-    return this.afAuth.auth
+    return this.afAuth
       .signInWithPopup(provider)
       .then((credential) => {
         this._logger.log(() => "Successful firebase user sign in");
@@ -154,7 +154,7 @@ export class AuthAsAdminService {
   }
 
   signOut() {
-    this.afAuth.auth.signOut().then(() => {
+    this.afAuth.signOut().then(() => {
       this.router.navigate(['/']);
     });
   }

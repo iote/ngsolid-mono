@@ -78,7 +78,7 @@ export class Query {
   /**
    * Builds query for FireStore.
    */
-  public __buildForFireStore(collRef: CollectionReference)
+  public __buildForFireStore(collRef: CollectionReference) : FirestoreQuery
   {
     let query = <FirestoreQuery> collRef;
 

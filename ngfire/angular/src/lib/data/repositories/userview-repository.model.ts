@@ -32,7 +32,7 @@ export class UserViewRepository<T extends IUserObject>
       this._db.collection(
                 this._userCollectionPath(uid),
                 // Execute query builder
-                s => query.__buildForFireStore(<any> s))
+                s => query.__buildForFireStore(s))
                           .snapshotChanges()
                           .pipe(map(this._mergeWithDocId));
   }

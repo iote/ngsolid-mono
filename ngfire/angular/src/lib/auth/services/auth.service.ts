@@ -26,7 +26,7 @@ export class AuthService {
   { }
 
   public resetPassword(email: string) {
-    return this.afAuth.auth.sendPasswordResetEmail( email )
+    return this.afAuth.sendPasswordResetEmail( email )
       .then(function(){
         alert('A password reset link has been sent to your email address')
       }).catch(function(error){
@@ -35,12 +35,12 @@ export class AuthService {
   }
 
   public getAuth() {
-    return this.afAuth.auth;
+    return this.afAuth;
   }
 
 
   public createUserWithEmailAndPassword(displayName: string, email: string, password: string, userProfile: UserProfile, roles: Roles) {
-    return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+    return this.afAuth.createUserWithEmailAndPassword(email, password)
       .then((res) => {
         this._updateUserData(res.user, displayName, userProfile, roles);
         return <User> <unknown> res.user;
@@ -54,7 +54,7 @@ export class AuthService {
 
     return new Promise((resolve, reject) => {
 
-      this.afAuth.auth.signInWithEmailAndPassword(email, password)
+      this.afAuth.signInWithEmailAndPassword(email, password)
         .then(() => {
           this._logger.log(() => `AuthService.signInWithEmailAndPassword: Successfully logged user in with Email and Password.`);
 
@@ -90,7 +90,7 @@ export class AuthService {
   }
 
   private _oAuthLogin(provider: auth.AuthProvider) {
-    return this.afAuth.auth
+    return this.afAuth
       .signInWithPopup(provider)
       .then((credential) => {
         this._logger.log(() => "Successful firebase user sign in");
@@ -148,7 +148,7 @@ export class AuthService {
 
   signOut(route?: string)
   {
-    return this.afAuth.auth.signOut().then(() => {
+    return this.afAuth.signOut().then(() => {
       this.router.navigate([route ?? '/']);
     });
   }
