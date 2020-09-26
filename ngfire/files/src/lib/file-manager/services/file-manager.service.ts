@@ -11,7 +11,7 @@ import { __MoveFirebaseFile } from './util/move-file.function';
 import { __FileDownloadUrl } from './util/download-file.function';
 import { __UploadFiles } from './util/upload-files.function';
 import { __GetEmptyFile } from './util/get-empty-file.function';
-import { UploadTask, UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
+import { storage } from 'firebase/app';
 
 @Injectable()
 export class FileManagerService
@@ -57,7 +57,7 @@ export class FileManagerService
     return from(__FileDownloadUrl(this._storage, path));
   }
 
-  public uploadToFolder(path: string, files: FileList): Observable<UploadTaskSnapshot[]> {
+  public uploadToFolder(path: string, files: FileList): Observable<storage.UploadTaskSnapshot[]> {
     return from(__UploadFiles(this._storage, path, files));
   }
 
