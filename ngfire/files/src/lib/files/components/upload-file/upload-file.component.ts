@@ -14,7 +14,7 @@ import { FileStorageService } from '../../services/file-storage.service';
  *
  * Inputs:
  *   title? - Input card title
- *   type?  - 'image' | 'any' | ..
+ *   types?  - ['image', 'pdf'] | ['any'] | ..
  *
  * Outputs:
  *   fileUploaded(): IFile - Returns the file active record.
@@ -29,7 +29,9 @@ import { FileStorageService } from '../../services/file-storage.service';
 export class UploadFileComponent implements OnInit
 {
   @Input()  title = 'Upload a file';
-  @Input()  type  = 'any';
+  @Input()  types: string[] = ['any'];
+
+  uploadedType: string;
 
   @Input() filePath: string;
   @Input() prepareFilePathFn: (string) => string;
@@ -59,22 +61,33 @@ export class UploadFileComponent implements OnInit
       this.error = null;
 
     const file = event.target.files[0];
-
     if (this._validateUpload(file))
       this._doUpload(file);
   }
 
   _validateUpload(file)
   {
-    switch (this.type) {
-                // Or will be executed lazy -> If condition is false or will be executed.
-      case 'image':
-        return file.type.split('/')[0] === 'image' || this._validationError('Error uploading file. Only images allowed.');
 
-      case 'any':
-      default:
-        return true;
-    }
+    this.uploadedType = this._getFileType(file);
+
+    const isValid = this.types === ['any'] || this.types.includes(this.uploadedType)
+                      ? true
+                      : this._validationError(`Error uploading file. Only files of ${this.types.join('/ ')} format allowed.`);
+
+    return isValid;
+
+    // switch (this.type) {
+    //             // Or will be executed lazy -> If condition is false or will be executed.
+    //   case 'image':
+    //     return file.type.split('/')[0] === 'image' || this._validationError('Error uploading file. Only images allowed.');
+
+    //   case 'pdf':
+    //     return file.type.split('/')[0] === 'image' || this._validationError('Error uploading file. Only images allowed.');
+
+    //   case 'any':
+    //   default:
+    //     return true;
+    // }
   }
 
   private _doUpload(file)
@@ -100,7 +113,7 @@ export class UploadFileComponent implements OnInit
 
         // Save the path and name of the image to the firestore database
         this._fileStorageService
-              .createFileRef(path, file.name, this.type, this.description)
+              .createFileRef(path, file.name, this.uploadedType, this.description)
               .subscribe(storedFile => this._fileCreated({ file: storedFile, downloadLink: this.downloadURL$ }));
 
         this._logger.log(() => `The upload was successful ${ this.downloadURL$ }.`);
@@ -120,5 +133,15 @@ export class UploadFileComponent implements OnInit
     this._logger.log(() => eMsg);
     this.error = eMsg;
     return false;
+  }
+
+  private _getFileType(file)
+  {
+    if (file.type.split('/')[0] === 'image')
+      return 'image';
+    else if (file.type.split('/')[1] === 'pdf')
+      return 'pdf'
+    else
+      return 'any';
   }
 }
