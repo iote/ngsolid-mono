@@ -17,9 +17,11 @@ export class FirestoreDeleteRegistrar<T, R> extends FirestoreRegistrar<T, R>
 
   register(func: (dataSnap: any, context: any) => Promise<R>): functions.CloudFunction<any>
   {
-    return functions.region(this._region)
-                    .firestore.document(this._documentPath)
-                    .onDelete(func);
+    const base = functions.region(this._region)
+
+    // RealtimeDB and Firestore use same middleware, so we can support both with one registrar.
+    return this._realtimeDB ? base.database.ref(this._documentPath).onDelete(func)
+                            : base.firestore.document(this._documentPath).onDelete(func);
   }
 
 }

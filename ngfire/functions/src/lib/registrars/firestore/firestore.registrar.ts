@@ -13,7 +13,7 @@ export abstract class FirestoreRegistrar<T, R> extends FunctionRegistrar<T, R>
    * @param documentPath - Path to document e.g. 'prospects/{prospectId}'.
    *                       Can be more extensive path e.g. repository of subcollections.
    */
-  constructor(protected _documentPath: string) { super(); }
+  constructor(protected _documentPath: string, protected _realtimeDB = false) { super(); }
 
   /**
    * Convert params of onCreate to input for CloudHandler
@@ -26,7 +26,7 @@ export abstract class FirestoreRegistrar<T, R> extends FunctionRegistrar<T, R>
     // TODO: Sync with parent FirestoreUpdateRegistrar. Build smarter super calls.
     return {
       data: dataSnap.data(),
-      context: { eventContext: context, userId, isAuthenticated: userId != null }
+      context: { eventContext: context, userId, params: context.params, isAuthenticated: userId != null }
     };
   }
 
