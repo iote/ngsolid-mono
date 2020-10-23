@@ -9,6 +9,7 @@ export function createContext(context: any): FunctionContext
 {
   return {
     isAuthenticated: context.uid !== null,
-    userId: context.uid
+    userId: context.uid,
+    eventContext: context
   }
 }
