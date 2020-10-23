@@ -10,4 +10,6 @@ export interface FunctionContext extends HandlerContext {
   isAuthenticated: boolean;
   userId: string;
 
+  eventContext: any;
+  params?: any;
 }
