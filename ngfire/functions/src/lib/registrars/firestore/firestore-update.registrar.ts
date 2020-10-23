@@ -18,7 +18,6 @@ export class FirestoreUpdateRegistrar<T, R> extends FirestoreRegistrar<T, R>
   constructor(documentPath: string,
               protected _withMerge: boolean = false,
               protected _mergeName: string  = '',
-              protected _realtimeDB = false,
               private _region: FIREBASE_REGIONS = 'europe-west1')
   {
     super(documentPath);
@@ -30,11 +29,9 @@ export class FirestoreUpdateRegistrar<T, R> extends FirestoreRegistrar<T, R>
 
   register(func: (dataSnap: any, context: any) => Promise<R>): functions.CloudFunction<any>
   {
-    const base = functions.region(this._region)
-
-    // RealtimeDB and Firestore use same middleware, so we can support both with one registrar.
-    return this._realtimeDB ? base.database.ref(this._documentPath).onUpdate(func)
-                            : base.firestore.document(this._documentPath).onUpdate(func);
+    return functions.region(this._region)
+                    .firestore.document(this._documentPath)
+                    .onUpdate(func);
   }
 
   /**
@@ -49,7 +46,7 @@ export class FirestoreUpdateRegistrar<T, R> extends FirestoreRegistrar<T, R>
 
     return {
       data: dataSnap.after.data(),
-      context: { change: dataSnap, eventContext: context, params: context.params, userId, isAuthenticated: userId != null }
+      context: { change: dataSnap, eventContext: context, userId, isAuthenticated: userId != null }
     };
   }
 
