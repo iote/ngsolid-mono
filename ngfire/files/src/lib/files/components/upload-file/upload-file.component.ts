@@ -36,6 +36,7 @@ export class UploadFileComponent implements OnInit
   @Input() filePath: string;
   @Input() prepareFilePathFn: (string) => string;
 
+  fileName: string;
   description: string;
 
   @Output() fileUploaded = new EventEmitter<IFile>();
@@ -61,6 +62,7 @@ export class UploadFileComponent implements OnInit
       this.error = null;
 
     const file = event.target.files[0];
+    this.fileName = file.name;
     if (this._validateUpload(file))
       this._doUpload(file);
   }
@@ -144,4 +146,9 @@ export class UploadFileComponent implements OnInit
     else
       return 'any';
   }
+
+  get pdfPreview() {
+    return 'assets/images/pdf-preview.png';
+  }
+
 }

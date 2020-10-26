@@ -1,13 +1,27 @@
-<div class="upload-holder">
-  {{ title }}: <input type="file" (change)="uploadImage($event)"/>
-  
-  <div *ngIf="error" class="error">{{ error }}</div>
-  <div *ngIf="percentage$ | async as pct"><mat-progress-bar mode="determinate" [value]="pct"></mat-progress-bar></div>
+<div *ngIf="percentage$ | async as pct">
+  <mat-progress-bar mode="determinate" [value]="pct"></mat-progress-bar>
 </div>
 
-<img *ngIf="downloadURL$ | async as url" style="margin-top: 10px; height: 200px; width: 200px" [src]="url">
+<div class="upload-holder">
+  <input type="file" (change)="uploadImage($event)" />
 
-<div *ngIf="filePath">
-  <img style="margin-top: 10px; max-height: 200px; max-width: 200px" [src]="filePath">
-  <span>{{ filePath }}</span>
+  <span class="title"> {{ title }} </span>
+
+  <div *ngIf="!error">
+    <div class="image-preview" *ngIf="downloadURL$ | async as url">
+      <div *ngIf="uploadedType == 'image'">
+        <img style="margin-top: 10px; height: auto; max-width: 200px" [src]="url">
+      </div>
+
+      <div *ngIf="uploadedType == 'pdf'">
+        <img style="margin-top: 10px; height: 90px; width: auto" [src]="pdfPreview">
+      </div>
+    </div>
+
+    <span>{{ fileName }}</span>
+  
+  </div>
+
+  <div *ngIf="error" class="error">{{ error }}</div>
+
 </div>

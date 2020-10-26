@@ -1,6 +1,34 @@
-.upload-holder{ }
+mat-progress-bar {
+  width: 100%;
+}
+
+.upload-holder{
+  position: relative;
+  padding: 20px;
+}
+
+input {
+  position: absolute;
+  opacity: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+.title {
+  font-weight: bold;
+}
 
 .error {
   color: red;
   margin-bottom: 15px;
+}
+
+.image-preview {
+  height: 100px;
+  overflow: hidden;
+  margin-bottom: 10px;
 }
