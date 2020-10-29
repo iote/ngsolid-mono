@@ -78,18 +78,6 @@ export class UploadFileComponent implements OnInit
 
     return isValid;
 
-    // switch (this.type) {
-    //             // Or will be executed lazy -> If condition is false or will be executed.
-    //   case 'image':
-    //     return file.type.split('/')[0] === 'image' || this._validationError('Error uploading file. Only images allowed.');
-
-    //   case 'pdf':
-    //     return file.type.split('/')[0] === 'image' || this._validationError('Error uploading file. Only images allowed.');
-
-    //   case 'any':
-    //   default:
-    //     return true;
-    // }
   }
 
   private _doUpload(file)
@@ -145,10 +133,6 @@ export class UploadFileComponent implements OnInit
       return 'pdf'
     else
       return 'any';
-  }
-
-  get pdfPreview() {
-    return 'assets/images/pdf-preview.png';
   }
 
 }

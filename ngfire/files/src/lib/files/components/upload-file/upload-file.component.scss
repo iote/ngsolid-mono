@@ -4,7 +4,7 @@ mat-progress-bar {
 
 .upload-holder{
   position: relative;
-  padding: 20px;
+  padding: 20px 20px 10px;
 }
 
 input {
@@ -30,5 +30,10 @@ input {
 .image-preview {
   height: 100px;
   overflow: hidden;
+  margin-top: 20px;
   margin-bottom: 10px;
+}
+
+.fa-file-pdf {
+  color: darkred;
 }

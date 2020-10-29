@@ -10,11 +10,11 @@
   <div *ngIf="!error">
     <div class="image-preview" *ngIf="downloadURL$ | async as url">
       <div *ngIf="uploadedType == 'image'">
-        <img style="margin-top: 10px; height: auto; max-width: 200px" [src]="url">
+        <img style="height: auto; max-width: 200px" [src]="url">
       </div>
 
-      <div *ngIf="uploadedType == 'pdf'">
-        <img style="margin-top: 10px; height: 90px; width: auto" [src]="pdfPreview">
+      <div *ngIf="uploadedType == 'pdf'" class="pdf">
+        <i class="fas fa-file-pdf fa-7x"></i>
       </div>
     </div>
 
