@@ -40,6 +40,7 @@ export class UploadFileComponent implements OnInit
   description: string;
 
   @Output() fileUploaded = new EventEmitter<IFile>();
+  @Output() onReturnUrl  = new EventEmitter<Observable<any>>();
 
   error: String;
 
@@ -100,6 +101,7 @@ export class UploadFileComponent implements OnInit
     task.snapshotChanges().pipe(
       finalize(() => {
         this.downloadURL$ = fileRef.getDownloadURL();
+        this.onReturnUrl.emit(this.downloadURL$);
 
         // Save the path and name of the image to the firestore database
         this._fileStorageService
@@ -130,7 +132,7 @@ export class UploadFileComponent implements OnInit
     if (file.type.split('/')[0] === 'image')
       return 'image';
     else if (file.type.split('/')[1] === 'pdf')
-      return 'pdf'
+      return 'pdf';
     else
       return 'any';
   }
