@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
 import { Logger } from '@iote/bricks-angular';
@@ -40,9 +40,10 @@ export class UploadFileComponent implements OnInit
   description: string;
 
   @Output() fileUploaded = new EventEmitter<IFile>();
-  @Output() onReturnUrl  = new EventEmitter<Observable<any>>();
 
   error: String;
+
+  @Input() defaultAttachment: { link: string, name: string, type: string };
 
   percentage$ : Observable<number>;
   snapshot$   : Observable<any>;
@@ -54,7 +55,14 @@ export class UploadFileComponent implements OnInit
               private _fileStorageService: FileStorageService)
   { }
 
-  ngOnInit(){}
+  ngOnInit(){ 
+    if (this.defaultAttachment)
+    {
+      this.downloadURL$ = of(this.defaultAttachment.link);
+      this.uploadedType = this.defaultAttachment.type;
+      this.fileName = this.defaultAttachment.name;
+    }
+  }
 
   /** uploadImage - Uploads an image to firestorage and firestore. */
   uploadImage(event)
@@ -101,7 +109,6 @@ export class UploadFileComponent implements OnInit
     task.snapshotChanges().pipe(
       finalize(() => {
         this.downloadURL$ = fileRef.getDownloadURL();
-        this.onReturnUrl.emit(this.downloadURL$);
 
         // Save the path and name of the image to the firestore database
         this._fileStorageService
