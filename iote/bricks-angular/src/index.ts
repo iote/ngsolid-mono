@@ -31,4 +31,5 @@ export * from './lib/material-design/material-design.module';
 export * from './lib/util/util.module';
 export * from './lib/util/pipes/money.pipe';
 export * from './lib/util/services/logger.service';
+export * from './lib/util/services/event-logger.service';
 export * from './lib/util/services/transclusion-helper.service';
