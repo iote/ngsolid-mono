@@ -1,6 +1,8 @@
 import { OnDestroy, Injectable } from '@angular/core';
+
 import { Observable, BehaviorSubject } from 'rxjs';
 import { SubSink } from 'subsink';
+
 import { Stateful } from './stateful.interface';
 import { StoreEventTypes } from './store.class';
 
