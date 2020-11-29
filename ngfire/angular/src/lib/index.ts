@@ -1,5 +1,4 @@
 export * from './auth/services/auth.service';
-export * from './auth/services/auth-as-admin.service';
 export * from './auth/services/user.service';
 
 export * from './backend/backend.service';

@@ -25,47 +25,40 @@ export class AuthService {
               private _toastService: ToastService)
   { }
 
-  public resetPassword(email: string) {
-    return this.afAuth.sendPasswordResetEmail( email )
-      .then(function(){
-        alert('A password reset link has been sent to your email address')
-      }).catch(function(error){
-        alert('An error occurred while attempting to reset your password')
-      })
-  }
-
   public getAuth() {
     return this.afAuth;
   }
 
-
-  public createUserWithEmailAndPassword(displayName: string, email: string, password: string, userProfile: UserProfile, roles: Roles) {
-    return this.afAuth.createUserWithEmailAndPassword(email, password)
-      .then((res) => {
-        this._updateUserData(res.user, displayName, userProfile, roles);
-        return <User> <unknown> res.user;
-      })
-      .catch((error) => {
-        this._throwError();
-      });
+  public async resetPassword(email: string)
+  {
+    return this.afAuth
+               .sendPasswordResetEmail( email )
+               .then(() => this._toastService.doSimpleToast('A password reset link has been sent to your email address.'))
+               .catch(() => this._toastService.doSimpleToast('An error occurred while attempting to reset your password. Please contact support.'));
   }
 
-  public loginWithEmailAndPassword(email: string, password: string) {
+  public createUserWithEmailAndPassword(displayName: string, email: string, password: string, userProfile: UserProfile, roles: Roles)
+  {
+    return this.afAuth
+               .createUserWithEmailAndPassword(email, password)
+               .then((res) => {
+                  this._updateUserData(res.user, displayName, userProfile, roles);
+                  return <User> <unknown> res.user;
+               })
+               .catch((error) => {
+                 this._throwError(error);
+               });
+  }
 
-    return new Promise((resolve, reject) => {
-
-      this.afAuth.signInWithEmailAndPassword(email, password)
-        .then(() => {
-          this._logger.log(() => `AuthService.signInWithEmailAndPassword: Successfully logged user in with Email and Password.`);
-
-          resolve();
-        })
-        .catch((error) => {
-          this._throwError();
-
-          reject(error);
-        });
-    });
+  public async loginWithEmailAndPassword(email: string, password: string)
+  {
+    return this.afAuth.signInWithEmailAndPassword(email, password)
+              .then(() => {
+                this._logger.log(() => `AuthService.signInWithEmailAndPassword: Successfully logged user in with Email and Password.`);
+              })
+              .catch((error) => {
+                this._throwError(error);
+              });
   }
 
   public loadGoogleLogin() {
@@ -89,20 +82,22 @@ export class AuthService {
     return this._oAuthLogin(provider);
   }
 
-  private _oAuthLogin(provider: auth.AuthProvider) {
+  private async _oAuthLogin(provider: auth.AuthProvider)
+  {
     return this.afAuth
-      .signInWithPopup(provider)
-      .then((credential) => {
-        this._logger.log(() => "Successful firebase user sign in");
+              .signInWithPopup(provider)
+              .then((credential) => {
+                this._logger.log(() => "Successful firebase user sign in");
 
-        this._updateUserData(credential.user);
-      })
-      .catch(() => {
-        this._throwError();
-      });
+                this._updateUserData(credential.user);
+              })
+              .catch((error) => {
+                this._throwError(error);
+              });
   }
 
-  private _updateUserData(user: firebase.User | null, inputDisplayName?: string, userProfile?: UserProfile, roles?: Roles) : void {
+  private _updateUserData(user: firebase.User | null, inputDisplayName?: string, userProfile?: UserProfile, roles?: Roles) : void
+  {
     if (!user)
       // tslint:disable-next-line:no-string-throw
       throw "Unable to save new user. User Registration failed.";
@@ -140,10 +135,39 @@ export class AuthService {
     });
   }
 
-  private _throwError() {
-    const errorMsg = 'Login failed. Please try again. If this error persists, contact support';
+  private _throwError(error)
+  {
+    const errorCode = error.code;
+    this._logger.error(() => error);
 
-    this._toastService.doSimpleToast(errorMsg, 3000);
+    // TODO: Multi Language
+    if (errorCode === 'auth/account-exists-with-different-credential') // TODO: Handle linking the user's accounts here.
+      this._toastService.doSimpleToast("You have already signed up with a different provider (Direct Login / Google / Facebook / ..) for that email.", 3000);
+
+    else if (errorCode === 'auth/auth-domain-config-required')
+      this._toastService.doSimpleToast("An auth domain configuration is required. Please contact support.", 3000);
+
+    else if (errorCode === 'auth/operation-not-allowed'
+              || errorCode === 'auth/popup-closed-by-user')
+      this._toastService.doSimpleToast("Action failed. Please contact support. Code: ONA", 3000);
+
+    else if (errorCode === 'auth/operation-not-supported-in-this-environment')
+      this._toastService.doSimpleToast("Action failed. Please contact support. Code: ONSITE", 3000);
+
+    else if (errorCode === 'auth/popup-blocked')
+      this._toastService.doSimpleToast("Action failed. Please contact support. Code: POPBLOCK", 3000);
+
+    else if (errorCode === 'auth/unauthorized-domain')
+      this._toastService.doSimpleToast("Action failed. Please contact support. Code: DOMA", 3000);
+
+    else if (errorCode === 'auth/cancelled-popup-request')
+    { // Do nothing. User cancelled him or herself.
+      // this._toastService.doSimpleToast("Popup sign in was canceled");
+    }
+    else {
+      const errorMsg = `Login failed. Please try again. If this error persists, contact support. Code ${error.code}`;
+      this._toastService.doSimpleToast(errorMsg, 3000);
+    }
   }
 
   signOut(route?: string)
