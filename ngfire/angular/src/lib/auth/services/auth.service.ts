@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 
 import { Router } from "@angular/router";
 
-import { auth } from 'firebase/app';
+import firebase from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreDocument } from "@angular/fire/firestore";
 
@@ -64,25 +64,25 @@ export class AuthService {
   public loadGoogleLogin() {
     this._logger.log(() => `AuthService.loadGoogleLogin: Logging in User via Google.`);
 
-    const provider = new auth.GoogleAuthProvider();
+    const provider = new firebase.auth.GoogleAuthProvider();
     return this._oAuthLogin(provider);
   }
 
   public loadFacebookLogin() {
     this._logger.log(() => `AuthService.loadFacebookLogin: Logging in User via Facebook.`);
 
-    const provider = new auth.FacebookAuthProvider();
+    const provider = new firebase.auth.FacebookAuthProvider();
     return this._oAuthLogin(provider);
   }
 
   public loadMicrosoftLogin() {
     this._logger.log(() => `AuthService.loadMicrosoftLogin: Logging in User via Microsoft.`);
 
-    const provider = new auth.OAuthProvider('microsoft.com');
+    const provider = new firebase.auth.OAuthProvider('microsoft.com');
     return this._oAuthLogin(provider);
   }
 
-  private async _oAuthLogin(provider: auth.AuthProvider)
+  private async _oAuthLogin(provider: firebase.auth.AuthProvider)
   {
     return this.afAuth
               .signInWithPopup(provider)
