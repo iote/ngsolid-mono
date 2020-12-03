@@ -61,35 +61,35 @@ export class AuthService {
               });
   }
 
-  public loadGoogleLogin() {
+  public loadGoogleLogin(userProfile?: UserProfile, roles?: any) {
     this._logger.log(() => `AuthService.loadGoogleLogin: Logging in User via Google.`);
 
     const provider = new auth.GoogleAuthProvider();
-    return this._oAuthLogin(provider);
+    return this._oAuthLogin(provider, roles);
   }
 
-  public loadFacebookLogin() {
+  public loadFacebookLogin(userProfile?: UserProfile, roles?: any) {
     this._logger.log(() => `AuthService.loadFacebookLogin: Logging in User via Facebook.`);
 
     const provider = new auth.FacebookAuthProvider();
-    return this._oAuthLogin(provider);
+    return this._oAuthLogin(provider, roles);
   }
 
-  public loadMicrosoftLogin() {
+  public loadMicrosoftLogin(userProfile?: UserProfile, roles?: any) {
     this._logger.log(() => `AuthService.loadMicrosoftLogin: Logging in User via Microsoft.`);
 
     const provider = new auth.OAuthProvider('microsoft.com');
-    return this._oAuthLogin(provider);
+    return this._oAuthLogin(provider, roles);
   }
 
-  private async _oAuthLogin(provider: auth.AuthProvider)
+  private async _oAuthLogin(provider: auth.AuthProvider, userProfile?: UserProfile, roles?: any)
   {
     return this.afAuth
               .signInWithPopup(provider)
               .then((credential) => {
                 this._logger.log(() => "Successful firebase user sign in");
 
-                this._updateUserData(credential.user);
+                this._updateUserData(credential.user, null, userProfile, roles);
               })
               .catch((error) => {
                 this._throwError(error);
@@ -117,9 +117,11 @@ export class AuthService {
         if (user.photoURL) data.photoUrl = user.photoURL;
         if (user.phoneNumber) data.phoneNumber = user.phoneNumber;
 
-        user.displayName ? data.displayName = user.displayName : data.displayName = inputDisplayName;
+        if(user.displayName) data.displayName = user.displayName;
+        else                 data.displayName = inputDisplayName;
 
         data.profile = userProfile ? userProfile : {};
+        if(user.email) data.profile.email = user.email;
         data.roles = roles ? roles : { access: true, app: true };
 
         data.uid = user.uid;
