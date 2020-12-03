@@ -42,7 +42,7 @@ export class AuthService {
     return this.afAuth
                .createUserWithEmailAndPassword(email, password)
                .then((res) => {
-                  this._updateUserData(res.user, displayName, userProfile, roles);
+                  this._checkUpdateUserData(res.user, displayName, userProfile, roles);
                   return <User> <unknown> res.user;
                })
                .catch((error) => {
@@ -65,21 +65,21 @@ export class AuthService {
     this._logger.log(() => `AuthService.loadGoogleLogin: Logging in User via Google.`);
 
     const provider = new auth.GoogleAuthProvider();
-    return this._oAuthLogin(provider, roles);
+    return this._oAuthLogin(provider, userProfile, roles);
   }
 
   public loadFacebookLogin(userProfile?: UserProfile, roles?: any) {
     this._logger.log(() => `AuthService.loadFacebookLogin: Logging in User via Facebook.`);
 
     const provider = new auth.FacebookAuthProvider();
-    return this._oAuthLogin(provider, roles);
+    return this._oAuthLogin(provider, userProfile, roles);
   }
 
   public loadMicrosoftLogin(userProfile?: UserProfile, roles?: any) {
     this._logger.log(() => `AuthService.loadMicrosoftLogin: Logging in User via Microsoft.`);
 
     const provider = new auth.OAuthProvider('microsoft.com');
-    return this._oAuthLogin(provider, roles);
+    return this._oAuthLogin(provider, userProfile, roles);
   }
 
   private async _oAuthLogin(provider: auth.AuthProvider, userProfile?: UserProfile, roles?: any)
@@ -89,14 +89,14 @@ export class AuthService {
               .then((credential) => {
                 this._logger.log(() => "Successful firebase user sign in");
 
-                this._updateUserData(credential.user, null, userProfile, roles);
+                this._checkUpdateUserData(credential.user, null, userProfile, roles);
               })
               .catch((error) => {
                 this._throwError(error);
               });
   }
 
-  private _updateUserData(user: firebase.User | null, inputDisplayName?: string, userProfile?: UserProfile, roles?: Roles) : void
+  private _checkUpdateUserData(user: firebase.User | null, inputDisplayName?: string, userProfile?: UserProfile, roles?: Roles) : void
   {
     if (!user)
       // tslint:disable-next-line:no-string-throw
