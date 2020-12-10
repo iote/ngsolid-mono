@@ -22,7 +22,7 @@ export class EndpointRegistrar<T, R> extends FunctionRegistrar<T, any>
   {
     context = context as functions.Response<R>;
                                                         // Unsafe!!! TODO: Integrate auth security
-    return { data: req.body as any as T, context: { request: req, response: context, eventContext: context, isAuthenticated: false, userId: 'external' }};
+    return { data: req.body as any as T, context: { request: req, response: context, eventContext: context, isAuthenticated: false, userId: 'external', environment: context.environment }};
   }
 
   after(result: R, context: HttpsContext): any {
