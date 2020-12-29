@@ -1,4 +1,4 @@
-import { HandlerContext } from '@iote/cqrs';
+import { Environment, HandlerContext } from '@iote/cqrs';
 
 /** Execution context.
  *
@@ -12,4 +12,6 @@ export interface FunctionContext extends HandlerContext {
 
   eventContext: any;
   params?: any;
+
+  environment: Environment;
 }

@@ -4,8 +4,6 @@ import { Logger, getLogger, HandlerContext } from '@iote/cqrs';
 import { AdminRepositoryFactory } from '@ngfire/admin-data';
 import { HandlerTools } from '@iote/cqrs';
 
-import { FunctionContext } from './context/context.interface';
-
 import { FunctionHandler } from './function-handler.class';
 import { FunctionRegistrar } from './registrars/function-registrar.interface';
 
@@ -28,7 +26,7 @@ export class GCFunction<T, R> {
               private _registrar: FunctionRegistrar<T, R>,
               private _guards   : Guard<T>[],
               private _handler  : FunctionHandler<T,R>,
-              _environment: Environment)
+              private _environment: Environment)
   {
     this._logger = getLogger(_environment);
     this._tools = {
@@ -51,7 +49,7 @@ export class GCFunction<T, R> {
     const funcWithScope = <(data: T, context: HandlerContext, tools: HandlerTools) => Promise<R>> this._handler.execute.bind(this._handler);
 
     // 2) Bind function context.
-    const funcWithContext = (data: any, context: HandlerContext) => funcWithScope(data, createContext(context), this._tools);
+    const funcWithContext = (data: any, context: HandlerContext) => funcWithScope(data, createContext(context, this._environment), this._tools);
 
     // 3) Wrap the guard around the handler. If the guard fails halt execution and throw an error.
     const gaurdedFunc = wrapGaurd(funcWithContext, this._guards, this._name, this._logger);

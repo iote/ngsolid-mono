@@ -42,7 +42,7 @@ export class RealtimeDbWriteRegistrar<T, R> extends FunctionRegistrar<T, R>
 
     return {
       data: dataSnap.val(),
-      context: { eventContext: context, params: context.params, userId, isAuthenticated: userId != null }
+      context: { eventContext: context, params: context.params, userId, isAuthenticated: userId != null, environment: context.environment }
     };
   }
 

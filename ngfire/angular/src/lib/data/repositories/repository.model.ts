@@ -1,6 +1,6 @@
 import { Observable, from } from 'rxjs';
 import { map, catchError, take, mergeMap } from 'rxjs/operators';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, DocumentData, QueryFn } from '@angular/fire/firestore';
 
 import { Query } from '@ngfire/firestore-qbuilder';
 import { IObject, User } from '@iote/bricks';
@@ -48,9 +48,9 @@ export class Repository<T extends IObject> {
   public getDocuments(query: Query = new Query()): Observable<T[]> {
 
     return <Observable<T[]>>
-      this._db.collection(this._collectionName,
-                          // Execute query builder
-                          s => query.__buildForFireStore(<any> s))
+      this._db.collection<T>(this._collectionName,
+                             // Execute query builder
+                             (s => query.__buildForFireStore(<any> s)) as QueryFn<DocumentData>)
               .snapshotChanges()
               .pipe(map(this._mergeWithDocId));
   }
@@ -60,7 +60,7 @@ export class Repository<T extends IObject> {
     return <Observable<T[]>>
       this._db.collection(this._collectionName,
                           // Execute query builder
-                          s => query.__buildForFireStore(s).orderBy('createdOn', 'desc').limit(1))
+                          (s => query.__buildForFireStore(s).orderBy('createdOn', 'desc').limit(1)) as QueryFn<DocumentData>)
               .snapshotChanges()
               .pipe(map(this._mergeWithDocId));
   }
@@ -81,8 +81,8 @@ export class Repository<T extends IObject> {
                             {
                               t.createdBy = uid;
                               // Turn promise into observable
-                              return setId ? this._createWithId(this._db.collection(this._collectionName), setId, t)
-                                            : from(this._db.collection(this._collectionName).add(t));
+                              return setId ? this._createWithId<T>(this._db.collection(this._collectionName), setId, t)
+                                            : from(this._db.collection<T>(this._collectionName).add(t));
                             }),
     );
 

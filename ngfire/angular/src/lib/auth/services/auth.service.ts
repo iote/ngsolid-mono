@@ -42,7 +42,7 @@ export class AuthService {
     return this.afAuth
                .createUserWithEmailAndPassword(email, password)
                .then((res) => {
-                  this._updateUserData(res.user, displayName, userProfile, roles);
+                  this._checkUpdateUserData(res.user, displayName, userProfile, roles);
                   return <User> <unknown> res.user;
                })
                .catch((error) => {
@@ -61,42 +61,42 @@ export class AuthService {
               });
   }
 
-  public loadGoogleLogin() {
+  public loadGoogleLogin(userProfile?: UserProfile, roles?: any) {
     this._logger.log(() => `AuthService.loadGoogleLogin: Logging in User via Google.`);
 
     const provider = new firebase.auth.GoogleAuthProvider();
-    return this._oAuthLogin(provider);
+    return this._oAuthLogin(provider, userProfile, roles);
   }
 
-  public loadFacebookLogin() {
+  public loadFacebookLogin(userProfile?: UserProfile, roles?: any) {
     this._logger.log(() => `AuthService.loadFacebookLogin: Logging in User via Facebook.`);
 
     const provider = new firebase.auth.FacebookAuthProvider();
-    return this._oAuthLogin(provider);
+    return this._oAuthLogin(provider, userProfile, roles);
   }
 
-  public loadMicrosoftLogin() {
+  public loadMicrosoftLogin(userProfile?: UserProfile, roles?: any) {
     this._logger.log(() => `AuthService.loadMicrosoftLogin: Logging in User via Microsoft.`);
 
     const provider = new firebase.auth.OAuthProvider('microsoft.com');
-    return this._oAuthLogin(provider);
+    return this._oAuthLogin(provider, userProfile, roles);
   }
 
-  private async _oAuthLogin(provider: firebase.auth.AuthProvider)
+  private async _oAuthLogin(provider: firebase.auth.AuthProvider, userProfile?: UserProfile, roles?: any)
   {
     return this.afAuth
               .signInWithPopup(provider)
               .then((credential) => {
                 this._logger.log(() => "Successful firebase user sign in");
 
-                this._updateUserData(credential.user);
+                this._checkUpdateUserData(credential.user, null, userProfile, roles);
               })
               .catch((error) => {
                 this._throwError(error);
               });
   }
 
-  private _updateUserData(user: firebase.User | null, inputDisplayName?: string, userProfile?: UserProfile, roles?: Roles) : void
+  private _checkUpdateUserData(user: firebase.User | null, inputDisplayName?: string, userProfile?: UserProfile, roles?: Roles) : void
   {
     if (!user)
       // tslint:disable-next-line:no-string-throw
@@ -117,9 +117,11 @@ export class AuthService {
         if (user.photoURL) data.photoUrl = user.photoURL;
         if (user.phoneNumber) data.phoneNumber = user.phoneNumber;
 
-        user.displayName ? data.displayName = user.displayName : data.displayName = inputDisplayName;
+        if(user.displayName) data.displayName = user.displayName;
+        else                 data.displayName = inputDisplayName;
 
         data.profile = userProfile ? userProfile : {};
+        if(user.email) data.profile.email = user.email;
         data.roles = roles ? roles : { access: true, app: true };
 
         data.uid = user.uid;

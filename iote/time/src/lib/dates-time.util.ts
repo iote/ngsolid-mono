@@ -23,6 +23,11 @@ export const __NewDateForStorage = (input: AppDateInput) => __DateToStorage(__Ne
  */
 export function __DateFromStorage(unixDate: Timestamp | Date) : AppDate
 {
+  if ((unixDate as any)._seconds)
+  {
+    return moment((unixDate as any)._seconds * 1000);
+  }
+
   return (typeof (unixDate as Date).getMonth === 'function')
                 ? moment(unixDate)
                 : moment((unixDate as any).seconds * 1000);

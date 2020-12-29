@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentData, QueryFn } from '@angular/fire/firestore';
 
 import { UserService } from '../../auth/services/user.service';
 
@@ -32,7 +32,7 @@ export class UserViewRepository<T extends IUserObject>
       this._db.collection(
                 this._userCollectionPath(uid),
                 // Execute query builder
-                s => query.__buildForFireStore(s))
+                (s => query.__buildForFireStore(s)) as QueryFn<DocumentData>)
                           .snapshotChanges()
                           .pipe(map(this._mergeWithDocId));
   }

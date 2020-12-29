@@ -26,7 +26,7 @@ export abstract class FirestoreRegistrar<T, R> extends FunctionRegistrar<T, R>
     // TODO: Sync with parent FirestoreUpdateRegistrar. Build smarter super calls.
     return {
       data: dataSnap.data(),
-      context: { eventContext: context, userId, isAuthenticated: userId != null }
+      context: { eventContext: context, userId, isAuthenticated: userId != null, environment: context.environment }
     };
   }
 
