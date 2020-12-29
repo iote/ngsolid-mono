@@ -1,6 +1,5 @@
 module.exports = {
-  name: 'external-ngfire-firestore-qbuilder',
-  preset: '../../../../jest.config.js',
+  preset: '../../../../jest.preset.js',
   transform: {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
@@ -9,4 +8,5 @@ module.exports = {
     '../../../../coverage/libs/external/ngfire/firestore-qbuilder',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: { 'ts-jest': { tsConfig: '<rootDir>/tsconfig.spec.json' } },
+  displayName: '@ngfire/firestore-qbuilder',
 };
