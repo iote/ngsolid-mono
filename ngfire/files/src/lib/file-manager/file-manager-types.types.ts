@@ -1,3 +1,4 @@
+import firebase from 'firebase/app';
 
 export type IStorageReference = firebase.storage.Reference;
 export type IStorageContents = firebase.storage.ListResult;

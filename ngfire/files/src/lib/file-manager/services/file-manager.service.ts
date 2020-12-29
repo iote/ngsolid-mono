@@ -3,15 +3,19 @@ import { __DateToStorage } from '@ngfire/time';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Logger } from '@iote/bricks-angular';
 
-import { IStorageReference, IFolderReference } from '../file-manager-types.types';
+import firebase from 'firebase/app';
 import { Observable, from } from 'rxjs';
+
 import { FolderIteratorFactory } from '../model/folder-iterator-factory.class';
 import { FolderIterator } from '../model/folder-iterator.class';
+
 import { __MoveFirebaseFile } from './util/move-file.function';
 import { __FileDownloadUrl } from './util/download-file.function';
 import { __UploadFiles } from './util/upload-files.function';
 import { __GetEmptyFile } from './util/get-empty-file.function';
-import { storage } from 'firebase/app';
+
+
+import { IStorageReference, IFolderReference } from '../file-manager-types.types';
 
 @Injectable()
 export class FileManagerService
@@ -32,7 +36,7 @@ export class FileManagerService
   {
     const root = this._storage.storage.ref('/').child(basePath);
 
-    return this._contentsOfPath(root);
+    return this._contentsOfPath(root) as Observable<IFolderReference>;
   }
 
   /** Gets the folder path. */
@@ -57,7 +61,7 @@ export class FileManagerService
     return from(__FileDownloadUrl(this._storage, path));
   }
 
-  public uploadToFolder(path: string, files: FileList): Observable<storage.UploadTaskSnapshot[]> {
+  public uploadToFolder(path: string, files: FileList): Observable<firebase.storage.UploadTaskSnapshot[]> {
     return from(__UploadFiles(this._storage, path, files));
   }
 
