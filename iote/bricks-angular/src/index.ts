@@ -9,6 +9,7 @@ export * from './lib/material-form-bricks/components/autocomplete-action-field/a
 
 export * from './lib/material-bricks/material-bricks.module';
 export * from './lib/material-bricks/components/action-tile/action-tile.component';
+export * from './lib/material-bricks/components/action-modal/action-modal.component';
 export * from './lib/material-bricks/components/breadcrumbs/breadcrumb.interface';
 export * from './lib/material-bricks/components/breadcrumbs/bread-crumb-data.interface';
 export * from './lib/material-bricks/components/breadcrumbs/breadcrumbs.component';

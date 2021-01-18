@@ -14,6 +14,7 @@ import { DialogService } from "./services/dialog.service";
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '../flex-layout/flex-layout.module';
 import { ActionTileComponent } from './components/action-tile/action-tile.component';
+import { ActionModalComponent } from './components/action-modal/action-modal.component';
 import { AppHighlightComponent } from './components/highlight-section/highlight-section.component';
 import { ItemCardRowComponent } from './components/item-card-row/item-card-row.component';
 import { DataTableComponent } from './components/data-table/data-table.component';
@@ -41,7 +42,8 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 
     ItemCardRowComponent,
     DataTableComponent,
-    CalendarComponent
+    CalendarComponent,
+    ActionModalComponent
   ],
 
   exports: [
@@ -51,6 +53,7 @@ import { CalendarComponent } from './components/calendar/calendar.component';
     SpinnerComponent,
     BreadcrumbsComponent,
     ActionTileComponent,
+    ActionModalComponent,
     AppHighlightComponent,
     ModuleCardComponent,
 
