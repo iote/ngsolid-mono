@@ -21,16 +21,22 @@ export const __NewDateForStorage = (input: AppDateInput) => __DateToStorage(__Ne
  *                   20/07 - Since store changes a date is now either of Date type (local updates) or of Timestamp (DB updates)
  *                           @see https://stackoverflow.com/questions/643782/how-to-check-whether-an-object-is-a-date
  */
-export function __DateFromStorage(unixDate: Timestamp | Date) : AppDate
+export function __DateFromStorage(unixDate: Timestamp | Date, offsetCorrection: boolean = false) : AppDate
 {
-  if ((unixDate as any)._seconds)
+  let appDate:  moment.Moment;
+
+  appDate =  (typeof (unixDate as Date).getMonth === 'function')
+                ? moment(unixDate)
+                : moment((unixDate as any).seconds * 1000)
+                    ?? moment((unixDate as any)._seconds * 1000);
+
+  if (offsetCorrection)
   {
-    return moment((unixDate as any)._seconds * 1000);
+    const offset = new Date().getTimezoneOffset()/60;
+    return appDate.utc().utcOffset(- offset);
   }
 
-  return (typeof (unixDate as Date).getMonth === 'function')
-                ? moment(unixDate)
-                : moment((unixDate as any).seconds * 1000);
+  return appDate;
 }
 
 /** Turns a date into a Firebase Timestamp.
