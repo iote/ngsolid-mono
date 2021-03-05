@@ -25,10 +25,16 @@ export function __DateFromStorage(unixDate: Timestamp | Date, offsetCorrection: 
 {
   let appDate:  moment.Moment;
 
-  appDate =  (typeof (unixDate as Date).getMonth === 'function')
-                ? moment(unixDate)
-                : moment((unixDate as any).seconds * 1000)
+  const dateTime = unixDate as any;
+  if (dateTime.seconds || dateTime._seconds)
+  {
+    appDate =  moment((unixDate as Timestamp).seconds * 1000)
                     ?? moment((unixDate as any)._seconds * 1000);
+  }
+  else
+  {
+    appDate = moment(unixDate);
+  }
 
   if (offsetCorrection)
   {
@@ -38,7 +44,6 @@ export function __DateFromStorage(unixDate: Timestamp | Date, offsetCorrection: 
 
   return appDate;
 }
-
 /** Turns a date into a Firebase Timestamp.
  *    Important! For use in httpsCallable, pass the serialize parameter.
  *    Warning: Serialize will use fake ducktyping so do not expect the file to still be a Timestamp. */
