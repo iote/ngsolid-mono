@@ -38,8 +38,8 @@ export function __DateFromStorage(unixDate: Timestamp | Date, offsetCorrection: 
 
   if (offsetCorrection)
   {
-    const offset = new Date().getTimezoneOffset()/60;
-    return appDate.utc().utcOffset(- offset);
+    const offset = __GetTimezoneOffset();
+    return appDate.utc().utcOffset(offset);
   }
 
   return appDate;
@@ -68,4 +68,15 @@ export function __FormatDateFromStorage(date: Timestamp | Date, format?: string)
 export function __FormatDate(date: AppDate, format?: string)
 {
   return date.format(format ? format : 'l');
+}
+
+
+/**
+ * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTimezoneOffset
+ *
+ * @returns Timezone offset from utc (eg in Kenya returns +3)
+ */
+export function __GetTimezoneOffset()
+{
+  return -(new Date().getTimezoneOffset()/60);
 }
