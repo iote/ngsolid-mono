@@ -2,7 +2,7 @@ import { Environment, HandlerContext } from '@iote/cqrs';
 
 /** Execution context.
  *
- * @see https://firebase.google.com/docs/reference/functions/functions.EventContext
+ * @see https://firebase.google.com/docs/reference/functions/cloud_functions_.eventcontext
  *  - For all possible build-in functionalities.
  */
 export interface FunctionContext extends HandlerContext {
