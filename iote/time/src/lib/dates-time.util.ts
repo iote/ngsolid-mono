@@ -39,7 +39,7 @@ export function __DateFromStorage(unixDate: Timestamp | Date, offsetCorrection: 
   if (offsetCorrection)
   {
     const offset = __GetTimezoneOffset();
-    return appDate.utc().utcOffset(offset);
+    return correctDst(appDate.utc().utcOffset(offset));
   }
 
   return appDate;
@@ -79,4 +79,11 @@ export function __FormatDate(date: AppDate, format?: string)
 export function __GetTimezoneOffset()
 {
   return -(new Date().getTimezoneOffset()/60);
+}
+
+function correctDst(appDate: AppDate)
+{
+  return moment().isDST()
+          ? appDate.add(1, 'hours')
+          : appDate;
 }
