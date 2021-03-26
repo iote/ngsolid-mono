@@ -1,5 +1,7 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
+
+import { SubSink } from 'subsink';
 import { Observable, of } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
@@ -7,7 +9,6 @@ import { Logger } from '@iote/bricks-angular';
 
 import { IFile } from '../../model/file.interface';
 import { FileStorageService } from '../../services/file-storage.service';
-
 
 /**
  * Upload file component. Files are stored in a separate collection but also returned to the parent component.
@@ -26,8 +27,10 @@ import { FileStorageService } from '../../services/file-storage.service';
   styleUrls: ['./upload-file.component.scss'],
   templateUrl: './upload-file.component.html'
 })
-export class UploadFileComponent implements OnInit
+export class UploadFileComponent implements OnInit, OnDestroy
 {
+  private _sbS = new SubSink();
+
   @Input()  title = 'Upload a file';
   @Input()  types: string[] = ['any'];
 
@@ -49,13 +52,12 @@ export class UploadFileComponent implements OnInit
   snapshot$   : Observable<any>;
   downloadURL$: Observable<any>;
 
-
   constructor(private _logger: Logger,
               private _storage: AngularFireStorage,
               private _fileStorageService: FileStorageService)
   { }
 
-  ngOnInit(){ 
+  ngOnInit(){
     if (this.defaultAttachment)
     {
       this.downloadURL$ = of(this.defaultAttachment.link);
@@ -78,7 +80,6 @@ export class UploadFileComponent implements OnInit
 
   _validateUpload(file)
   {
-
     this.uploadedType = this._getFileType(file);
 
     const isValid = this.types === ['any'] || this.types.includes(this.uploadedType)
@@ -106,14 +107,14 @@ export class UploadFileComponent implements OnInit
     this.percentage$ = task.percentageChanges();
 
     // get notified when the download URL is available
-    task.snapshotChanges().pipe(
+    this._sbS.sink = task.snapshotChanges().pipe(
       finalize(() => {
         this.downloadURL$ = fileRef.getDownloadURL();
 
         // Save the path and name of the image to the firestore database
-        this._fileStorageService
-              .createFileRef(path, file.name, this.uploadedType, this.description)
-              .subscribe(storedFile => this._fileCreated({ file: storedFile, downloadLink: this.downloadURL$ }));
+        this._sbS.sink = this._fileStorageService
+                             .createFileRef(path, file.name, this.uploadedType, this.description)
+                             .subscribe(storedFile => this._fileCreated({ file: storedFile, downloadLink: this.downloadURL$ }));
 
         this._logger.log(() => `The upload was successful ${ this.downloadURL$ }.`);
       })
@@ -121,7 +122,8 @@ export class UploadFileComponent implements OnInit
     .subscribe(_ => this._logger.log(() => "Upload done."));
   }
 
-  private _fileCreated(storedFile) {
+  private _fileCreated(storedFile)
+  {
     this._logger.log(() => `Saved to Firestore successfully. Fileref: ${storedFile.file.name} | Filepath: ${storedFile.file.path}`);
 
     this.fileUploaded.emit(storedFile);
@@ -142,6 +144,11 @@ export class UploadFileComponent implements OnInit
       return 'pdf';
     else
       return 'any';
+  }
+
+  ngOnDestroy()
+  {
+    this._sbS.unsubscribe();
   }
 
 }

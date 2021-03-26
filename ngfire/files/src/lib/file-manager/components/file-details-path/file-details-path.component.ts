@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
 
 import { Logger } from '@iote/bricks-angular';
 
 import { FolderIterator } from '../../model/folder-iterator.class';
 import * as _ from 'lodash';
 import { Form } from '@angular/forms';
+import { SubSink } from 'subsink';
 
 /** */
 @Component({
@@ -12,8 +13,10 @@ import { Form } from '@angular/forms';
   styleUrls: ['./file-details-path.component.scss'],
   templateUrl: './file-details-path.component.html'
 })
-export class FileDetailsPathComponent implements OnInit
+export class FileDetailsPathComponent implements OnInit, OnDestroy
 {
+  private _sbS = new SubSink();
+
   @Input() file: FolderIterator;
   isSaving: boolean;
 
@@ -42,9 +45,13 @@ export class FileDetailsPathComponent implements OnInit
 
   save() {
     this.isSaving = true;
-    this.file
-        .updateName(this.editName.name, this.editName.type)
-        .subscribe(() => { this.isSaving = false; this.editName.editing = false; });
+    this._sbS.sink = this.file
+          .updateName(this.editName.name, this.editName.type)
+          .subscribe(() => { this.isSaving = false; this.editName.editing = false; });
   }
 
+  ngOnDestroy()
+  {
+    this._sbS.unsubscribe();
+  }
 }

@@ -1,11 +1,14 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, TemplateRef, ViewContainerRef, OnDestroy } from '@angular/core';
+import { OverlayRef, Overlay } from '@angular/cdk/overlay';
+import { TemplatePortal } from '@angular/cdk/portal';
+
+import { SubSink } from 'subsink';
 import { Observable, Subscription, fromEvent } from 'rxjs';
+import { filter, take } from 'rxjs/operators';
+
 import { Logger } from '@iote/bricks-angular';
 
 import { FolderIterator } from '../../model/folder-iterator.class';
-import { OverlayRef, Overlay } from '@angular/cdk/overlay';
-import { TemplatePortal } from '@angular/cdk/portal';
-import { filter, take } from 'rxjs/operators';
 
 /** */
 @Component({
@@ -13,8 +16,9 @@ import { filter, take } from 'rxjs/operators';
   styleUrls: ['./file-manager-pane.component.scss'],
   templateUrl: './file-manager-pane.component.html'
 })
-export class FileManagerPaneComponent implements OnInit
+export class FileManagerPaneComponent implements OnInit, OnDestroy
 {
+  private _sbS = new SubSink();
   @Input() position$: Observable<FolderIterator>;
   position: FolderIterator;
   /** Mock event. Only used in case of delete of current item. In that case, will be triggered to navigate to parent. */
@@ -23,7 +27,6 @@ export class FileManagerPaneComponent implements OnInit
 
   @ViewChild('itemMenu') itemMenu: TemplateRef<any>;
   overlayRef: OverlayRef | null;
-  contextMenuSub: Subscription;
 
   constructor(private _overlay: Overlay,
               private _viewContainerRef: ViewContainerRef,
@@ -31,7 +34,7 @@ export class FileManagerPaneComponent implements OnInit
   { }
 
   ngOnInit() {
-    this.position$.subscribe(pos => this.position = pos);
+    this._sbS.sink = this.position$.subscribe(pos => this.position = pos);
   }
 
   onNodeClicked(position: FolderIterator)
@@ -47,8 +50,6 @@ export class FileManagerPaneComponent implements OnInit
     this.position
         .upload(files).subscribe(() => true);
   }
-
-
 
   // For inspiration, @see: https://netbasal.com/context-menus-made-easy-with-angular-cdk-963797e679fc
   openContextMenu(evt: MouseEvent, item?: FolderIterator)
@@ -68,23 +69,28 @@ export class FileManagerPaneComponent implements OnInit
 
     this.overlayRef.attach(new TemplatePortal(this.itemMenu, this._viewContainerRef, {  $implicit: item ? ({ item }) : ({ item: this.position, isCurrent: true })}));
 
-    this.contextMenuSub = fromEvent<MouseEvent>(document, 'click')
-                            .pipe(filter(event => {
-                                const clickTarget = event.target as HTMLElement;
-                                return !!this.overlayRef && !this.overlayRef.overlayElement.contains(clickTarget);
-                              }),
-                              take(1)
-                            ).subscribe(() => this.close());
+    this._sbS.sink = fromEvent<MouseEvent>(document, 'click')
+                        .pipe(filter(event => {
+                            const clickTarget = event.target as HTMLElement;
+                            return !!this.overlayRef && !this.overlayRef.overlayElement.contains(clickTarget);
+                          }),
+                          take(1)
+                        ).subscribe(() => this.close());
   }
 
   close()
   {
-    this.contextMenuSub && this.contextMenuSub.unsubscribe();
+    this._sbS.unsubscribe();
 
     if (this.overlayRef)
     {
       this.overlayRef.dispose();
       this.overlayRef = null;
     }
+  }
+
+  ngOnDestroy()
+  {
+    this.close();
   }
 }
