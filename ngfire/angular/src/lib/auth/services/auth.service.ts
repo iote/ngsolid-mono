@@ -29,9 +29,11 @@ export class AuthService {
     return this.afAuth;
   }
 
-  public async resetPassword(email: string)
+  public async resetPassword(email: string, langCode: string = 'en' )
   {
-    return this.afAuth
+    
+    firebase.auth().languageCode = langCode;
+    return firebase.auth()
                .sendPasswordResetEmail( email )
                .then(() => this._toastService.doSimpleToast('A password reset link has been sent to your email address.'))
                .catch(() => this._toastService.doSimpleToast('An error occurred while attempting to reset your password. Please contact support.'));
