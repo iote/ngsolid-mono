@@ -3,8 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 
 import * as _ from 'lodash';
 import { SubSink } from 'subsink';
+import { take } from 'rxjs/operators';
 
-import { DELETE_DIALOG_WIDTH } from '@iote/ui-workflows';
+
+import { DeleteConfirmationDialogComponent, DELETE_DIALOG_WIDTH } from '@iote/ui-workflows';
 import { Logger } from '@iote/bricks-angular';
 
 import { FolderIterator } from '../../model/folder-iterator.class';
@@ -50,11 +52,25 @@ export class ItemContextMenuComponent implements OnDestroy
 
     this.closeMe.emit();
   }
-
   deleteMe()
   {
-    this._sbS.sink = this.item.delete().subscribe();
-    this.closeMe.emit();
+    // this._sbS.sink = this.item.delete().subscribe();
+    // this.closeMe.emit();
+    this._dialog.open(DeleteConfirmationDialogComponent,
+                    { width: DELETE_DIALOG_WIDTH,
+                      data: { content: `Are you sure you wish to delete "${ this.item.name }" ?` } })
+      .afterClosed().pipe(take(1))
+      .subscribe((agreed: boolean) =>
+      { 
+        
+        if(agreed) {
+          const parent = this.item.parent;
+          this.item.delete().subscribe(() => {
+            this.nodeClicked.emit(parent);
+          });
+
+        }
+      });
   }
 
   ngOnDestroy()
