@@ -26,15 +26,11 @@ export function __DateFromStorage(unixDate: Timestamp | Date, offsetCorrection: 
   let appDate:  moment.Moment;
 
   const dateTime = unixDate as any;
-  if (dateTime.seconds || dateTime._seconds)
-  {
-    appDate =  moment((unixDate as Timestamp).seconds * 1000)
-                    ?? moment((unixDate as any)._seconds * 1000);
-  }
-  else
-  {
-    appDate = moment(unixDate);
-  }
+
+  const seconds = dateTime.seconds ?? dateTime._seconds;
+  appDate = !!seconds
+              ? moment(seconds * 1000)
+              : moment(unixDate);
 
   if (offsetCorrection)
   {
