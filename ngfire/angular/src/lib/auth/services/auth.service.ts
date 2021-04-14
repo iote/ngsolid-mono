@@ -35,8 +35,8 @@ export class AuthService {
     firebase.auth().languageCode = langCode;
     return firebase.auth()
                .sendPasswordResetEmail( email )
-               .then(() => this._toastService.doSimpleToast('A password reset link has been sent to your email address.'))
-               .catch(() => this._toastService.doSimpleToast('An error occurred while attempting to reset your password. Please contact support.'));
+              //  .then(() => this._toastService.doSimpleToast('A password reset link has been sent to your email address.'))
+              //  .catch(() => this._toastService.doSimpleToast('An error occurred while attempting to reset your password. Please contact support.'));
   }
 
   public createUserWithEmailAndPassword(displayName: string, email: string, password: string, userProfile: UserProfile, roles: Roles)
