@@ -17,10 +17,11 @@
 
   </mat-drawer-content>
 
-  <mat-drawer class="drawer-side" *ngIf="!position.isFolder"
-              position="end" mode="over"
+  <mat-drawer class="drawer-side" #drawer *ngIf="!position.isFolder"
+              position="end" mode="side"
               [opened]="!position.isFolder"
               (closed)="onNodeClicked(position.parent)">
+              <mat-icon class="close" (click)="drawer.close()"><i class="fas fa-times"></i></mat-icon>
     <!-- Current File -->
     <ngfire-file-details-pane [file]="position"
                               (nodeClicked)="onNodeClicked($event)">
