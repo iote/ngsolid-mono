@@ -1,25 +1,19 @@
-<iote-modal (click)="exitModal()" class="close-modal-btn">
-  <div modalTitle>{{'ADD.FOLDER.TITLE' | transloco }}</div>
+<iote-modal>
+  <div modalTitle>Add folder</div>
 
-  <form [formGroup]="createFolderForm" (ngSubmit)="createFolder(createFolderForm.value)">
-   
-    <mat-form-field id="name-input">
-      <mat-label>{{'FORMS.FIELDS.NAME' | transloco}}</mat-label>
+  <form [formGroup]="createFolderForm" (ngSubmit)="createFolder(createFolderForm.value)">'
+
+    <mat-form-field>
+      <mat-label>Name</mat-label>
       <input matInput type="text" formControlName="name" name="name" />
     </mat-form-field>
 
-    <div class="errorMessage" > 
-      <mat-error *ngIf="createFolderForm.controls['name'].touched && createFolderForm.controls['name'].hasError('maxlength')">
-      {{'ADD.FOLDER.VALIDATION.MAX.ERROR' | transloco}}
-      </mat-error>
-    </div>
-    
     <div footer>
       <button type="submit" [disabled]="!createFolderForm.valid"
               fxLayoutAlign="end" mat-raised-button color="accent">
-            {{'ADD.FOLDER.CREATE' | transloco }}
+        Create
       </button>
     </div>
 
   </form>
-</iote-modal> 
+</iote-modal>
