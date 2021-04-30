@@ -44,6 +44,9 @@ export class FirestoreUpdateRegistrar<T, R> extends FirestoreRegistrar<T, R>
   {
     const userId = context.auth ? context.auth.uid: null;
 
+    const before = dataSnap.before.data();
+    if (before) { context.before = before; }
+
     return {
       data: dataSnap.after.data(),
       context: { change: dataSnap, eventContext: context, userId, isAuthenticated: userId != null, environment: context.environment }
