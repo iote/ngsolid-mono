@@ -22,13 +22,15 @@ import { FileDetailsPathComponent } from './components/file-details-path/file-de
 import { FileDragUploadDirective } from './directives/file-drag-upload/file-drag-upload.directive';
 import { AddFolderModalComponent } from './components/add-folder-modal/add-folder-modal.component';
 import { ItemContextMenuComponent } from './components/item-context-menu/item-context-menu.component';
+import { MultiLangModule } from '@s4y/app/multi-lang';
+
 
 /**
  * Module that contains a file manager.
  */
 @NgModule({
   imports: [CommonModule, FlexLayoutModule, FormsModule, ReactiveFormsModule,
-            MaterialDesignModule, MaterialBricksModule, FilesModule, UIModalsModule,
+            MaterialDesignModule, MaterialBricksModule, FilesModule, UIModalsModule,MultiLangModule,
             AngularFireStorageModule, UIWorkflowModule],
 
   declarations: [FileManagerComponent, FileManagerNavComponent, FileDragUploadDirective,
