@@ -1,5 +1,9 @@
 <div class="breadcrumb-navbar" fxLayout="row" fxLayoutAlign="start center" *ngIf="crumbs$ | async as crumbs">
-  <div (click)="goBack()" class="fas fa-arrow-left back-ic"></div>
+  <div (click)="goBack()"> 
+    <div *ngIf="crumbs.length > 1">
+      <i class="fas fa-arrow-left back-ic"></i>
+    </div>
+  </div>
 
   <div class="breadcrumbs" fxLayout="row">
     <div class="breadcrumb-holder" *ngFor="let crumb of crumbs; let i = index">
