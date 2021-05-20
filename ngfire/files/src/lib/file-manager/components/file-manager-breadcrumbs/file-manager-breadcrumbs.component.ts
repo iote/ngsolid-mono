@@ -8,6 +8,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddFolderModalComponent } from '../add-folder-modal/add-folder-modal.component';
 import { DELETE_DIALOG_WIDTH } from '@iote/ui-workflows';
 import { SubSink } from 'subsink';
+import { ChildActivationEnd } from '@angular/router';
+
+import { BehaviorSubject } from 'rxjs';
+
 
 @Component({
   selector: 'ngfire-file-manager-breadcrumbs',
@@ -44,10 +48,13 @@ export class FileManagerCrumbComponent implements OnInit, OnDestroy
   filesSelected = (files: any) => this.curr.upload(files.target.files).subscribe();
 
   addFolder() {
-    this._sbS.sink = this._dialog.open(AddFolderModalComponent, { width: DELETE_DIALOG_WIDTH })
+    const names: string[] = this.curr.children.map(child => child.name)
+    this._sbS.sink = this._dialog.open(AddFolderModalComponent,
+                                          {width: DELETE_DIALOG_WIDTH, data: { names }})
                                 .afterClosed()
-                                .subscribe(name =>
-                                    this._sbS.sink = this.curr.addFolder(name).subscribe());
+                                .subscribe(
+                                   name =>
+                                       this._sbS.sink = this.curr.addFolder(name).subscribe());
   }
 
   private _toCrumbs(position: FolderIterator, first?: boolean) : FileManagerCrumb[]
