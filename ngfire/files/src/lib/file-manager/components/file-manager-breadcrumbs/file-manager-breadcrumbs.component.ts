@@ -1,6 +1,9 @@
 import { Component, Input, OnInit, EventEmitter, Output, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ChildActivationEnd } from '@angular/router';
+
+import { BehaviorSubject } from 'rxjs';
 
 import { FileManagerCrumb } from './file-manager-crumb.interface';
 import { FolderIterator } from '../../model/folder-iterator.class';
@@ -44,10 +47,14 @@ export class FileManagerCrumbComponent implements OnInit, OnDestroy
   filesSelected = (files: any) => this.curr.upload(files.target.files).subscribe();
 
   addFolder() {
-    this._sbS.sink = this._dialog.open(AddFolderModalComponent, { width: DELETE_DIALOG_WIDTH })
+    const names: string[] = this.curr.children.map(child => child.name)
+    this._sbS.sink = this._dialog.open(AddFolderModalComponent,
+                                          {width: DELETE_DIALOG_WIDTH, data: { names }})
                                 .afterClosed()
-                                .subscribe(name =>
-                                    this._sbS.sink = this.curr.addFolder(name).subscribe());
+                                .subscribe(
+                                   name =>
+                                       this._sbS.sink = this.curr.addFolder(name).subscribe());
+  
   }
 
   private _toCrumbs(position: FolderIterator, first?: boolean) : FileManagerCrumb[]
