@@ -27,7 +27,9 @@ export function __DateFromStorage(unixDate: Timestamp | Date, offsetCorrection: 
 
   const dateTime = unixDate as any;
 
-  const seconds = dateTime.seconds ?? dateTime._seconds;
+  const seconds = (dateTime.seconds || dateTime._seconds)
+                      ? dateTime.seconds ?? dateTime._seconds
+                      : null;
   appDate = !!seconds
               ? moment(seconds * 1000)
               : moment(unixDate);
