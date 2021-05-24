@@ -1,15 +1,21 @@
 <iote-modal>
   <div modalTitle>Add folder</div>
-
-  <form [formGroup]="createFolderForm" (ngSubmit)="createFolder(createFolderForm.value)">'
-
+    <div style="text-align: right"><span (click)="exitModal()" class="close-modal-btn"><i class="fas fa-times-circle"></i></span></div>
+    <div class="top-subtitle"></div>
+  
+ <form [formGroup]="createFolderForm" (ngSubmit)="createFolder(createFolderForm.value)">
     <mat-form-field>
       <mat-label>Name</mat-label>
       <input matInput type="text" formControlName="name" name="name" />
     </mat-form-field>
-
-    <div footer>
-      <button type="submit" [disabled]="!createFolderForm.valid"
+    <div *ngIf="(name.touched || name.dirty)" class="errorMessage">
+      <mat-error *ngIf="name.errors" >
+        "Name Already Exists"
+      </mat-error> 
+     </div> 
+      
+     <div footer>
+      <button type="submit" [disabled]="!createFolderForm?.valid"
               fxLayoutAlign="end" mat-raised-button color="accent">
         Create
       </button>

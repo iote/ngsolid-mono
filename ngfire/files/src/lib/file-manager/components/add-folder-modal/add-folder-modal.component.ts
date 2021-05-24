@@ -1,5 +1,6 @@
 import {Component, EventEmitter, OnInit, Input, Output, Inject } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators,ValidationErrors, ControlContainer } from '@angular/forms';
+import { ValidatorFn, AbstractControl } from '@angular/forms';
 
 import * as _ from 'lodash';
 import { Logger } from '@iote/bricks-angular';
@@ -28,7 +29,7 @@ export class AddFolderModalComponent implements OnInit
   ngOnInit()
   {
     this.createFolderForm = this._fb.group({
-      name: ['', [Validators.required]]
+      name: ['', [Validators.required, this.ValidateExisting(this._data.names) ]]
     });
   }
 
@@ -39,8 +40,24 @@ export class AddFolderModalComponent implements OnInit
   {
     if(this.createFolderForm.valid)
     {
-      this._dialogRef.close(frm.name);
+       this._dialogRef.close(frm.name);
     }
   }
 
-}
+  exitModal = () => this._dialogRef.close();
+  
+  ValidateExisting(names: string[]): ValidatorFn
+  {
+      return (control: AbstractControl): { [key: string]: any } | null => {
+          const returnVal = names.includes (control.value)
+                              ? { nameExists: true} as ValidationErrors
+                              : null;
+
+          return returnVal
+     }
+    }
+    get name(){
+      return this.createFolderForm.get('name');
+    }
+  }
+
