@@ -27,8 +27,7 @@ function _getStore()
   // For example:
   // - Old: const date = snapshot.get('created_at');
   // - New: const timestamp = snapshot.get('created_at'); const date = timestamp.toDate();
-  fireStore.settings({ timestampsInSnapshots: true,
-                       ignoreUndefinedProperties:true});
+  fireStore.settings({ timestampsInSnapshots: true });
 
   return fireStore;
 }
