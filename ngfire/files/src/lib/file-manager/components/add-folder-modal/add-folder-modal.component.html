@@ -1,7 +1,5 @@
-<iote-modal>
+<iote-modal (exit)="exitModal()">
   <div modalTitle>Add folder</div>
-    <div style="text-align: right"><span (click)="exitModal()" class="close-modal-btn"><i class="fas fa-times-circle"></i></span></div>
-    <div class="top-subtitle"></div>
   
  <form [formGroup]="createFolderForm" (ngSubmit)="createFolder(createFolderForm.value)">
     <mat-form-field>
