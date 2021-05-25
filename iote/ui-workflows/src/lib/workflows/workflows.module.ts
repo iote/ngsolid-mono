@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MultiLangModule } from '@s4y/app/multi-lang';
+
 
 import { MaterialDesignModule } from '@iote/bricks-angular';
 import { DeleteConfirmationDialogComponent } from './components/delete-confirmation-modal/delete-confirmation-modal.component';
@@ -11,7 +13,7 @@ import { InfoPanelComponent } from './components/info-panel/info-panel.component
  * Library can later be split in more modules as workflows become more specific.
  */
 @NgModule({
-  imports: [CommonModule, MaterialDesignModule],
+  imports: [CommonModule, MaterialDesignModule,MultiLangModule],
                                                     // Belongs more in a Layout Module, but temp stored here.
   declarations: [DeleteConfirmationDialogComponent, InfoPanelComponent],
   providers: [],

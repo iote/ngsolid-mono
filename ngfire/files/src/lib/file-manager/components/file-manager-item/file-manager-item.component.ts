@@ -1,5 +1,8 @@
 
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { TranslateService } from '@s4y/app/multi-lang'
+
+import * as translations from '../../model/folder-root-structure.const';
 
 import { FolderIterator } from '../../model/folder-iterator.class';
 import { Logger } from '@iote/bricks-angular';
@@ -18,7 +21,8 @@ export class FileManagerItemComponent
 
   fileOver: boolean;
 
-  constructor(private _logger: Logger) { }
+  constructor(private _logger: Logger,
+              private _trl: TranslateService) { }
 
   meClicked = () => this.nodeClicked.emit(this.item);
 
@@ -26,7 +30,20 @@ export class FileManagerItemComponent
   {
     this.item.upload(files).subscribe(() => true);
   }
+  getName(name: string)
+  {
+    const lang = this._trl.getLang();
+    // Fetch translation from file
+    const translation = translations.FolderRootStructure.find(trl => trl.en === name);
+    if(!translation)
+    {
+      return name;
+    }
+
+    return translation[lang];
+  }
 
   onDrag = (evt: 'in' | 'out') => this.fileOver = (evt === 'in');
   getFolderIcon = () => this.fileOver ? 'far fa-folder-open' : 'far fa-folder';
 }
+

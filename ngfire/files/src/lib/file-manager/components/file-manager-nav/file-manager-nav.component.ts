@@ -1,11 +1,13 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
-
+import { TranslateService } from '@s4y/app/multi-lang';
 import { Logger } from '@iote/bricks-angular';
 
 import { FolderIterator } from '../../model/folder-iterator.class';
 import { map } from 'rxjs/operators';
+
+import * as translations from '../../model/folder-root-structure.const';
 
 /** */
 @Component({
@@ -23,7 +25,8 @@ export class FileManagerNavComponent implements OnInit
   dataSource  = new MatTreeNestedDataSource<FolderIterator>();
   treeControl  = new NestedTreeControl<FolderIterator>(node => this.loadChildren(node));
 
-  constructor(private _logger: Logger) { }
+  constructor(private _logger: Logger,
+              private _trl: TranslateService) { }
 
   ngOnInit()
   {
@@ -51,5 +54,18 @@ export class FileManagerNavComponent implements OnInit
   }
 
   goToNode = (node: FolderIterator) => this.nodeClicked.emit(node);
+
+  getName(name: string)
+  {
+    const lang = this._trl.getLang();
+    // Fetch translation from file
+    const translation = translations.FolderRootStructure.find(trl => trl.en === name);
+    if(!translation)
+    {
+      return name;
+    }
+
+    return translation[lang];
+  }
 
 }

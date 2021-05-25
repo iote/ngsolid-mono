@@ -21,7 +21,8 @@
             <i class="mat-icon-rtl-mirror"
               [ngClass]="treeControl.isExpanded(node) ? 'fas fa-chevron-down' : 'fas fa-chevron-right'"></i>
           </button>
-          {{node.name}}
+          <!-- {{ getTranslation('ADD-FOLDER.TITLE')}} -->
+          {{ getName(node.name) }}
         </div>
         <ul [class.invisible]="!treeControl.isExpanded(node)">
           <ng-container matTreeNodeOutlet></ng-container>
