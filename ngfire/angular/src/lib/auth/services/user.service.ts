@@ -3,12 +3,13 @@ import { Injectable } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore } from "@angular/fire/firestore";
 
-import { map } from "rxjs/operators";
+import { map, tap } from "rxjs/operators";
 
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { User } from "@iote/bricks";
+import { Logger } from "@iote/bricks-angular";
 import { Query } from '@ngfire/firestore-qbuilder';
 
 /**
@@ -23,7 +24,8 @@ export abstract class UserService<T extends User>
 {
   protected _user$: Observable<T | null>;
 
-  constructor(private _afAuth: AngularFireAuth,
+  constructor(private _logger: Logger,
+              private _afAuth: AngularFireAuth,
               private _afs: AngularFirestore)
   {
     // Set user variable. Observe the firebase user.
@@ -52,14 +54,16 @@ export abstract class UserService<T extends User>
     return coll.valueChanges();
   }
 
-  private _initUserSubject()
+  private _initUserSubject() : Observable<T>
   {
     return this._afAuth
-                .authState
-                .pipe(switchMap(user => { // Subscription, if doc changes everything changes.
+                .user
+                .pipe(switchMap(user =>
+                          // Switch to subscription, if doc changes everything changes.
+                          ((user && user.uid) ? this._afs.doc<T>(`users/${user.uid}`).valueChanges()
+                                              : of(null))),
 
-                  return <Observable<T>> (user ?  this._afs.doc<User>(`users/${user.uid}`).valueChanges()
-                                                  : of(null));
-                }));
+                      tap(u => this._logger.log(() => u ? `[UserService] Retrieved user ${(u as T).id}`
+                                                        : 'User not set yet.')));
   }
 }
