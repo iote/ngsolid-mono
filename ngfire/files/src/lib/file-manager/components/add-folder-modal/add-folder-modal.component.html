@@ -4,18 +4,13 @@
  <form [formGroup]="createFolderForm" (ngSubmit)="createFolder(createFolderForm.value)">
     <mat-form-field>
       <mat-label>Name</mat-label>
-      <input matInput type="text" formControlName="name" name="name" />
+      <input matInput  type="text" formControlName="name" name="name" />
     </mat-form-field>
-    <div *ngIf="(name.touched || name.dirty)" class="errorMessage">
-      <mat-error *ngIf="name.errors" >
-        "Name Already Exists"
-      </mat-error> 
-     </div> 
-      
+    
      <div footer>
       <button type="submit" [disabled]="!createFolderForm?.valid"
               fxLayoutAlign="end" mat-raised-button color="accent">
-        Create
+              Create
       </button>
     </div>
 
