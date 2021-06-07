@@ -31,7 +31,7 @@ export class AuthService {
 
   public async resetPassword(email: string, langCode: string = 'en' )
   {
-    
+
     firebase.auth().languageCode = langCode;
     return firebase.auth()
                .sendPasswordResetEmail( email )
@@ -151,8 +151,7 @@ export class AuthService {
     else if (errorCode === 'auth/auth-domain-config-required')
       this._toastService.doSimpleToast("An auth domain configuration is required. Please contact support.", 3000);
 
-    else if (errorCode === 'auth/operation-not-allowed'
-              || errorCode === 'auth/popup-closed-by-user')
+    else if (errorCode === 'auth/operation-not-allowed')
       this._toastService.doSimpleToast("Action failed. Please contact support. Code: ONA", 3000);
 
     else if (errorCode === 'auth/operation-not-supported-in-this-environment')
@@ -164,7 +163,7 @@ export class AuthService {
     else if (errorCode === 'auth/unauthorized-domain')
       this._toastService.doSimpleToast("Action failed. Please contact support. Code: DOMA", 3000);
 
-    else if (errorCode === 'auth/cancelled-popup-request')
+    else if (errorCode === 'auth/cancelled-popup-request' || errorCode === 'auth/popup-closed-by-user')
     { // Do nothing. User cancelled him or herself.
       // this._toastService.doSimpleToast("Popup sign in was canceled");
     }
