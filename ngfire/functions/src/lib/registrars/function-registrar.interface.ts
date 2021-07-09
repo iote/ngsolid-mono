@@ -1,6 +1,7 @@
 import { CloudFunction, HttpsFunction } from "firebase-functions";
 
 import { Logger, getLogger } from '@iote/cqrs';
+import { CustomException } from '@iote/exceptions';
 
 import { FunctionContext } from '../context/context.interface';
 
@@ -43,7 +44,7 @@ export abstract class FunctionRegistrar<T, R>
 
       return func(params.data, params.context)
                 .then((r: R) => this.after(r, params.context))
-                .catch(this.onError);
+                .catch(this.onErrorHandleCustom);
 
     });
   }
@@ -55,6 +56,26 @@ export abstract class FunctionRegistrar<T, R>
    * @param result
    */
   abstract after(result: R, context: FunctionContext): any;
+
+
+  /**
+   * 09/07 - Introduction of error handling infrastructure.
+   *
+   * Custom exception cases to be handled automatically by the system.
+   */
+  onErrorHandleCustom(error: CustomException): Promise<any>
+  {
+    try {
+      if(error.isCustom)
+        return error.handle();
+    }
+    // Error handler can still crash.
+    catch(e)
+    { return this.onError(e); }
+
+    // Default handler
+    return this.onError(error);
+  }
 
   /**
    * Error handling function.
