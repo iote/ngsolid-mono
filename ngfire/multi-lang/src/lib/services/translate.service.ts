@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { BehaviorSubject, Observable } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
 import { TranslocoService, HashMap } from '@ngneat/transloco';
 // import { Intercom } from 'ng-intercom';
@@ -15,12 +16,13 @@ import { LocalPersistanceService } from '@iote/local-persistance';
 @Injectable()
 export class TranslateService
 {
-  private _lang: 'fr' | 'en';
-  private _lang$: BehaviorSubject<'fr' | 'en'>;
+  protected _lang: 'fr' | 'en' | 'nl';
+  protected _lang$: BehaviorSubject<'fr' | 'en'| 'nl'>;
 
   /** Use transloco as translator */
   constructor(private _transloco: TranslocoService,
-              private _localPersistanceSrv: LocalPersistanceService)
+              private _localPersistanceSrv: LocalPersistanceService,
+              isOverride = false)
               // private _intercom: Intercom)
   {
     if(!this._lang)
@@ -32,7 +34,8 @@ export class TranslateService
         this._lang = this._getLangFromUser();
     }
 
-    this.setLang(this._lang);
+    if(!isOverride)
+      this.setLang(this._lang);
   }
 
   initialise()
@@ -50,7 +53,19 @@ export class TranslateService
     return this._lang;
   }
 
-  setLang(lang: 'en' | 'fr')
+  /** Load the given language, and add it to the service.
+  *  Fixes bug that translations are not found when using translateTo but lang is not loaded.
+  *
+  * @see https://ngneat.github.io/transloco/docs/language-api#load
+  */
+  loadLang(lang: 'en' | 'nl' | 'fr') : Observable<'en' | 'nl' | 'fr'>
+  {
+    return this._transloco.load(lang)
+                    .pipe(map(() => lang),
+                          take(1));
+  }
+
+  setLang(lang: 'en' | 'fr' | 'nl')
   {
     this._lang = lang;
     this._localPersistanceSrv.setConfig('lang', lang);
@@ -88,7 +103,7 @@ export class TranslateService
    * @param code
    * @param lang
    */
-  translateTo(code: string, lang: 'fr' | 'en') {
+  translateTo(code: string, lang: 'fr' | 'en'| 'nl') {
     return this._transloco.translate(code, {}, lang);
   }
 
@@ -102,7 +117,7 @@ export class TranslateService
                    // e.g. change en-US, en-GB to en, fr-FR to fr, ...
       const lang = defLang.split('-')[0].toLowerCase();
 
-      if(lang === 'en' || lang === 'fr')
+      if(lang === 'en' || lang === 'fr' || lang === 'nl')
         return this.setLang(lang);
     }
 
