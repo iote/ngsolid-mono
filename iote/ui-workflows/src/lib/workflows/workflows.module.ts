@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MultiLangModule } from '@s4y/app/multi-lang';
+import { MultiLangModule } from '@elewa/elements/multi-lang';
 
 
 import { MaterialDesignModule } from '@iote/bricks-angular';
