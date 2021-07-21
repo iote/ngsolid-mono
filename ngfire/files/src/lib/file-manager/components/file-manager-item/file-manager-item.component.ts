@@ -1,6 +1,6 @@
 
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { TranslateService } from '@s4y/app/multi-lang'
+import { TranslateService } from '@ngfire/multi-lang'
 
 import * as translations from '../../model/folder-root-structure.const';
 

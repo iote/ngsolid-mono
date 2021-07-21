@@ -6,7 +6,7 @@ import { map, take } from 'rxjs/operators';
 import { TranslocoService, HashMap } from '@ngneat/transloco';
 import { Intercom } from 'ng-intercom';
 
-import { LocalPersistanceService } from '@s4y/state/data';
+import { LocalPersistanceService } from '@iote/local-persistance';
 
 /**
  * Service in charge for translating of strings.
