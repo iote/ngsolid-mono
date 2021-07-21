@@ -35,9 +35,9 @@ export class MultiLangModule
         {
           provide: TRANSLOCO_CONFIG,
           useValue: translocoConfig({
-            availableLangs: langs ?? ['en', 'fr'],
-            defaultLang: langs ? langs[0]  : 'en',
-            fallbackLang: langs ? langs[0] : 'en',
+            availableLangs: langs ?? ['en', 'fr', 'nl'],
+            defaultLang: langs    ? langs[0]  : 'en',
+            fallbackLang: langs   ? langs[0] : 'en',
             reRenderOnLangChange: true,
             prodMode: true
           })
