@@ -44,8 +44,7 @@ export abstract class FunctionRegistrar<T, R>
 
       return func(params.data, params.context)
                 .then((r: R) => this.after(r, params.context))
-                .catch(this.onErrorHandleCustom);
-
+                .catch(this.onErrorHandleCustom.bind(this));
     });
   }
 
