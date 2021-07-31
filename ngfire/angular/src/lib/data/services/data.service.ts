@@ -7,6 +7,7 @@ import { IObject, User } from '@iote/bricks';
 import { UserService } from '../../auth/services/user.service';
 
 import { BaseDataProvider } from '../db/base.data-provider';
+import { DbReference } from '../db/db-reference.type';
 import { Repository } from '../repositories/repository.model';
 
 /**
@@ -15,11 +16,17 @@ import { Repository } from '../repositories/repository.model';
  * Goal: Override this class and create single point of database table configuration.
  */
 @Injectable({ providedIn: 'root' })
-export class DataService extends BaseDataProvider {
+export class DataService extends BaseDataProvider
+{
+  /** Hack which exposes not yet supported features by our repositories. */
+  public __db: DbReference;
 
   constructor(_db: AngularFirestore,
               _userService: UserService<User>)
-  { super (_db, _userService ); }
+  {
+    super (_db, _userService );
+    this.__db = this._db;
+  }
 
   /**
    * Newer version of the data service.

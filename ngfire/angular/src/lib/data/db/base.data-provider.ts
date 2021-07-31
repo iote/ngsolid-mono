@@ -11,8 +11,8 @@ import { Repository } from '../repositories/repository.model';
  */
 export abstract class BaseDataProvider
 {
-  constructor(private _db: AngularFirestore,
-              private _userService: UserService<User>)
+  constructor(protected _db: AngularFirestore,
+              protected _userService: UserService<User>)
   {}
 
   protected _createRepo<T extends IObject>(collectionName) {
