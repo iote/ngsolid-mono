@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 
-import { Repository } from '../repositories/repository.model';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { UserService } from '../../auth/services/user.service';
 
 import { IObject, User } from '@iote/bricks';
+
+import { UserService } from '../../auth/services/user.service';
+
+import { BaseDataProvider } from '../db/base.data-provider';
+import { Repository } from '../repositories/repository.model';
 
 /**
  * Service that creates repositories.
@@ -12,11 +15,11 @@ import { IObject, User } from '@iote/bricks';
  * Goal: Override this class and create single point of database table configuration.
  */
 @Injectable({ providedIn: 'root' })
-export abstract class DataService {
+export class DataService extends BaseDataProvider {
 
-  constructor(private _db: AngularFirestore,
-              private _userService: UserService<User>)
-  {}
+  constructor(_db: AngularFirestore,
+              _userService: UserService<User>)
+  { super (_db, _userService ); }
 
   /**
    * Newer version of the data service.
@@ -25,12 +28,8 @@ export abstract class DataService {
    *
    * @param collectionName: The collection name.
    */
-  public getRepo<T extends IObject>(collectionName: string) {
+  public getRepo<T extends IObject>(collectionName: string): Repository<T> {
     return this._createRepo<T>(collectionName);
-  }
-
-  private _createRepo<T extends IObject>(collectionName: string) {
-    return new Repository<T>(collectionName, this._db, this._userService);
   }
 
 }
