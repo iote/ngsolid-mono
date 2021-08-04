@@ -32,8 +32,10 @@ function _getStore()
   return fireStore;
 }
 
-export const AdminRepositoryFactory = {
+export const DirectAdminRepositoryFactory = {
   create: _createRepository,
   __getStore: getStore,
   ___createRaw: (path) => getStore().collection(path)
-} as DbFactory;
+}
+
+export const AdminRepositoryFactory = DirectAdminRepositoryFactory as DbFactory;
