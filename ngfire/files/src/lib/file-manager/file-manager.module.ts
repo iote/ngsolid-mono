@@ -7,7 +7,7 @@ import { UIWorkflowModule, UIModalsModule } from '@iote/ui-workflows';
 import { MaterialDesignModule, FlexLayoutModule, MaterialBricksModule } from '@iote/bricks-angular';
 
 import { FilesModule } from '../files';
-import { MultiLangFiles } from 'libs/external/ngfire/files-transloco/src/lib/files-transloco.module';
+import { MultiLangModule } from '@ngfire/multi-lang';
 
 import { FileManagerComponent } from './components/file-manager/file-manager.component';
 import { FileManagerNavComponent } from './components/file-manager-nav/file-manager-nav.component';
@@ -28,7 +28,7 @@ import { ItemContextMenuComponent } from './components/item-context-menu/item-co
  * Module that contains a file manager.
  */
 @NgModule({
-  imports: [CommonModule, FlexLayoutModule, FormsModule, ReactiveFormsModule,MultiLangFiles,
+  imports: [CommonModule, FlexLayoutModule, FormsModule, ReactiveFormsModule,MultiLangModule,
             MaterialDesignModule, MaterialBricksModule, FilesModule, UIModalsModule,
             AngularFireStorageModule, UIWorkflowModule],
 
