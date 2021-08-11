@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { IObject } from '@iote/bricks';
 import { Logger } from '@iote/bricks-angular';
 import { __DateFromStorage } from '@iote/time';
 
@@ -11,10 +12,10 @@ import { map } from 'rxjs/operators';
 import { BaseOptimisticEventsStore } from './base-optimistic-event-store.class';
 
 @Injectable()
-export abstract class OptimisticDataStore<T> extends EntityStore<T>
+export abstract class OptimisticDataStore<T extends IObject> extends EntityStore<T>
 {
   constructor(private _optimisticEvtStore$$: BaseOptimisticEventsStore,
-              protected _logger: Logger)
+              protected _logger?: Logger)
   {
     super([], true);
   }
@@ -23,12 +24,10 @@ export abstract class OptimisticDataStore<T> extends EntityStore<T>
   {
     const originalStoreValues = super.get(filter);
 
-    debugger;
-
-    const optimisticValues = this._optimisticEvtStore$$.getSimulated<T>(this.store);
+    const optimisticValues = this._optimisticEvtStore$$.getSimulated<T>(this.store, filter);
 
     return combineLatest([originalStoreValues, optimisticValues])
-            .pipe(map(([original, optimisticData]) => this._removeOlder(original, optimisticData)));
+            .pipe(map(([originalVals, optimisticData]) => this._removeOlder(originalVals, optimisticData)));
   }
 
   /**
@@ -39,10 +38,13 @@ export abstract class OptimisticDataStore<T> extends EntityStore<T>
    */
   private _removeOlder(original: T[], optimisticData:T[])
   {
+    if(!this._applySimulations(original, optimisticData))
+    {
+      return original;
+    }
+
     const combined = original.concat(optimisticData);
-    const grouped = _.groupBy(combined, function(d) {
-                      return (d as any).id;
-                    });
+    const grouped = _.groupBy(combined, (d) => (d as any).id);
 
     const uniqueLatest: T[] = [];
 
@@ -56,8 +58,20 @@ export abstract class OptimisticDataStore<T> extends EntityStore<T>
     return uniqueLatest;
   }
 
+  private _applySimulations(original: T[], optimisticData:T[])
+  {
+    if(original.length)
+    {
+      return (original[0] as any).hasOwnProperty('id') && optimisticData?.length;
+    }
+
+    return false;
+  }
+
+
   private _getLatest(sameIds: T[]): T
   {
+    if(sameIds.length < 1) return;
     // Order by created on date descending
     const ordered = _.orderBy(sameIds,( a: any) => __DateFromStorage(a.createdOn).unix(), 'desc');
 
