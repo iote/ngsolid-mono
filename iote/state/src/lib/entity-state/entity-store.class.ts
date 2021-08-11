@@ -32,7 +32,7 @@ export abstract class EntityStore<T> implements Stateful<T[]>
   /** @warning: Should not always be called directly.
    *            Entity stores will have their own methods that can manage subscriptions
    *              depending on queries. */
-  get(filter? : (t: T) => boolean) : Observable<T[]>
+   get(filter? : (t: T) => boolean) : Observable<T[]>
   {
     return this.state$.pipe(map(state => filter ? state.entities.filter(filter)
                                                 : state.entities));
