@@ -23,14 +23,14 @@ export class OptimisticUiEventsStore extends BaseOptimisticEventsStore
 
   constructor(protected _logger: Logger)
   {
-    super(null);
+    super([]);
   }
 
   getSimulated<T>(storeName: string, filter? : (t: T) => boolean): Observable<T[]>
   {
     return super.get().pipe(
                 map(optimisticUiEvents => this.processRelevant<T>(optimisticUiEvents, storeName)),
-                map(simulatedObjects => simulatedObjects.filter(filter))
+                map(simulatedObjects => simulatedObjects.filter(filter ? filter : () => true))
               );
   }
 
