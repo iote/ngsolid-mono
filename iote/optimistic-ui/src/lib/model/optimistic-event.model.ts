@@ -1,9 +1,9 @@
 import { IObject } from '@iote/bricks';
 
-export enum UIEventType{
-  create = 'CREATE',
-  update = 'UPDATE',
-  delete = 'DELETE'
+export enum OptimisticEventType{
+  create = 'Create',
+  update = 'Update',
+  delete = 'Delete'
 }
 
 export interface OptimisticEvent extends IObject{
@@ -15,7 +15,7 @@ export interface OptimisticEvent extends IObject{
   duration: number;
 
   /** Type of action (Either a create, update, or delete) */
-  actionType: UIEventType,
+  actionType: OptimisticEventType,
 
   /** Object to be affected by the event action */
   payload: any
