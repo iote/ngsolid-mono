@@ -4,7 +4,7 @@ import { OptimisticEventBridge } from "./optimistic-event-bridge.model";
 
 export class BasicEventBridge extends OptimisticEventBridge{
 
-  simulate<T>(optimisticEvt: OptimisticEvent)
+  simulate<T>(optimisticEvt: OptimisticEvent): T
   {
     const affectedObj = (optimisticEvt.payload) as OptimisticEffect;
 
@@ -16,6 +16,8 @@ export class BasicEventBridge extends OptimisticEventBridge{
     }
 
     this._OptimisticStore.add([optimisticEvt], optimisticEvt.actionType);
+
+    return optimisticEvt.payload as T;
   }
 
 }

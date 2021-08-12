@@ -13,5 +13,5 @@ export abstract class CascadingEventBridge extends OptimisticEventBridge{
   /**
    * Performs the operation that emits more events
    */
-  abstract cascade<T>() : void;
+  abstract cascade<T>() : T;
 }

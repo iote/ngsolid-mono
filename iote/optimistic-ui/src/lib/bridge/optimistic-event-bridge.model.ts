@@ -12,5 +12,5 @@ export abstract class OptimisticEventBridge{
   /**
    * Mocks the operation meant to be performed by the
    */
-  abstract simulate<T>(event: OptimisticEvent) : void;
+  abstract simulate<T>(event: OptimisticEvent) : T;
 }
