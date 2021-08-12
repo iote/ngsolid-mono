@@ -17,4 +17,9 @@ export abstract class BaseOptimisticEventsStore extends EntityStore<OptimisticEv
    * @param filter Filter applied to the original store data/query
    */
   abstract getSimulated<T>(storeName: string, filter? : (t: T) => boolean): Observable<T[]>;
+
+  add(events: OptimisticEvent[], eventType: 'Create'| 'Update'| 'Delete')
+  {
+    this.patch(events, eventType);
+  }
 }
