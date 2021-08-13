@@ -9,7 +9,7 @@ import { from } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class BackendService
 {
-  constructor(private _fns: AngularFireFunctions) { }
+  constructor(protected _fns: AngularFireFunctions) { }
 
   /**
    * Call Firebase Cloud Function
