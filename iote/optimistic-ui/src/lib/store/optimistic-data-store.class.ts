@@ -14,7 +14,7 @@ import { BaseOptimisticEventsStore } from './base-optimistic-event-store.class';
 @Injectable()
 export abstract class OptimisticDataStore<T extends IObject> extends EntityStore<T>
 {
-  constructor(private _optimisticEvtStore$$: BaseOptimisticEventsStore,
+  constructor(private _optimisticEvtStore$$: BaseOptimisticEventsStore<T>,
               protected _logger?: Logger)
   {
     super([], true);
@@ -46,7 +46,7 @@ export abstract class OptimisticDataStore<T extends IObject> extends EntityStore
     const combined = original.concat(optimisticData);
     const grouped = _.groupBy(combined, (d) => (d as any).id);
 
-    const uniqueLatest: T[] = [];
+    let uniqueLatest: T[] = [];
 
     for(let key in grouped)
     {
@@ -55,14 +55,16 @@ export abstract class OptimisticDataStore<T extends IObject> extends EntityStore
       uniqueLatest.push(this._getLatest(sameIds));
     }
 
+    uniqueLatest = this._simulateDeletions(uniqueLatest);
+
     return uniqueLatest;
   }
 
-  private _applySimulations(original: T[], optimisticData:T[])
+  private _applySimulations(original: T[], optimisticData:T[]): boolean
   {
     if(original.length)
     {
-      return (original[0] as any).hasOwnProperty('id') && optimisticData?.length;
+      return (original[0] as any).hasOwnProperty('id') && optimisticData?.length > 0;
     }
 
     return false;
@@ -76,5 +78,10 @@ export abstract class OptimisticDataStore<T extends IObject> extends EntityStore
     const ordered = _.orderBy(sameIds,( a: any) => __DateFromStorage(a.createdOn).unix(), 'desc');
 
     return ordered[0];
+  }
+
+  private _simulateDeletions(uniqueLatest: T[])
+  {
+    return uniqueLatest.filter(val => !(val as any).del);
   }
 }
