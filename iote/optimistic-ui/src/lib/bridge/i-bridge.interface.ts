@@ -1,15 +1,15 @@
 import { DbMethods } from '@iote/cqrs';
 import { IObject } from '@iote/bricks';
 import { ICommand } from '@iote/cqrs';
-import { BaseOptimisticEventsStore } from '../store/base-optimistic-event-store.class';
+import { IOptimisticEffectsStore } from '../store/i-optimistic-effects-store.class';
 
-import { OptimisticEvent, OptimisticEventType } from './../model/optimistic-event.model';
+import { IOptimisticEffect } from './../model/i-optimistic-effect.model';
 
 export interface IBridge<C extends ICommand, P extends IObject>
 {
-  run(command: C): OptimisticEvent<P>[];
+  run(command: C): IOptimisticEffect<P>[];
 
-  revert(command: C): OptimisticEvent<P>[];
+  revert(command: C): IOptimisticEffect<P>[];
 }
 
 export abstract class Bridge<C extends ICommand, P extends IObject> implements IBridge<C, P>
@@ -17,11 +17,11 @@ export abstract class Bridge<C extends ICommand, P extends IObject> implements I
 
   constructor(private _affectedStoreName: string,
               private _duration: number,
-              private _eventsStore$$: BaseOptimisticEventsStore<P>)
+              private _eventsStore$$: IOptimisticEffectsStore<P>)
   {
   }
 
-  run(command: C): OptimisticEvent<P>[]
+  run(command: C): IOptimisticEffect<P>[]
   {
     const events = this.execute(command).map(obj => this._createEvent(obj, command));
 
@@ -30,7 +30,7 @@ export abstract class Bridge<C extends ICommand, P extends IObject> implements I
     return events;
   }
 
-  revert(command: C): OptimisticEvent<P>[]
+  revert(command: C): IOptimisticEffect<P>[]
   {
     const events = this.execute(command).map(obj => this._createEvent(obj, command));
 
@@ -41,7 +41,7 @@ export abstract class Bridge<C extends ICommand, P extends IObject> implements I
 
   abstract execute(command: C) : P[]
 
-  private _createEvent(obj: P, command: C): OptimisticEvent<P>
+  private _createEvent(obj: P, command: C): IOptimisticEffect<P>
   {
     (obj as any).isOptimistic = true;
 

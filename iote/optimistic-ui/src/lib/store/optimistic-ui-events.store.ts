@@ -7,8 +7,8 @@ import { map } from 'rxjs/operators';
 import { Observable } from "rxjs";
 import * as moment from 'moment';
 
-import { OptimisticEvent } from './../model/optimistic-event.model';
-import { BaseOptimisticEventsStore } from "./base-optimistic-event-store.class";
+import { OptimisticEvent } from './../model/i-optimistic-effect.model';
+import { IOptimisticEffectsStore } from "./i-optimistic-effects-store.class";
 
 /**
  * @class OptimisticUiEventsStore
@@ -17,7 +17,7 @@ import { BaseOptimisticEventsStore } from "./base-optimistic-event-store.class";
  * that will thereafter be combined with data from the actual database
  */
 @Injectable()
-export class OptimisticUiEventsStore extends BaseOptimisticEventsStore
+export class OptimisticUiEventsStore extends IOptimisticEffectsStore
 {
   store = 'optimistic-ui-store';
 

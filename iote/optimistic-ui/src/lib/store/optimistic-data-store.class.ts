@@ -9,12 +9,12 @@ import * as _ from 'lodash';
 
 import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { BaseOptimisticEventsStore } from './base-optimistic-event-store.class';
+import { IOptimisticEffectsStore } from './i-optimistic-effects-store.class';
 
 @Injectable()
 export abstract class OptimisticDataStore<T extends IObject> extends EntityStore<T>
 {
-  constructor(private _optimisticEvtStore$$: BaseOptimisticEventsStore<T>,
+  constructor(private _optimisticEvtStore$$: IOptimisticEffectsStore<T>,
               protected _logger?: Logger)
   {
     super([], true);

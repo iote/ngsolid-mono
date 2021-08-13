@@ -1,7 +1,7 @@
 import { ModuleWithProviders, NgModule } from "@angular/core";
 import { OptimisticUiEventsStore } from "./store/optimistic-ui-events.store";
 
-import { BaseOptimisticEventsStore } from '../lib/store/base-optimistic-event-store.class';
+import { IOptimisticEffectsStore } from '../lib/store/i-optimistic-effects-store.class';
 
 @NgModule({
   imports:[],
@@ -16,7 +16,7 @@ export class OptimisticUIModule
       ngModule: OptimisticUIModule,
       providers: [
         {
-          provide: BaseOptimisticEventsStore,
+          provide: IOptimisticEffectsStore,
           useClass: OptimisticUiEventsStore
         }
       ]

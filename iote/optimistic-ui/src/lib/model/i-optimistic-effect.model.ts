@@ -7,7 +7,7 @@ export enum OptimisticEventType{
   delete = 'Delete'
 }
 
-export interface OptimisticEvent<T extends IObject>{
+export interface IOptimisticEffect<T extends IObject>{
 
   /** affectedStoreName: Name of the store that needs to be updated */
   affectedStoreName: string;

@@ -4,15 +4,15 @@ import * as _ from "lodash";
 
 import { Observable } from "rxjs";
 
-import { OptimisticEvent } from "../model/optimistic-event.model";
+import { IOptimisticEffect } from "../model/i-optimistic-effect.model";
 
 /**
- * @class BaseOptimisticEventsStore
+ * @class IOptimisticEffectsStore
  *
  * @description  Base class providing guidelines for setting up an Optimistic Ui Event Store
  *
  */
-export abstract class BaseOptimisticEventsStore<T> extends EntityStore<OptimisticEvent<T>>
+export abstract class IOptimisticEffectsStore<T> extends EntityStore<IOptimisticEffect<T>>
 {
   /**
    * @param storeName Name of the store. (Helps filter out irrelevant events that do not belong to the specific store)
@@ -20,16 +20,16 @@ export abstract class BaseOptimisticEventsStore<T> extends EntityStore<Optimisti
    */
   abstract getSimulated<T>(storeName: string, filter? : (t: T) => boolean): Observable<T[]>;
 
-  add(events: OptimisticEvent<T>[])
+  add(events: IOptimisticEffect<T>[])
   {
     return this.patch(events, 'Create');
   }
 
-  remove(toRemove: OptimisticEvent<T>[])
+  remove(toRemove: IOptimisticEffect<T>[])
   {
     const current = _.cloneDeep(this.state.entities);
 
-    const cleanedUp = _.differenceBy(current, toRemove, (ev: OptimisticEvent<T>) => (ev.payload as IObject).id);
+    const cleanedUp = _.differenceBy(current, toRemove, (ev: IOptimisticEffect<T>) => (ev.payload as IObject).id);
 
     this.set(cleanedUp, 'Delete');
   }
