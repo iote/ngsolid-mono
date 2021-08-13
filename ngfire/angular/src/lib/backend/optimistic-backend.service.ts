@@ -1,10 +1,8 @@
 import { ICommand } from '@iote/cqrs';
-import { OptimisticEvent, IBridgeFactory } from '@iote/optimistic-ui';
+import { IBridgeFactory } from '@iote/optimistic-ui';
 import { Injectable } from '@angular/core';
 
-import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireFunctions } from '@angular/fire/functions';
-import { from } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { BackendService } from './backend.service';
 
@@ -30,9 +28,9 @@ export class OptimisticBackendService extends BackendService
     const effects = this._effectFactory.get(fName);
 
     // run effects
-    effects.map(effectSimulator => effectSimulator.run(command.payload))
+    effects.map(effectSimulator => effectSimulator.run(command.subject))
 
-    return toCall(command.payload)
+    return toCall(command.subject)
               .pipe(catchError(
                       (e) => {
                         effects.map(effectSimulator => effectSimulator.revert(command));

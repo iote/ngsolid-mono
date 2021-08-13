@@ -5,9 +5,6 @@ export enum DbMethods {
 }
 
 export interface ICommand{
-  /** Function Handler data */
-  payload: any;
-
   method:  DbMethods;
   /** Object to be simulated by optimistic ui*/
   subject: any

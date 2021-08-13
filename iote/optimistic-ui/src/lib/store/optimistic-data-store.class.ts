@@ -24,7 +24,7 @@ export abstract class OptimisticDataStore<T extends IObject> extends EntityStore
   {
     const originalStoreValues = super.get(filter);
 
-    const optimisticValues = this._optimisticEvtStore$$.getSimulated<T>(this.store, filter);
+    const optimisticValues = this._optimisticEvtStore$$.getSimulated(this.store, filter);
 
     return combineLatest([originalStoreValues, optimisticValues])
             .pipe(map(([originalVals, optimisticData]) => this._removeOlder(originalVals, optimisticData)));

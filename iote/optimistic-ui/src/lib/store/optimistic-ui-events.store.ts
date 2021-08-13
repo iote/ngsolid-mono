@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 import { Observable } from "rxjs";
 import * as moment from 'moment';
 
-import { OptimisticEvent } from './../model/i-optimistic-effect.model';
+import { IOptimisticEffect } from './../model/i-optimistic-effect.model';
 import { IOptimisticEffectsStore } from "./i-optimistic-effects-store.class";
 
 /**
@@ -17,7 +17,7 @@ import { IOptimisticEffectsStore } from "./i-optimistic-effects-store.class";
  * that will thereafter be combined with data from the actual database
  */
 @Injectable()
-export class OptimisticUiEventsStore extends IOptimisticEffectsStore
+export class OptimisticUiEventsStore<T> extends IOptimisticEffectsStore<T>
 {
   store = 'optimistic-ui-store';
 
@@ -26,15 +26,15 @@ export class OptimisticUiEventsStore extends IOptimisticEffectsStore
     super([]);
   }
 
-  getSimulated<T>(storeName: string, filter? : (t: T) => boolean): Observable<T[]>
+  getSimulated(storeName: string, filter? : (t: T) => boolean): Observable<T[]>
   {
     return super.get().pipe(
-                map(optimisticUiEvents => this.processRelevant<T>(optimisticUiEvents, storeName)),
+                map(optimisticUiEvents => this.processRelevant(optimisticUiEvents, storeName)),
                 map(simulatedObjects => simulatedObjects.filter(filter ? filter : () => true))
               );
   }
 
-  processRelevant<T>(optimisticUiEvents: OptimisticEvent[], storeName: string)
+  processRelevant(optimisticUiEvents: IOptimisticEffect<T>[], storeName: string)
   {
     const relevantEvents = optimisticUiEvents.filter(ev => ev.affectedStoreName === storeName);
 
@@ -51,11 +51,11 @@ export class OptimisticUiEventsStore extends IOptimisticEffectsStore
    *
    * TODO: What happens if the event has expired (delete?)
   */
-  private _isOverdue(optimisticEvent: OptimisticEvent): boolean
+  private _isOverdue(IOptimisticEffect: IOptimisticEffect<T>): boolean
   {
-    const createTime = __DateFromStorage(optimisticEvent.createdOn);
+    const createTime = __DateFromStorage((IOptimisticEffect as any).createdOn);
 
-    const expiryTime = createTime.add(optimisticEvent.duration, 'milliseconds');
+    const expiryTime = createTime.add(IOptimisticEffect.duration, 'milliseconds');
 
     const now = moment();
 

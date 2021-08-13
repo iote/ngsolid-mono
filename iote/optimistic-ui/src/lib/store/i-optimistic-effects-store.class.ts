@@ -18,7 +18,7 @@ export abstract class IOptimisticEffectsStore<T> extends EntityStore<IOptimistic
    * @param storeName Name of the store. (Helps filter out irrelevant events that do not belong to the specific store)
    * @param filter Filter applied to the original store data/query
    */
-  abstract getSimulated<T>(storeName: string, filter? : (t: T) => boolean): Observable<T[]>;
+  abstract getSimulated(storeName: string, filter? : (t: T) => boolean): Observable<T[]>;
 
   add(events: IOptimisticEffect<T>[])
   {
