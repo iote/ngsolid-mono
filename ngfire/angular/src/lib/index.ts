@@ -2,6 +2,7 @@ export * from './auth/services/auth.service';
 export * from './auth/services/user.service';
 
 export * from './backend/backend.service';
+export * from './backend/optimistic-backend.service';
 
 export * from './data/repositories/repository.model';
 export * from './data/repositories/userview-repository.model';
