@@ -5,11 +5,10 @@ export enum DbMethods {
 }
 
 export interface ICommand{
-  /** Cloud function name */
-  fName: string;
-
   /** Function Handler data */
   payload: any;
 
   method:  DbMethods;
+  /** Object to be simulated by optimistic ui*/
+  subject: any
 }
