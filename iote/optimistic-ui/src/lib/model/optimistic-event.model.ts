@@ -1,4 +1,5 @@
 import { IObject } from '@iote/bricks';
+import { DbMethods } from '@iote/cqrs';
 
 export enum OptimisticEventType{
   create = 'Create',
@@ -6,7 +7,7 @@ export enum OptimisticEventType{
   delete = 'Delete'
 }
 
-export interface OptimisticEvent extends IObject{
+export interface OptimisticEvent<T extends IObject>{
 
   /** affectedStoreName: Name of the store that needs to be updated */
   affectedStoreName: string;
@@ -15,8 +16,8 @@ export interface OptimisticEvent extends IObject{
   duration: number;
 
   /** Type of action (Either a create, update, or delete) */
-  actionType: OptimisticEventType,
+  action: DbMethods,
 
   /** Object to be affected by the event action */
-  payload: any
+  payload: T
 }
