@@ -1,5 +1,6 @@
 export * from './core/handler-context.interface';
 export * from './core/handler-tools.interface';
+export * from './core/i-command.interface';
 
 export * from './data/repositories/repository.interface';
 export * from './data/db-factory.interface';
