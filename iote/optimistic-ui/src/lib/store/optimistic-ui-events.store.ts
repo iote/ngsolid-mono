@@ -4,8 +4,9 @@ import { Logger } from "@iote/bricks-angular";
 import { __DateFromStorage } from "@iote/time";
 
 import { map } from 'rxjs/operators';
-import { Observable } from "rxjs";
+import { interval, Observable } from "rxjs";
 import * as moment from 'moment';
+import * as _ from 'lodash';
 
 import { IOptimisticEffect } from './../model/i-optimistic-effect.model';
 import { IOptimisticEffectsStore } from "./i-optimistic-effects-store.class";
@@ -26,7 +27,7 @@ export class OptimisticUiEventsStore<T> extends IOptimisticEffectsStore<T>
     super([]);
   }
 
-  getSimulated(storeName: string, filter? : (t: T) => boolean): Observable<T[]>
+  protected _getSimulated(storeName: string, filter? : (t: T) => boolean): Observable<T[]>
   {
     return super.get().pipe(
                 map(optimisticUiEvents => this.processRelevant(optimisticUiEvents, storeName)),
@@ -40,6 +41,13 @@ export class OptimisticUiEventsStore<T> extends IOptimisticEffectsStore<T>
 
     const activeEvents = relevantEvents.filter(ev => !this._isOverdue(ev));
 
+    const toRemove = _.difference(relevantEvents, activeEvents);
+
+    if(toRemove.length)
+    {
+      this.remove(toRemove);
+    }
+
     const simulatedObjects: T[] = activeEvents.map(ev => ev.payload as T);
 
     return simulatedObjects;
@@ -49,8 +57,7 @@ export class OptimisticUiEventsStore<T> extends IOptimisticEffectsStore<T>
   /**
    *  Check if event is past its expiry time
    *
-   * TODO: What happens if the event has expired (delete?)
-  */
+   */
   private _isOverdue(IOptimisticEffect: IOptimisticEffect<T>): boolean
   {
     const createTime = __DateFromStorage((IOptimisticEffect as any).createdOn);
