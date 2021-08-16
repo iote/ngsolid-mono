@@ -2,7 +2,7 @@ import { IObject } from '@iote/bricks';
 import { ICommand } from '@iote/cqrs';
 import { IBridge } from './i-bridge.interface';
 
-export interface IBridgeFactory
+export abstract class IBridgeFactory
 {
-  get<C extends ICommand<P>, P extends IObject>(fName: string): IBridge<C, P>[];
+  abstract get<C extends ICommand<P>, P extends IObject>(fName: string): IBridge<C, P>[];
 }
