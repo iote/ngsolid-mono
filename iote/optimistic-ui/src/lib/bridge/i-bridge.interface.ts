@@ -50,9 +50,11 @@ export abstract class Bridge<C extends ICommand<P>, P extends IObject> implement
       (obj as any).del = true;
     }
 
+    obj.createdOn = new Date();
+
     return {
       id: obj.id,
-      createdOn: new Date(),
+      createdOn: obj.createdOn,
       affectedStoreName: this._affectedStoreName,
       duration: this._duration,
       action: command.method,
