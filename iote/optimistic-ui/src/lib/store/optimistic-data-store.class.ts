@@ -70,7 +70,7 @@ export abstract class OptimisticDataStore<T extends IObject> extends EntityStore
 
   private _getLatest(sameIds: T[]): T
   {
-    if(sameIds.length < 1) return;
+    if(sameIds.length === 1) return sameIds[0];
 
     // Order by created on date descending
     const ordered = _.orderBy(sameIds,( a: any) => __DateFromStorage(a.createdOn).unix(), 'desc');
@@ -81,6 +81,6 @@ export abstract class OptimisticDataStore<T extends IObject> extends EntityStore
   private _cleanData(uniqueLatest: T[])
   {
     const cleanedUp = uniqueLatest.filter(val => !!val);
-    return _.orderBy(cleanedUp,( a: any) => __DateFromStorage(a.createdOn).unix(), 'desc');
+    return _.orderBy(cleanedUp,( a: any) => __DateFromStorage(a.date).unix(), 'desc');
   }
 }
