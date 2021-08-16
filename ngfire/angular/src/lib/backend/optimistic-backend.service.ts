@@ -21,14 +21,14 @@ export class OptimisticBackendService extends BackendService
   /**
    * Call Firebase Cloud Function and simulate frontend effects
    */
-  callFunctionOptimistic(fName: string, command: ICommand) {
+  callFunctionOptimistic<T>(fName: string, command: ICommand<T>) {
 
     const toCall = this._fns.httpsCallable(fName);
 
     const effects = this._effectFactory.get(fName);
 
     // run effects
-    effects.map(effectSimulator => effectSimulator.run(command.subject))
+    effects.map(effectSimulator => effectSimulator.run(command))
 
     return toCall(command.subject)
               .pipe(catchError(
