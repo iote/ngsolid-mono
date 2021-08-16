@@ -45,10 +45,7 @@ export abstract class Bridge<C extends ICommand<P>, P extends IObject> implement
   {
     (obj as any).isOptimistic = true;
 
-    if(command.method === DbMethods.DELETE)
-    {
-      (obj as any).del = true;
-    }
+    (obj as any).del = command.method === DbMethods.DELETE;
 
     obj.createdOn = new Date();
 

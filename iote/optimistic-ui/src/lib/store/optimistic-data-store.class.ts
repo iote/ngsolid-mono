@@ -24,10 +24,12 @@ export abstract class OptimisticDataStore<T extends IObject> extends EntityStore
   {
     const originalStoreValues = super.get(filter);
 
-    const optimisticValues = this._optimisticEvtStore$$.getSimulated(this.store, filter);
+    const optimisticValues = this._optimisticEvtStore$$.fetchEffects(this.store, filter);
 
     return combineLatest([originalStoreValues, optimisticValues])
-            .pipe(map(([originalVals, optimisticData]) => this._removeOlder(originalVals, optimisticData)));
+            .pipe(
+              map(([originalVals, optimisticData]) =>
+                    this._optimisticEffect(originalVals, optimisticData)));
   }
 
   /**
@@ -36,52 +38,49 @@ export abstract class OptimisticDataStore<T extends IObject> extends EntityStore
    * @param optimisticData simulated data retrieved from the optimistic events store
    * @returns list combining data from the db and from the optimistic events store
    */
-  private _removeOlder(original: T[], optimisticData:T[])
+  private _optimisticEffect(original: T[], optimisticData:T[]) : T[]
   {
-    if(!this._applySimulations(original, optimisticData))
-    {
+    if(!optimisticData || optimisticData.length == 0)
       return original;
-    }
 
     const combined = original.concat(optimisticData);
-    const grouped = _.groupBy(combined, (d) => (d as any).id);
 
+    return this._applySimulations(combined);
+  }
+
+  /**
+   *
+   * @param combined The combined events from the original store pus those from the optimistic store
+   * @returns
+   */
+  private _applySimulations(combined: T[]): T[]
+  {
+    // group by id -> those conflicting with same ID will be in same group. We therefore use this grouping as a flattening
+    //    tool with merge conflict resolution later.
+    const grouped = _.groupBy(combined, (d) => d.id);
+
+    // Merge conflict resolution. Take the latest updated of each group.
     let uniqueLatest: T[] = [];
 
     for(let key in grouped)
-    {
-      const sameIds = grouped[key];
+      uniqueLatest.push(this._getLatest(grouped[key]));
 
-      uniqueLatest.push(this._getLatest(sameIds));
-    }
-
-    uniqueLatest = this._simulateDeletions(uniqueLatest);
-
-    return uniqueLatest;
+    return this._cleanData(uniqueLatest);
   }
-
-  private _applySimulations(original: T[], optimisticData:T[]): boolean
-  {
-    if(original.length)
-    {
-      return (original[0] as any).hasOwnProperty('id') && optimisticData?.length > 0;
-    }
-
-    return false;
-  }
-
 
   private _getLatest(sameIds: T[]): T
   {
     if(sameIds.length < 1) return;
+
     // Order by created on date descending
     const ordered = _.orderBy(sameIds,( a: any) => __DateFromStorage(a.createdOn).unix(), 'desc');
 
-    return ordered[0];
+    return ordered[0].del ? null : ordered[0];
   }
 
-  private _simulateDeletions(uniqueLatest: T[])
+  private _cleanData(uniqueLatest: T[])
   {
-    return uniqueLatest.filter(val => !(val as any).del);
+    const cleanedUp = uniqueLatest.filter(val => !!val);
+    return _.orderBy(cleanedUp,( a: any) => __DateFromStorage(a.createdOn).unix(), 'desc');
   }
 }
