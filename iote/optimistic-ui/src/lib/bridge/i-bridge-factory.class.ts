@@ -4,5 +4,5 @@ import { IBridge } from './i-bridge.interface';
 
 export interface IBridgeFactory
 {
-  get<C extends ICommand, P extends IObject>(fName: string): IBridge<C, P>[];
+  get<C extends ICommand<P>, P extends IObject>(fName: string): IBridge<C, P>[];
 }

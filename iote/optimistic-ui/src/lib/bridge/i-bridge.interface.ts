@@ -5,14 +5,14 @@ import { IOptimisticEffectsStore } from '../store/i-optimistic-effects-store.cla
 
 import { IOptimisticEffect } from './../model/i-optimistic-effect.model';
 
-export interface IBridge<C extends ICommand, P extends IObject>
+export interface IBridge<C extends ICommand<P>, P extends IObject>
 {
   run(command: C): IOptimisticEffect<P>[];
 
   revert(command: C): IOptimisticEffect<P>[];
 }
 
-export abstract class Bridge<C extends ICommand, P extends IObject> implements IBridge<C, P>
+export abstract class Bridge<C extends ICommand<P>, P extends IObject> implements IBridge<C, P>
 {
 
   constructor(private _affectedStoreName: string,
@@ -51,6 +51,8 @@ export abstract class Bridge<C extends ICommand, P extends IObject> implements I
     }
 
     return {
+      id: obj.id,
+      createdOn: new Date(),
       affectedStoreName: this._affectedStoreName,
       duration: this._duration,
       action: command.method,
