@@ -8,7 +8,7 @@ import { EntityStore } from '@s4y/state/base';
 import * as _ from 'lodash';
 
 import { combineLatest, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { IOptimisticEffectsStore } from './i-optimistic-effects-store.class';
 
 @Injectable()
@@ -28,8 +28,16 @@ export abstract class OptimisticDataStore<T extends IObject> extends EntityStore
 
     return combineLatest([originalStoreValues, optimisticValues])
             .pipe(
+              tap(([original, optimistic]) => this._logStream(original, optimistic)),
               map(([originalVals, optimisticData]) =>
                     this._optimisticEffect(originalVals, optimisticData)));
+  }
+
+  private _logStream(original: T[], optimistic: T[])
+  {
+    console.groupCollapsed(`[${this.store}] : Merging ${ original.length } values with ${ optimistic.length } events`);
+    console.log({data: original, events: optimistic});
+    console.groupEnd();
   }
 
   /**
@@ -70,12 +78,11 @@ export abstract class OptimisticDataStore<T extends IObject> extends EntityStore
 
   private _getLatest(sameIds: T[]): T
   {
-    if(sameIds.length === 1) return sameIds[0];
-
     // Order by created on date descending
-    const ordered = _.orderBy(sameIds,( a: any) => __DateFromStorage(a.createdOn).unix(), 'desc');
+    sameIds = _.orderBy(sameIds,( a: any) => __DateFromStorage(a.createdOn).unix(), 'desc');
 
-    return ordered[0].del ? null : ordered[0];
+    // If object is the simulated deletion, return null
+    return (sameIds[0] as any).del ? null : sameIds[0];
   }
 
   private _cleanData(uniqueLatest: T[])
