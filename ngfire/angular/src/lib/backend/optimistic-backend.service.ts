@@ -5,6 +5,8 @@ import { Injectable } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { catchError } from 'rxjs/operators';
 import { BackendService } from './backend.service';
+import { of } from 'rxjs';
+import { IObject } from '@iote/bricks';
 
 /**
  * Interface with the firebase backend.
@@ -21,21 +23,25 @@ export class OptimisticBackendService extends BackendService
   /**
    * Call Firebase Cloud Function and simulate frontend effects
    */
-  callFunctionOptimistic<T>(fName: string, command: ICommand<T>) {
+  callFunction<T extends IObject>(fName: string, command: ICommand<T>) {
 
     const toCall = this._fns.httpsCallable(fName);
 
-    const effects = this._effectFactory.get(fName);
+    command.subject.id = command.subject.id ?? '12345678910';
+
+    const uiEffectBridges = this._effectFactory.get(fName);
 
     // run effects
-    effects.map(effectSimulator => effectSimulator.run(command))
+    const effects = uiEffectBridges.map(effectsBridge => effectsBridge.run(command));
 
-    return toCall(command.subject)
+    // return of(null);
+
+    return toCall(command)
               .pipe(catchError(
                       (e) => {
-                        effects.map(effectSimulator => effectSimulator.revert(command));
+                        uiEffectBridges.map(effectsBridge => effectsBridge.revert(command));
                         throw e;
-                      }));1
+                      }));
   }
 
 }
