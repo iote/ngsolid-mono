@@ -7,6 +7,7 @@ import { catchError } from 'rxjs/operators';
 import { BackendService } from './backend.service';
 import { of } from 'rxjs';
 import { IObject } from '@iote/bricks';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 /**
  * Interface with the firebase backend.
@@ -15,6 +16,7 @@ import { IObject } from '@iote/bricks';
 export class OptimisticBackendService extends BackendService
 {
   constructor(_fns: AngularFireFunctions,
+              private _afs: AngularFirestore,
               private _effectFactory: IBridgeFactory)
   {
     super(_fns);
@@ -24,17 +26,16 @@ export class OptimisticBackendService extends BackendService
    * Call Firebase Cloud Function and simulate frontend effects
    */
   callFunction<T extends IObject>(fName: string, command: ICommand<T>) {
-
-    const toCall = this._fns.httpsCallable(fName);
-
-    command.subject.id = command.subject.id ?? '12345678910';
+    // Assign Id
+    command.subject.id = command.subject.id ?? this._afs.createId();
 
     const uiEffectBridges = this._effectFactory.get(fName);
 
-    // run effects
+    // Run effects
     const effects = uiEffectBridges.map(effectsBridge => effectsBridge.run(command));
 
-    // return of(null);
+    // Call backend
+    const toCall = this._fns.httpsCallable(fName);
 
     return toCall(command)
               .pipe(catchError(
