@@ -40,7 +40,8 @@ export abstract class Bridge<C extends ICommand<P>, P extends IObject> implement
   {
     const events = this.execute(command).map(obj => this._createEvent(obj, command));
 
-    this._eventsStore$$.remove(events);
+    if(events.length)
+      this._eventsStore$$.remove(events);
 
     return events;
   }
