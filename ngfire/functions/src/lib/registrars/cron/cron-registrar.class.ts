@@ -2,6 +2,7 @@ import { FunctionRegistrar } from "../function-registrar.interface";
 import * as functions from 'firebase-functions';
 
 import { FunctionContext } from "../../context/context.interface";
+import { FIREBASE_REGIONS } from '../regions.type';
 
 /**
  * CRON registrar.
@@ -16,14 +17,16 @@ export class CronRegistrar extends FunctionRegistrar<{}, void>
    * @param _timezone? Timezone to run in. @see https://cloud.google.com/dataprep/docs/html/Supported-Time-Zone-Values_66194188
    */
   constructor(private _schedule: string,
-              private _timezone?: string)
+              private _timezone?: string,
+              private _region: FIREBASE_REGIONS = 'europe-west1')
   { super(); }
 
   register(func: (dataSnap: any, context: any) => Promise<void>): functions.CloudFunction<any>
   {
-    return functions.pubsub.schedule(this._schedule)
-                           .timeZone(this._timezone ? this._timezone : 'Europe/Brussels')
-                           .onRun((ctx) => func({}, ctx));
+    return functions.region(this._region)
+                    .pubsub.schedule(this._schedule)
+                    .timeZone(this._timezone ? this._timezone : 'Europe/Brussels')
+                    .onRun((ctx) => func({}, ctx));
   }
 
   before(dataSnap: any, context: any): { data: {}, context: FunctionContext; } {
