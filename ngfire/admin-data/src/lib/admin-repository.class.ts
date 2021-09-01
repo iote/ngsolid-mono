@@ -30,7 +30,7 @@ export class AdminRepository<T extends IObject> implements Repository<T>
                       obj.id = id;
                       return obj;
                      }
-                     else return null;
+                     else return null as any;
                     });
   }
 
