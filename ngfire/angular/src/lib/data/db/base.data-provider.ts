@@ -15,7 +15,7 @@ export abstract class BaseDataProvider
               protected _userService: UserService<User>)
   {}
 
-  protected _createRepo<T extends IObject>(collectionName) {
+  protected _createRepo<T extends IObject>(collectionName: any) {
     return new Repository<T>(collectionName, this._db, this._userService);
   }
 }

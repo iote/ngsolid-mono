@@ -17,11 +17,11 @@ export class MultiAutocompleteActionFieldComponent<G,I> implements OnInit, OnCha
   selectedItemNow = '';
   @Input() selectedItem: I;
 
-  @Input() groupName:  (G) => string;
-  @Input() groupItems: (G) => I[];
+  @Input() groupName:  (arg: G) => string;
+  @Input() groupItems: (arg: G) => I[];
 
-  @Input() itemFieldDisplayFn: (I) => string;
-  @Input() highlightFn:        (I) => boolean;
+  @Input() itemFieldDisplayFn: (arg: I) => string;
+  @Input() highlightFn:        (arg: I) => boolean;
 
   @Input() required: boolean;
   @Input() tooltipIsApproved: string;

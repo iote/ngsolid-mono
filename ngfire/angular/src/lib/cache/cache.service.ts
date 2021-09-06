@@ -20,14 +20,13 @@ export class CacheService {
     const val = localStorage.getItem(key);
 
     if(val) {
-      const parsed = JSON.parse(localStorage.getItem(key));
-      
+      const parsed = JSON.parse(localStorage.getItem(key) ?? '');
+
       if(parsed.indefinite)
         return parsed.value;
 
       // else if(new Date(parsed.createdOn) + new Date(parsed.timeToLive) > Date.now()) {
     }
-    else 
-      return false;
+    return false;
   }
 }

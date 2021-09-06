@@ -22,7 +22,7 @@ import { Query } from '@ngfire/firestore-qbuilder';
 @Injectable({ providedIn: 'root' })
 export abstract class UserService<T extends User>
 {
-  protected _user$: Observable<T | null>;
+  protected _user$!: Observable<T>;
 
   constructor(private _logger: Logger,
               private _afAuth: AngularFireAuth,
@@ -61,7 +61,7 @@ export abstract class UserService<T extends User>
                 .pipe(switchMap(user =>
                           // Switch to subscription, if doc changes everything changes.
                           ((user && user.uid) ? this._afs.doc<T>(`users/${user.uid}`).valueChanges()
-                                              : of(null))),
+                                              : of(null as any))),
 
                       tap(u => this._logger.log(() => u ? `[UserService] Retrieved user ${(u as T).id}`
                                                         : 'User not set yet.')));

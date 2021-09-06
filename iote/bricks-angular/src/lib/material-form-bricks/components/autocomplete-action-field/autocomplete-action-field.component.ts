@@ -12,8 +12,8 @@ export class AutocompleteActionFieldComponent<T> implements OnInit, OnChanges
   displayItems: T[];
   selectedItemNow: string;
   @Input() selectedItem: T;
-  @Input() itemFieldDisplayFn: (T) => string;
-  @Input() highlightFn: (T) => boolean;
+  @Input() itemFieldDisplayFn: (arg: T) => string;
+  @Input() highlightFn: (arg: T) => boolean;
   @Input() required: boolean;
   @Input() icon :string;
   @Input() inputType :string = 'text';
