@@ -17,6 +17,7 @@ export class AutocompleteActionFieldComponent<T> implements OnInit, OnChanges
   @Input() required: boolean;
   @Input() icon :string;
   @Input() inputType :string = 'text';
+  @Input() isDisableSupplier? : boolean;
 
   @Output() itemSelected = new EventEmitter<T>();
   @Output() newItemTyped  = new EventEmitter<string>();

@@ -7,7 +7,7 @@
   <input matInput [type]="inputType"
          [matAutocomplete]="auto"
          [(ngModel)]="selectedItemNow" (keyup)="onType($event)" (change)="onTypeSelectedItem($event)"
-         [required]="required" />
+         [required]="required" [disabled]="isDisableSupplier" />
 
   <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectItem($event)">
     <mat-option *ngFor="let item of displayItems"
