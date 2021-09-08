@@ -71,14 +71,14 @@ export class PaginatedScroll<T extends IObject>
     return this.docs$$.asObservable().pipe(filter(o => o != null));
   }
 
-  more() : void
+  more(newPageSize?: number) : void
   {
     const collection = this._getMessageCollection();
 
     // 1. Configure next query behaviour
     const docs$ = collection.orderBy(this._opts.orderByField, this._opts.reverse ? 'desc' : 'asc')
                                 .startAt(this.start)
-                                .limit(this._opts.limit).get();
+                                .limit(newPageSize ?? this._opts.limit).get();
 
     // 2. Get the next snapshot. Will only fire once on get!
     docs$.then((snapshots) => {
