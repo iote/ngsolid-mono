@@ -1,11 +1,11 @@
-import { CollectionReference } from '@firebase/firestore-types';
+import { CollectionReference, QuerySnapshot } from '@firebase/firestore-types';
 import { Injectable } from '@angular/core';
 
 import { BehaviorSubject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import * as _ from 'lodash';
 
-import { AngularFirestore, AngularFirestoreCollection, DocumentData, QuerySnapshot } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, DocumentData } from '@angular/fire/firestore';
 import { IObject } from '@iote/bricks';
 import { __DateFromStorage } from '@ngfire/time';
 
