@@ -4,7 +4,7 @@
 
   <span matPrefix *ngIf="icon"><i [class]="icon"></i>&nbsp;&nbsp;</span>
 
-  <input matInput [type]="inputType"
+  <input matInput [type]="inputType" [disabled]="isDisableSupplier"
          [matAutocomplete]="auto"
          [(ngModel)]="selectedItemNow" (keyup)="onType($event)" (change)="onTypeSelectedItem($event)"
          [required]="required" />
