@@ -18,7 +18,7 @@
     </button>
 
     <button (click)="closeModal(true)" mat-raised-button color="primary" [class.danger]="data.isCritical">
-      <i class="fas fa-exclamation-triangle"></i> {{ confirmText | transloco}}
+      <i *ngIf="data.isCritical" class="fas fa-exclamation-triangle"></i> {{ confirmText | transloco}}
     </button>
   </div>
 </div>
