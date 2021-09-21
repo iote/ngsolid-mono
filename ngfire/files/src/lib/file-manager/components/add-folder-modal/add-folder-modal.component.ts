@@ -19,28 +19,26 @@ export class AddFolderModalComponent implements OnInit
 
   // Form Data
   createFolderForm: FormGroup;
-  
+
   constructor(private _fb: FormBuilder,
               private _dialogRef: MatDialogRef<AddFolderModalComponent>,
               @Inject(MAT_DIALOG_DATA) private _data: any,
               private _logger: Logger)
   {}
-  
+
   ngOnInit()
   {
-    debugger
     console.log(this._data)
     this.createFolderForm = this._fb.group({
       name: ['', [Validators.required, this.ValidateExisting(this._data.names)]]
       });
-      debugger
     this.createFolderForm.get('name').valueChanges.subscribe(event => {
       this.createFolderForm.get('name').setValue(event.toLowerCase(), {emitEvent: false});
 
   });
 }
 
- 
+
 // Create Bill
   createFolder(frm)
   {
@@ -51,7 +49,7 @@ export class AddFolderModalComponent implements OnInit
   }
 
   exitModal = () => this._dialogRef.close();
-  
+
   ValidateExisting(names: string[]): ValidatorFn
   {
     const namesArray = names.map(name => name.toLowerCase());
@@ -59,7 +57,7 @@ export class AddFolderModalComponent implements OnInit
           const returnVal = namesArray.includes(control.value)
                               ? { nameExists: true} as ValidationErrors
                               : null;
-          
+
           return returnVal
      }
     }

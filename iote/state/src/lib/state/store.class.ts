@@ -5,8 +5,8 @@ import { Stateful } from './stateful.interface';
 
 export type StoreEventTypes = 'Not Specified' | 'Create' | 'Update' | 'Delete' | string;
 
-@Injectable()
-export abstract class Store<T> implements Stateful<T>, OnDestroy
+
+export abstract class Store<T> implements Stateful<T>
 {
   protected _sbS = new SubSink();
 
@@ -61,7 +61,7 @@ export abstract class Store<T> implements Stateful<T>, OnDestroy
     this.bs.next(newState);
   }
 
-  ngOnDestroy() {
-    this._sbS.unsubscribe();
-  }
+  // ngOnDestroy() {
+  //   this._sbS.unsubscribe();
+  // }
 }

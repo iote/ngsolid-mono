@@ -7,8 +7,8 @@ import { Stateful } from './stateful.interface';
 import { StoreEventTypes } from './store.class';
 
 /** Store for class Objects. Does not serialize past states so Objects can be mutable if local copy is saved! */
-@Injectable()
-export abstract class ObjectStore<T> implements Stateful<T>, OnDestroy
+
+export abstract class ObjectStore<T> implements Stateful<T>
 {
   protected _sbS = new SubSink();
 
@@ -61,7 +61,7 @@ export abstract class ObjectStore<T> implements Stateful<T>, OnDestroy
     this.bs.next(newValue);
   }
 
-  ngOnDestroy() {
-    this._sbS.unsubscribe();
-  }
+  // ngOnDestroy() {
+  //   this._sbS.unsubscribe();
+  // }
 }

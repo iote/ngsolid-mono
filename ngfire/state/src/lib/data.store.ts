@@ -66,7 +66,7 @@ export abstract class DataStore<T extends IObject> extends EntityStore<T>
                                  catchError((err) => this._errorAdd(entity, err)));
   }
 
-  private _errorAdd(entity: T, error)
+  private _errorAdd(entity: T, error: any)
   {
     this._removeLocal(entity, 'DB Error onAdd - Rollback.');
 
@@ -85,10 +85,10 @@ export abstract class DataStore<T extends IObject> extends EntityStore<T>
     return this._activeRepo
                     .update(entity)
                     .pipe(// tap this._notifications.notifySuccess()),
-                          catchError((err) => this._errorUpdate(prev, err)));
+                          catchError((err) => this._errorUpdate(prev as T, err)));
   }
 
-  private _errorUpdate(rollbackTo: T, error) : Observable<T>
+  private _errorUpdate(rollbackTo: T, error: any) : Observable<T>
   {
     this._updateLocal(rollbackTo, 'DB Error onUpdate - Rollback.');
     // this._notifications.notifyFailure()),
@@ -111,10 +111,10 @@ export abstract class DataStore<T extends IObject> extends EntityStore<T>
     return this._activeRepo
                     .delete(entity)
                     .pipe(// this._notifications.notifySuccess()),
-                          catchError((err) => this._errorRemove(prev, err)));
+                          catchError((err) => this._errorRemove(prev as T, err)));
   }
 
-  private _errorRemove(entity: T, error) : Observable<T>
+  private _errorRemove(entity: T, error: any) : Observable<T>
   {
     this._addLocal(entity, 'DB Error onRemove - Rollback.');
 
