@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { SubSink } from 'subsink';
 import { Stateful } from './stateful.interface';
@@ -18,7 +18,7 @@ export abstract class Store<T> implements Stateful<T>, OnDestroy
 
   protected abstract store: string;
 
-  constructor(initialValue: Partial<T>)
+  constructor(@Inject('NOOP_INHERIT') initialValue: Partial<T>)
   {
     this.bs = new BehaviorSubject<T>(initialValue as T);
     this.state$ = this.bs.asObservable();
