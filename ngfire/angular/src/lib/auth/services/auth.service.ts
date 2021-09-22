@@ -139,7 +139,7 @@ export class AuthService {
     });
   }
 
-  private _throwError(error)
+  private _throwError(error: any)
   {
     const errorCode = error.code;
     this._logger.error(() => error);

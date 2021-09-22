@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 /**
- * An Action Tile is a custom component used to display rich media about a certain object  
+ * An Action Tile is a custom component used to display rich media about a certain object
  */
 @Component({
     selector: "app-action-tile",
@@ -43,7 +43,7 @@ export class ActionTileComponent implements OnInit {
         if (this.slug != null) {
             classes += " " + this.slug + "-background";
         }
-        
+
         // No hover elevation    Hover elevation
         classes += !this._showHoverClass
             ? " mat-elevation-z2"
@@ -54,7 +54,7 @@ export class ActionTileComponent implements OnInit {
 
     // src: https://stackoverflow.com/questions/40514642/how-to-pass-object-to-ngstyle-directive-in-angular-2
     getStyles() {
-        const styles = {};
+        const styles = {} as any;
 
         if (this.color != null)
             styles['background-color'] = this.color;
@@ -62,7 +62,7 @@ export class ActionTileComponent implements OnInit {
         return styles;
     }
 
-    toggleHoverStyle($event) {
+    toggleHoverStyle($event: any) {
         this._showHoverClass = $event.type === "mouseover";
     }
 }

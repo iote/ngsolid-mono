@@ -14,7 +14,7 @@ export class DialogService implements OnDestroy
 
   constructor(private _dialog: MatDialog) { }
 
-  showDialog(dialogClass, data?)
+  showDialog(dialogClass:any, data?:any)
   {
     let dialogData = {};
 

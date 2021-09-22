@@ -14,8 +14,8 @@ import { Logger } from '../../../util/services/logger.service';
 export class CalendarComponent implements AfterViewInit {
 
   @Output() dateSelected: EventEmitter<Moment> = new EventEmitter();
-  @Input() date;
-  @Input() focus;
+  @Input() date: any;
+  @Input() focus: any;
   @Input() min  : Moment;
   @Input() max  : Moment;
   @Input() determineClass: (date: AppDate) => MatCalendarCellCssClasses;
