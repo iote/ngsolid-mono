@@ -91,7 +91,7 @@ export class AuthService {
               .then((credential) => {
                 this._logger.log(() => "Successful firebase user sign in");
 
-                this._checkUpdateUserData(credential.user, null, userProfile, roles);
+                this._checkUpdateUserData(credential.user, null as any, userProfile, roles);
               })
               .catch((error) => {
                 this._throwError(error);
@@ -139,7 +139,7 @@ export class AuthService {
     });
   }
 
-  private _throwError(error)
+  private _throwError(error: any)
   {
     const errorCode = error.code;
     this._logger.error(() => error);
