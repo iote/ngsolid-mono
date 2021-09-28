@@ -14,9 +14,9 @@
     "url": "https://italanta.net"
   },
 
-  "peerDependencies": 
+  "peerDependencies":
   {
-    "angular/core": "^10.0.0",
+    "@angular/core": "^10.0.0",
     "@angular/common": "^10.0.0",
     "@angular/cdk": "^10.0.0",
     "@angular/material": "^10.0.0",
