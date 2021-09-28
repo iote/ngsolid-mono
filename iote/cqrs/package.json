@@ -12,5 +12,9 @@
     "name": "Jente Rosseel",
     "email": "jente@elewa.co.ke",
     "url": "https://italanta.net"
+  },
+  "peerDependencies": {
+    "@iote/bricks": "1.0.0",
+    "@ngfi/firestore-qbuilder": "1.0.0"
   }
 }
