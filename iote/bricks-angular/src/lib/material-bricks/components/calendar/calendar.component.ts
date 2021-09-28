@@ -1,9 +1,11 @@
 import { Component, Output, EventEmitter, ViewChild, Renderer2, AfterViewInit, Input } from '@angular/core';
 import { MatCalendar, MatCalendarCellCssClasses } from '@angular/material/datepicker';
-import { AppDate } from '@ngfire/time';
 
 import { Moment } from 'moment';
 import * as moment from 'moment';
+
+import { AppDate } from '@iote/time';
+
 import { Logger } from '../../../util/services/logger.service';
 
 @Component({
@@ -44,7 +46,7 @@ export class CalendarComponent implements AfterViewInit {
     return this.determineClass ? this.determineClass(date) : '';
   }
 
-  monthSelected(date: Moment) {
+  monthSelected(date: AppDate) {
     this._logger.log(() => 'CalendarComponent. Month changed');
   }
 

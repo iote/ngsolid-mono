@@ -5,13 +5,13 @@ import { Component, Input } from '@angular/core';
   templateUrl: './highlight-section.component.html',
   styleUrls: ['./highlight-section.component.scss']
 })
-export class AppHighlightComponent {
-
+export class AppHighlightComponent
+{
   @Input() color: string;
   @Input() bgColor: string;
 
-
-  headerStyle() {
+  headerStyle()
+  {
     let colorSt = {};
     let bgColorSt = {};
 
@@ -24,7 +24,8 @@ export class AppHighlightComponent {
     return {... colorSt, ... bgColorSt };
   }
 
-  bodyStyle() {
+  bodyStyle()
+  {
     let bgColorSt = {};
 
     if (this.bgColor)
@@ -34,7 +35,8 @@ export class AppHighlightComponent {
   }
 
   // src: https://stackoverflow.com/questions/5560248/programmatically-lighten-or-darken-a-hex-color-or-rgb-and-blend-colors
-  private _shadeColor(color: any, percent: any) {
+  private _shadeColor(color: any, percent: any)
+  {
     const f = parseInt(color.slice(1), 16), t = percent < 0 ? 0 : 255,
                     // tslint:disable-next-line:no-bitwise
                     p = percent < 0 ? percent * -1 : percent, R = f >> 16, G = f >> 8 & 0x00FF, B = f & 0x0000FF;

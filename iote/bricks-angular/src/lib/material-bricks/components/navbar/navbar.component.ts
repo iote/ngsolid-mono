@@ -8,12 +8,12 @@ import { Logger } from '../../../util/services/logger.service';
   templateUrl: "./navbar.component.html",
   styleUrls: ["./navbar.component.scss"],
 })
-export class NavbarComponent implements OnInit, AfterViewInit {
+export class NavbarComponent implements OnInit, AfterViewInit
+{
   @Input() navbarTitle: string;
   @Input() backButton = true;
 
   @Input() logo: string;
-
 
   constructor(
     private _logger: Logger,
@@ -25,14 +25,15 @@ export class NavbarComponent implements OnInit, AfterViewInit {
     this._logger.debug(() => "Navbar initialized.");
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit()
+  {
     // Solve problem with titleIsEmpty, by forcing change detection.
     // https://blog.angularindepth.com/everything-you-need-to-know-about-the-expressionchangedafterithasbeencheckederror-error-e3fd9ce7dbb4
-
     this._cd.detectChanges();
   }
 
-  titleIsEmpty(el: HTMLElement) {
+  titleIsEmpty(el: HTMLElement)
+  {
     return this._transclusionHelper.trcElIsEmpty(el);
   }
 

@@ -8,7 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
     templateUrl: "./action-tile.component.html",
     styleUrls: ["./action-tile.component.scss"]
 })
-export class ActionTileComponent implements OnInit {
+export class ActionTileComponent {
     // Override block with better typing
     @Input() label: string;
 
@@ -26,9 +26,6 @@ export class ActionTileComponent implements OnInit {
     @Input() disabled = false;
 
     private _showHoverClass = false;
-
-    ngOnInit() {
-    }
 
     doAction() {
         if (!this.disabled) {

@@ -1,0 +1,16 @@
+{
+  "name": "@iote/bricks-angular",
+  "description": "Base angular reusable frontend components for ngsolid application.",
+
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iote/ngsolid-mono"
+  },
+  "author": {
+    "name": "Jente Rosseel",
+    "email": "jente@elewa.co.ke",
+    "url": "https://italanta.net"
+  }
+}

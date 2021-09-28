@@ -11,7 +11,7 @@ import * as _ from 'lodash';
   templateUrl: './multi-autocomplete-action-field.component.html',
   styleUrls: [ './multi-autocomplete-action-field.component.scss' ]
 })
-export class MultiAutocompleteActionFieldComponent<G,I> implements OnInit, OnChanges
+export class MultiAutocompleteActionFieldComponent<G,I> implements OnChanges
 {
   @Input() groups: G[];
   selectedItemNow = '';
@@ -41,8 +41,6 @@ export class MultiAutocompleteActionFieldComponent<G,I> implements OnInit, OnCha
   groupsDisplay$: Observable<G[]>;
 
   @ViewChild(MatAutocompleteTrigger) trigger: MatAutocompleteTrigger;
-
-  constructor() { }
 
   ngOnInit()
   {

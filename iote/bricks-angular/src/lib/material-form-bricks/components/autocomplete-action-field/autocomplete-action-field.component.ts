@@ -16,15 +16,13 @@ export class AutocompleteActionFieldComponent<T> implements OnInit, OnChanges
   @Input() highlightFn: (t: T) => boolean;
   @Input() required: boolean;
   @Input() icon :string;
-  @Input() inputType :string = 'text';
+  @Input() inputType = 'text';
   @Input() disable : boolean;
 
   @Output() itemSelected = new EventEmitter<T>();
   @Output() newItemTyped  = new EventEmitter<string>();
 
   private _filter = '';
-
-  constructor() { }
 
   ngOnInit()
   {
@@ -79,7 +77,7 @@ export class AutocompleteActionFieldComponent<T> implements OnInit, OnChanges
   }
 
   // Src: https://stackoverflow.com/questions/990904/remove-accents-diacritics-in-a-string-in-javascript
-  private _sanitize = (tr: String) => tr.replace(' ', '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  private _sanitize = (tr: string) => tr.replace(' ', '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
   private _sortFn   = (items: T[]) => _.orderBy(items, i => this._getName(i), 'asc');
 

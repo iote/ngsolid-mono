@@ -7,9 +7,7 @@ import { Breadcrumb } from './breadcrumb.interface';
   templateUrl: './breadcrumbs.component.html',
   styleUrls: ['./breadcrumbs.component.scss'],
 })
-export class BreadcrumbsComponent { 
-  
+export class BreadcrumbsComponent
+{
   @Input() breadcrumbs: Breadcrumb[];
-  
-  constructor() { }
 }
