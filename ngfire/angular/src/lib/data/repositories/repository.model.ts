@@ -2,7 +2,7 @@ import { Observable, from } from 'rxjs';
 import { map, catchError, take, mergeMap } from 'rxjs/operators';
 import { AngularFirestore, AngularFirestoreCollection, DocumentData, QueryFn } from '@angular/fire/firestore';
 
-import { Query } from '@ngfire/firestore-qbuilder';
+import { Query } from '@ngfi/firestore-qbuilder';
 import { IObject, User } from '@iote/bricks';
 
 import { UserService } from '../../auth/services/user.service';

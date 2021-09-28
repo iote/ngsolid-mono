@@ -5,7 +5,7 @@ import { AngularFirestore, DocumentData, QueryFn } from '@angular/fire/firestore
 import { UserService } from '../../auth/services/user.service';
 
 import { IUserObject, User } from '@iote/bricks';
-import { Query } from '@ngfire/firestore-qbuilder';
+import { Query } from '@ngfi/firestore-qbuilder';
 
 
 const USERVIEW_COLLECTION_NAME = 'user-views';

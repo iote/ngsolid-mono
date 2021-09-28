@@ -10,7 +10,7 @@ import { switchMap } from 'rxjs/operators';
 
 import { User } from "@iote/bricks";
 import { Logger } from "@iote/bricks-angular";
-import { Query } from '@ngfire/firestore-qbuilder';
+import { Query } from '@ngfi/firestore-qbuilder';
 
 /**
  * Wrapper around Firebase User Services. RxJS subscriptions.

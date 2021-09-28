@@ -160,7 +160,7 @@
     }
   }
 },
-"@ngfire/firestore-qbuilder": {
+"@ngfi/firestore-qbuilder": {
   "projectType": "library",
   "root": "libs/external/ngfire/firestore-qbuilder",
   "sourceRoot": "libs/external/ngfire/firestore-qbuilder/src",
