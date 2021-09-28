@@ -1,4 +1,3 @@
-# ngfire-firestore-query-builder
-Part of the NgFire Shared Modules. Includes a Firestore Query Builder and Predicate implementations.
+# @ngfi/firestore-qbuilder
 
-Adds an abstraction layer between the direct dependency on Firestore.
+Predicate pattern on top of firestore which loosens dependency on firestore in DB-layer
