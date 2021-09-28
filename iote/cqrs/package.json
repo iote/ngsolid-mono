@@ -1,0 +1,16 @@
+{
+  "name": "@iote/cqrs",
+  "description": "Package containing the shared- & backend infrastructure for multi-tenant serverless environments.",
+
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iote/ngsolid-mono"
+  },
+  "author": {
+    "name": "Jente Rosseel",
+    "email": "jente@elewa.co.ke",
+    "url": "https://italanta.net"
+  }
+}
