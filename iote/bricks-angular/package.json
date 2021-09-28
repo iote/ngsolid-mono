@@ -2,7 +2,7 @@
   "name": "@iote/bricks-angular",
   "description": "Base angular reusable frontend components for ngsolid application.",
 
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -14,8 +14,10 @@
     "url": "https://italanta.net"
   },
 
-  "peerDependencies": {
+  "peerDependencies": 
+  {
     "angular/core": "^10.0.0",
+    "@angular/common": "^10.0.0",
     "@angular/cdk": "^10.0.0",
     "@angular/material": "^10.0.0",
     "@angular/flex-layout": "^10.0.0",
@@ -24,5 +26,8 @@
     "moment": "^2.29.0",
     "rxjs": "^6.6.0",
     "subsink": "^1.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
   }
 }
