@@ -1,7 +1,4 @@
-# external-iote-local-persistance
+# @iote/local-persistance
 
-This library was generated with [Nx](https://nx.dev).
-
-## Running unit tests
-
-Run `nx test external-iote-local-persistance` to execute the unit tests.
+Angular module & provider that puts wrapper around local persistance in browsers and 
+  PWAs. Falls back gracefully.
