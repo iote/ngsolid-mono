@@ -1,6 +1,8 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
+
 import { Observable, BehaviorSubject } from 'rxjs';
 import { SubSink } from 'subsink';
+
 import { Stateful } from './stateful.interface';
 
 export type StoreEventTypes = 'Not Specified' | 'Create' | 'Update' | 'Delete' | string;

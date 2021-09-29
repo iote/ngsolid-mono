@@ -1,7 +1,7 @@
-# state-base
+# @iote/state
 
-This library was generated with [Nx](https://nx.dev).
+NgSolid state layer implementation.
 
-## Running unit tests
+Base classess and patterns for Stateful objects and Stores.
 
-Run `nx test state-base` to execute the unit tests.
+Implementation of @netbasal 's Akita Pattern, adapted for (semi-) graph-based DBs. 
