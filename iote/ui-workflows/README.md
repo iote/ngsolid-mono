@@ -1,3 +1,3 @@
-# IoTe UI Workflows
+# @iote/ui-workflows
 
-Library which contains a common set of UI components that contain UI workflows such as confirmation, ...
+Modals and re-usable UI workflows such as confirmation procedures etc.
