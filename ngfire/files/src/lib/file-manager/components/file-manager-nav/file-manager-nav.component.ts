@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
-import { TranslateService } from '@ngfire/multi-lang';
+import { TranslateService } from '@ngfi/multi-lang';
 import { Logger } from '@iote/bricks-angular';
 
 import { FolderIterator } from '../../model/folder-iterator.class';

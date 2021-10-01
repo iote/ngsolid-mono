@@ -7,7 +7,7 @@ import { UIWorkflowModule, UIModalsModule } from '@iote/ui-workflows';
 import { MaterialDesignModule, FlexLayoutModule, MaterialBricksModule } from '@iote/bricks-angular';
 
 import { FilesModule } from '../files';
-import { MultiLangModule } from '@ngfire/multi-lang';
+import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { FileManagerComponent } from './components/file-manager/file-manager.component';
 import { FileManagerNavComponent } from './components/file-manager-nav/file-manager-nav.component';
