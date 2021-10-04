@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { __DateToStorage } from '@ngfire/time';
+import { __DateToStorage } from '@ngfi/time';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Logger } from '@iote/bricks-angular';
 

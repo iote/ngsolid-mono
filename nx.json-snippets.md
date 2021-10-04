@@ -15,7 +15,7 @@
   "tags": [],
   "implicitDependencies": ["@iote/bricks", "@iote/bricks-angular", "@ngfi/firestore-qbuilder"]
 },
-"@ngfire/time": {
+"@ngfi/time": {
   "tags": [],
   "implicitDependencies": ["@ngfi/firestore-qbuilder"]
 },

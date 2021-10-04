@@ -7,7 +7,7 @@ import * as _ from 'lodash';
 
 import { AngularFirestore, AngularFirestoreCollection, DocumentData, QuerySnapshot } from '@angular/fire/firestore';
 import { IObject } from '@iote/bricks';
-import { __DateFromStorage } from '@ngfire/time';
+import { __DateFromStorage } from '@ngfi/time';
 
 import { PaginationConfig } from './pagination-config.interface';
 

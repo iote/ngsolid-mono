@@ -96,7 +96,7 @@
     }
   }
 },
-"@ngfire/time": {
+"@ngfi/time": {
   "projectType": "library",
   "root": "libs/external/ngfire/time",
   "sourceRoot": "libs/external/ngfire/time/src",
