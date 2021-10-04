@@ -1,12 +1,13 @@
 import { Query as FirestoreQuery, CollectionReference } from '@firebase/firestore-types';
 
-import { Predicate } from '../predicate/predicate.interface';
-import { WherePredicate } from '../predicate/where.predicate';
-import { OrderByPredicate } from '../predicate/order-by.predicate';
-import { LimitPredicate } from '../predicate/limit.predicate';
 import { MaxPredicate } from '../predicate/max.predicate';
 import { MinPredicate } from '../predicate/min.predicate';
+import { LimitPredicate } from '../predicate/limit.predicate';
+import { WherePredicate } from '../predicate/where.predicate';
+import { OrderByPredicate } from '../predicate/order-by.predicate';
 import { SkipTakePredicate } from '../predicate/skiptake.predicate';
+
+import { Predicate } from '../predicate/predicate.interface';
 
 export class Query {
 
