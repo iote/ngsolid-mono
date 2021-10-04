@@ -11,7 +11,7 @@
   "tags": [],
   "implicitDependencies": ["@iote/bricks"]
 },
-"@ngfire/angular": {
+"@ngfi/angular": {
   "tags": [],
   "implicitDependencies": ["@iote/bricks", "@iote/bricks-angular", "@ngfi/firestore-qbuilder"]
 },

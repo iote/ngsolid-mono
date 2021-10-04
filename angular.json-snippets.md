@@ -61,7 +61,7 @@
     }
   }
 },
-"@ngfire/angular": {
+"@ngfi/angular": {
   "projectType": "library",
   "root": "libs/external/ngfire/angular",
   "sourceRoot": "libs/external/ngfire/angular/src",

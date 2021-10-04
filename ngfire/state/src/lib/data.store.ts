@@ -1,4 +1,4 @@
-import { Repository } from '@ngfire/angular';
+import { Repository } from '@ngfi/angular';
 
 import * as _ from 'lodash';
 import { Observable, combineLatest, throwError } from 'rxjs';
