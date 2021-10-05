@@ -1,6 +1,6 @@
 {
-  "name": "@ngfi/firestore-qbuilder",
-  "description": "Predicate pattern on top of firestore which loosens dependency on firestore in DB-layer",
+  "name": "@ngfi/angular",
+  "description": "Helpers and bricks that tie firebase into angular and are useful to any project with those two.",
 
   "version": "1.0.0",
   "license": "MIT",

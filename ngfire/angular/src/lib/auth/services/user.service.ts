@@ -49,7 +49,9 @@ export abstract class UserService<T extends User>
   public abstract getUsers(): Observable<T[]>;
 
   protected getUsersBase(q: Query): Observable<T[]> {
-    const coll = this._afs.collection<T>('users', q.__buildForFireStore.bind(q));
+    const coll = this._afs.collection<T>(
+                    'users',
+                    q.__buildForFireStore.bind(q) as any);
 
     return coll.valueChanges();
   }
