@@ -41,7 +41,7 @@ export class FileManagerCrumbComponent implements OnInit, OnDestroy
     this.nodeClicked.emit(crumb.position);
   }
 
-  goBack = () => this.nodeClicked.emit(this.curr.parent);
+  goBack = () => this.nodeClicked.emit(this.curr.parent as any);
 
   addFiles = () => this.fileInput.nativeElement.click();
   filesSelected = (files: any) => this.curr.upload(files.target.files).subscribe();
@@ -54,7 +54,7 @@ export class FileManagerCrumbComponent implements OnInit, OnDestroy
                                 .subscribe(
                                    name =>
                                        this._sbS.sink = this.curr.addFolder(name).subscribe());
-  
+
   }
 
   private _toCrumbs(position: FolderIterator, first?: boolean) : FileManagerCrumb[]

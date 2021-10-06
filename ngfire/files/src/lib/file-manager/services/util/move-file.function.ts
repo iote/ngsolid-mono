@@ -14,6 +14,8 @@ export function __MoveFirebaseFile(storage: AngularFireStorage, currentPath: str
   return oldRef
         .getDownloadURL()
         .then(url => { fetch(url).then(htmlReturn => {
+          if(!!htmlReturn && !!htmlReturn.body)
+          {
           let fileArray = new Uint8Array()
           const reader = htmlReturn.body.getReader()
 
@@ -21,7 +23,7 @@ export function __MoveFirebaseFile(storage: AngularFireStorage, currentPath: str
           reader
             .read()
             .then(
-              function appendStreamChunk({ done, value }) {
+              function appendStreamChunk({ done, value }): any {
                 //If the reader doesn't return "done = true" append the chunk that was returned to us
                 // rinse and repeat until it is done.
                 if (value)
@@ -42,12 +44,13 @@ export function __MoveFirebaseFile(storage: AngularFireStorage, currentPath: str
 
                 return status;
               });
+          }
         });
     });
 }
 
 // src: https://stackoverflow.com/questions/14071463/how-can-i-merge-typedarrays-in-javascript
-function mergeTypedArrays(a, b)
+function mergeTypedArrays(a: any, b: any)
 {
   // Checks for truthy values on both arrays
   if(!a && !b)

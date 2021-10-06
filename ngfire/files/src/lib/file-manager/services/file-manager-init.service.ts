@@ -23,7 +23,7 @@ export class FileManagerInitalisationService
     return from(this._makeRoot(basePath)
                     .then(() => this._getRoot(basePath))
                     .then(root => root.list()
-                                      .then(contents => this._initFolderStructureInner(root, contents, baseFolders))));
+                                      .then((contents: any) => this._initFolderStructureInner(root, contents, baseFolders))));
   }
 
   private _initFolderStructureInner(root: IStorageReference, rootContents: IStorageContents, baseFolders: MultiLangFolder[])

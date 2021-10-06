@@ -53,7 +53,7 @@ export class FileManagerService
                     .then(contents => ({ folder: path, contents })));
   }
 
-  public movePath(oldPath, newPath) {
+  public movePath(oldPath: string, newPath: string) {
     return from(__MoveFirebaseFile(this._storage, oldPath, newPath));
   }
 

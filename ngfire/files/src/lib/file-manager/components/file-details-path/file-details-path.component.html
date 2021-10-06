@@ -12,7 +12,7 @@
                       [disabled]="!editName.editing" name="name"
                       required />
 
-      <mat-error *ngIf="editName.name == ''">A name for this file is required.</mat-error>
+      <mat-error *ngIf="editName.name === ''">A name for this file is required.</mat-error>
       <mat-error *ngIf="isDuplicate(editName.name)">Another file with this name already exists.</mat-error>
     </mat-form-field>
 
@@ -20,7 +20,7 @@
 
 
     <button *ngIf="editName.editing && !isSaving"
-            [disabled]="editName.name == '' || isDuplicate(editName.name)"
+            [disabled]="!!(editName.name === '' || isDuplicate(editName.name))"
             (click)="save()"
             mat-icon-button class="save-btn" [fxFlex]="10">
       <i class="far fa-save"></i>

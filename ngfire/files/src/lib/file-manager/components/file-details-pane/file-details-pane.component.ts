@@ -32,7 +32,7 @@ export class FileDetailsPaneComponent implements OnInit, OnDestroy
   { }
 
   ngOnInit() {
-    this.type = this.file.name.split('.').pop();
+    this.type = this.file.name.split('.').pop() as any;
   }
 
   download()

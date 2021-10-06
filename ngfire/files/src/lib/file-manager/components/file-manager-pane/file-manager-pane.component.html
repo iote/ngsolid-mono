@@ -7,7 +7,7 @@
          (contextmenu)="openContextMenu($event)"
          class="drawer-content-inner" fxLayout="row wrap" fxLayoutAlign="start start">
 
-      <ngfire-file-manager-item *ngFor="let item of position.isFolder ? position.children : position.parent.children"
+      <ngfire-file-manager-item *ngFor="let item of position.isFolder ? position.children : (position.parent?.children ?? [])"
                                 [item]="item"
                                 (nodeClicked)="onNodeClicked($event)"
                                 (contextmenu)="openContextMenu($event, item)">

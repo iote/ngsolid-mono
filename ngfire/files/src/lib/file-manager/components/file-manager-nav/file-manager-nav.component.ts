@@ -45,7 +45,7 @@ export class FileManagerNavComponent implements OnInit
 
     node.expanding = true;
     // Expanding has to happen from the parent as the child is swapped out
-    return node.expand()
+    return (node.expand() as any)
                .pipe(map(() =>
     {
       node.expanding = false;
