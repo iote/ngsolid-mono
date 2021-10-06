@@ -1,7 +1,5 @@
-# external-ngfire-functions
+# @ngfi/functions
 
-This library was generated with [Nx](https://nx.dev).
+Library that defines a framework for the development of serverless functions and seperates their logic from their deployment setup.
 
-## Running unit tests
-
-Run `ng test external-ngfire-functions` to execute the unit tests via [Jest](https://jestjs.io).
+Reviewed in: https://www.youtube.com/watch?v=udgeZ6gOnSU&ab_channel=GDGNairobi

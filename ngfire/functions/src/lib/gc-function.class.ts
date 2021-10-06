@@ -1,7 +1,7 @@
 import { CloudFunction, HttpsFunction } from 'firebase-functions';
 
 import { Logger, getLogger, HandlerContext } from '@iote/cqrs';
-import { AdminRepositoryFactory } from '@ngfire/admin-data';
+import { AdminRepositoryFactory } from '@ngfi/admin-data';
 import { HandlerTools } from '@iote/cqrs';
 
 import { FunctionHandler } from './function-handler.class';

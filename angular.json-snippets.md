@@ -256,7 +256,7 @@
     }
   }
 },
-"@ngfire/admin-data": {
+"@ngfi/admin-data": {
   "root": "libs/external/ngfire/admin-data",
   "sourceRoot": "libs/external/ngfire/admin-data/src",
   "projectType": "library",
