@@ -78,6 +78,11 @@ export class FileManagerPaneComponent implements OnInit, OnDestroy
                         ).subscribe(() => this.close());
   }
 
+  getChildren(position: FolderIterator)
+  {
+    return (position.isFolder ? position.children : (position.parent?.children ?? []))
+  }
+
   close()
   {
     this._sbS.unsubscribe();
