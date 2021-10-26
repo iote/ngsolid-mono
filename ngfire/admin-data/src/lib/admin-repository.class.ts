@@ -4,6 +4,11 @@ import { IObject } from '@iote/bricks';
 import { Repository } from '@iote/cqrs';
 import { Query } from '@ngfi/firestore-qbuilder';
 
+import { config } from 'firebase-functions';
+import * as admin from 'firebase-admin';
+
+import * as firebase from "firebase/app";
+
 /**
  * Repository to be used inside of Firebase Functions.
  *
@@ -13,7 +18,16 @@ export class AdminRepository<T extends IObject> implements Repository<T>
 {
   constructor(private _collectionName: string,
               private _db: FirebaseFirestore)
-  { }
+  {
+    if(!firebase.default)
+    {
+      try{
+        const conf = config().firebase;
+        admin.initializeApp(conf);
+      }
+      catch(err) { }
+    }
+  }
 
   public performTransaction(trFn: (tr: Transaction, _db: FirebaseFirestore) => Promise<any>)
   {
