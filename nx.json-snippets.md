@@ -3,7 +3,7 @@
 "@iote/bricks": {
   "tags": []
 },
-"@ngfire/firestore-qbuilder": {
+"@ngfi/firestore-qbuilder": {
   "tags": [],
   "implicitDependencies": ["@iote/bricks"]
 },
@@ -11,13 +11,13 @@
   "tags": [],
   "implicitDependencies": ["@iote/bricks"]
 },
-"@ngfire/angular": {
+"@ngfi/angular": {
   "tags": [],
-  "implicitDependencies": ["@iote/bricks", "@iote/bricks-angular", "@ngfire/firestore-qbuilder"]
+  "implicitDependencies": ["@iote/bricks", "@iote/bricks-angular", "@ngfi/firestore-qbuilder"]
 },
-"@ngfire/time": {
+"@ngfi/time": {
   "tags": [],
-  "implicitDependencies": ["@ngfire/firestore-qbuilder"]
+  "implicitDependencies": ["@ngfi/firestore-qbuilder"]
 },
 "@ngfire/files": {
   "tags": [],

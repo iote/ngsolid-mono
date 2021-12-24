@@ -12,8 +12,6 @@ export class UIModalComponent
 {
   @Output() exit = new EventEmitter<boolean>();
 
-  constructor() { }
-
   exitModal(): void {
     this.exit.emit(true);
   }

@@ -2,7 +2,7 @@ import { FirebaseFirestore, Transaction } from '@firebase/firestore-types'
 
 import { IObject } from '@iote/bricks';
 import { Repository } from '@iote/cqrs';
-import { Query } from '@ngfire/firestore-qbuilder';
+import { Query } from '@ngfi/firestore-qbuilder';
 
 /**
  * Repository to be used inside of Firebase Functions.

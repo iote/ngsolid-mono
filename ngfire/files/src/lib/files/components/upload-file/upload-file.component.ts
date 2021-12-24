@@ -37,18 +37,19 @@ export class UploadFileComponent implements OnInit, OnDestroy
   uploadedType: string;
 
   @Input() filePath: string;
-  @Input() prepareFilePathFn: (string) => string;
+  @Input() prepareFilePathFn: (s: string) => string;
 
   fileName: string;
   description: string;
 
   @Output() fileUploaded = new EventEmitter<IFile>();
 
-  error: String;
+  // eslint-disable-next-line @angular-eslint/no-output-native
+  error: string | null;
 
   @Input() defaultAttachment: { link: string, name: string, type: string };
 
-  percentage$ : Observable<number>;
+  percentage$ : Observable<any>;
   snapshot$   : Observable<any>;
   downloadURL$: Observable<any>;
 
@@ -67,7 +68,7 @@ export class UploadFileComponent implements OnInit, OnDestroy
   }
 
   /** uploadImage - Uploads an image to firestorage and firestore. */
-  uploadImage(event)
+  uploadImage(event: any)
   {
     if (this.error)
       this.error = null;
@@ -78,7 +79,7 @@ export class UploadFileComponent implements OnInit, OnDestroy
       this._doUpload(file);
   }
 
-  _validateUpload(file)
+  _validateUpload(file: any)
   {
     this.uploadedType = this._getFileType(file);
 
@@ -90,7 +91,7 @@ export class UploadFileComponent implements OnInit, OnDestroy
 
   }
 
-  private _doUpload(file)
+  private _doUpload(file: any)
   {
     // Create a unique path for the file
     let path = `files/${new Date().getTime()}_${file.name}`;
@@ -122,21 +123,21 @@ export class UploadFileComponent implements OnInit, OnDestroy
     .subscribe(_ => this._logger.log(() => "Upload done."));
   }
 
-  private _fileCreated(storedFile)
+  private _fileCreated(storedFile: any)
   {
     this._logger.log(() => `Saved to Firestore successfully. Fileref: ${storedFile.file.name} | Filepath: ${storedFile.file.path}`);
 
     this.fileUploaded.emit(storedFile);
   }
 
-  private _validationError(eMsg)
+  private _validationError(eMsg: any)
   {
     this._logger.log(() => eMsg);
     this.error = eMsg;
     return false;
   }
 
-  private _getFileType(file)
+  private _getFileType(file: any)
   {
     if (file.type.split('/')[0] === 'image')
       return 'image';

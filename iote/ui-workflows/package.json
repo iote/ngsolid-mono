@@ -1,0 +1,16 @@
+{
+  "name": "@iote/ui-workflows",
+  "version": "1.0.0",
+  "description": "Modals and re-usable UI workflows such as confirmation procedures etc.",
+
+  "peerDependencies": {
+    "@angular/common": "^12.2.0",
+    "@angular/core": "^12.2.0",
+    "@angular/material": "^12.2.0",
+
+    "@ngfi/multi-lang": "^1.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
+}

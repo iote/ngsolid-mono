@@ -1,7 +1,3 @@
-# external-ngfire-angular
+# @ngfi/angular
 
-This library was generated with [Nx](https://nx.dev).
-
-## Running unit tests
-
-Run `nx test external-ngfire-angular` to execute the unit tests.
+Helpers and bricks that tie firebase into angular and are useful to any project with those two.

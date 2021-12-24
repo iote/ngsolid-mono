@@ -1,4 +1,4 @@
-import { Repository } from '@ngfire/angular';
+import { Repository } from '@ngfi/angular';
 
 import * as _ from 'lodash';
 import { Observable, combineLatest, throwError } from 'rxjs';
@@ -66,7 +66,7 @@ export abstract class DataStore<T extends IObject> extends EntityStore<T>
                                  catchError((err) => this._errorAdd(entity, err)));
   }
 
-  private _errorAdd(entity: T, error)
+  private _errorAdd(entity: T, error:any)
   {
     this._removeLocal(entity, 'DB Error onAdd - Rollback.');
 
@@ -79,7 +79,7 @@ export abstract class DataStore<T extends IObject> extends EntityStore<T>
 
   public update(entity: T) : Observable<T>
   {
-    const prev = this.state.entities.find(e => e.id = entity.id);
+    const prev = this.state.entities.find(e => e.id = entity.id) as T;
     this._updateLocal(entity, 'Optimistic UI. Process changes.');
 
     return this._activeRepo
@@ -88,7 +88,7 @@ export abstract class DataStore<T extends IObject> extends EntityStore<T>
                           catchError((err) => this._errorUpdate(prev, err)));
   }
 
-  private _errorUpdate(rollbackTo: T, error) : Observable<T>
+  private _errorUpdate(rollbackTo: T, error:any) : Observable<T>
   {
     this._updateLocal(rollbackTo, 'DB Error onUpdate - Rollback.');
     // this._notifications.notifyFailure()),
@@ -105,16 +105,16 @@ export abstract class DataStore<T extends IObject> extends EntityStore<T>
 
   public remove(entity: T) : Observable<T>
   {
-    const prev = this.state.entities.find(e => e.id = entity.id);
+    const prev = this.state.entities.find(e => e.id = entity.id) as T;
     this._removeLocal(entity, 'Optimistic UI - Add new value');
 
     return this._activeRepo
                     .delete(entity)
                     .pipe(// this._notifications.notifySuccess()),
-                          catchError((err) => this._errorRemove(prev, err)));
+                          catchError((err:any) => this._errorRemove(prev, err)));
   }
 
-  private _errorRemove(entity: T, error) : Observable<T>
+  private _errorRemove(entity: T, error:any) : Observable<T>
   {
     this._addLocal(entity, 'DB Error onRemove - Rollback.');
 

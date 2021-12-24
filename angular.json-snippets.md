@@ -61,7 +61,7 @@
     }
   }
 },
-"@ngfire/angular": {
+"@ngfi/angular": {
   "projectType": "library",
   "root": "libs/external/ngfire/angular",
   "sourceRoot": "libs/external/ngfire/angular/src",
@@ -96,7 +96,7 @@
     }
   }
 },
-"@ngfire/time": {
+"@ngfi/time": {
   "projectType": "library",
   "root": "libs/external/ngfire/time",
   "sourceRoot": "libs/external/ngfire/time/src",
@@ -160,7 +160,7 @@
     }
   }
 },
-"@ngfire/firestore-qbuilder": {
+"@ngfi/firestore-qbuilder": {
   "projectType": "library",
   "root": "libs/external/ngfire/firestore-qbuilder",
   "sourceRoot": "libs/external/ngfire/firestore-qbuilder/src",
@@ -256,7 +256,7 @@
     }
   }
 },
-"@ngfire/admin-data": {
+"@ngfi/admin-data": {
   "root": "libs/external/ngfire/admin-data",
   "sourceRoot": "libs/external/ngfire/admin-data/src",
   "projectType": "library",

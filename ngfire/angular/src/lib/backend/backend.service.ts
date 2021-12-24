@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 
 import { AngularFireFunctions } from '@angular/fire/functions';
-import { from } from 'rxjs';
 
 /**
  * Interface with the firebase backend.

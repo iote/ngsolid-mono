@@ -22,7 +22,7 @@ export class FileIconComponent
     if(this.file.isFolder)
       return;
 
-    const fileType = _.last(this.file.name.split('.')).toLowerCase();
+    const fileType = (_.last(this.file.name.split('.')) as any).toLowerCase();
 
     switch(fileType)
     {

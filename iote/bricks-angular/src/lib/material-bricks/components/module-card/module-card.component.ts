@@ -5,10 +5,9 @@ import { Component, Input } from '@angular/core';
     templateUrl: "./module-card.component.html",
     styleUrls: ["./module-card.component.scss"]
 })
-export class ModuleCardComponent {
-    @Input() label: string;
-    @Input() sublabel: string;
-    @Input() icon: string;
-
-    ngOnInit() {}
+export class ModuleCardComponent
+{
+  @Input() label: string;
+  @Input() sublabel: string;
+  @Input() icon: string;
 }

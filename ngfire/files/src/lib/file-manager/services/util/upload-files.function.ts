@@ -9,7 +9,9 @@ export function __UploadFiles(storage: AngularFireStorage, root: string, files: 
 
   for(let i = 0; i < files.length; i++) {
     const file = files.item(i);
-    uploads.push(folder.child(file.name).put(files.item(i)));
+
+    if(file && files.item)
+      uploads.push(folder.child(file.name).put(file));
   }
 
   return Promise.all(uploads);

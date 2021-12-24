@@ -1,0 +1,15 @@
+{
+  "name": "@iote/local-persistance",
+  "description": "Angular module & provider that puts wrapper around local persistance in browsers and PWAs. Falls back gracefully.",
+
+  "version": "1.0.0",
+  "peerDependencies": {
+    "@angular/common": "^12.2.0",
+    "@angular/core": "^12.2.0",
+
+    "ngx-webstorage-service": "^4.1.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
+}

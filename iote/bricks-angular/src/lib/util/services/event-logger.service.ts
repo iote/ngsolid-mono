@@ -8,5 +8,5 @@ export abstract class EventLogger
 {
   constructor(protected _logger: Logger) {}
 
-  abstract logEvent(name: string, data?: any, options?: any);
+  abstract logEvent(name: string, data?: any, options?: any): void;
 }

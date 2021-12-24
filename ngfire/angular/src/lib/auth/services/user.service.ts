@@ -10,7 +10,7 @@ import { switchMap } from 'rxjs/operators';
 
 import { User } from "@iote/bricks";
 import { Logger } from "@iote/bricks-angular";
-import { Query } from '@ngfire/firestore-qbuilder';
+import { Query } from '@ngfi/firestore-qbuilder';
 
 /**
  * Wrapper around Firebase User Services. RxJS subscriptions.
@@ -34,7 +34,7 @@ export abstract class UserService<T extends User>
 
   /** Get auth data, then get firestore user document || false */
   public getUser(): Observable<T> {
-    return this._user$;
+    return this._user$ as Observable<T>;
   }
 
   public getUserId(): Observable<string> {
@@ -49,7 +49,9 @@ export abstract class UserService<T extends User>
   public abstract getUsers(): Observable<T[]>;
 
   protected getUsersBase(q: Query): Observable<T[]> {
-    const coll = this._afs.collection<T>('users', q.__buildForFireStore.bind(q));
+    const coll = this._afs.collection<T>(
+                    'users',
+                    q.__buildForFireStore.bind(q) as any);
 
     return coll.valueChanges();
   }
@@ -61,7 +63,7 @@ export abstract class UserService<T extends User>
                 .pipe(switchMap(user =>
                           // Switch to subscription, if doc changes everything changes.
                           ((user && user.uid) ? this._afs.doc<T>(`users/${user.uid}`).valueChanges()
-                                              : of(null))),
+                                              : of(null)) as Observable<T>),
 
                       tap(u => this._logger.log(() => u ? `[UserService] Retrieved user ${(u as T).id}`
                                                         : 'User not set yet.')));

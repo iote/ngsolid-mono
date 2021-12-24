@@ -90,7 +90,7 @@ export class FolderIteratorFactory
     return this._fileManagerService.delete(childPath);
   }
 
-  movePath(oldPath, newPath) {
+  movePath(oldPath: any, newPath: any) {
     return this._fileManagerService.movePath(oldPath, newPath);
   }
 

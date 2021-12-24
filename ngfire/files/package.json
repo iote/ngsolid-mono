@@ -1,0 +1,12 @@
+{
+  "name": "@ngfi/files",
+  "version": "1.0.0",
+  "description": "Helpers for file management with firebase storage",
+  "peerDependencies": {
+    "@angular/common": "^12.2.0",
+    "@angular/core": "^12.2.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
+}

@@ -1,3 +1,3 @@
-# IoTe CQRS
+# @iote/cqrs
 
-Collection of interfaces used to create proper backend event handling.
+Package containing the shared- & backend infrastructure for multi-tenant serverless environments.

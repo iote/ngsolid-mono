@@ -19,10 +19,11 @@ export class TranslateService
   protected _lang: 'fr' | 'en' | 'nl';
   protected _lang$: BehaviorSubject<'fr' | 'en'| 'nl'>;
 
+  protected _isOverride = false;
+
   /** Use transloco as translator */
   constructor(private _transloco: TranslocoService,
-              private _localPersistanceSrv: LocalPersistanceService,
-              isOverride = false)
+              private _localPersistanceSrv: LocalPersistanceService)
               // private _intercom: Intercom)
   {
     if(!this._lang)
@@ -34,7 +35,7 @@ export class TranslateService
         this._lang = this._getLangFromUser();
     }
 
-    if(!isOverride)
+    if(!this._isOverride)
       this.setLang(this._lang);
   }
 

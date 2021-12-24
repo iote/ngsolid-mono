@@ -41,7 +41,7 @@ export class FileDetailsPathComponent implements OnInit, OnDestroy
     return _.join(path, '/');
   }
 
-  isDuplicate = (name) => this.file.parent.children.find(pCh => pCh.name === name && pCh.path !== this.file.path);
+  isDuplicate = (name: string) => this.file?.parent?.children.find(pCh => pCh.name === name && pCh.path !== this.file.path);
 
   save() {
     this.isSaving = true;

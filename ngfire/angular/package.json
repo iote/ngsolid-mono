@@ -1,0 +1,30 @@
+{
+  "name": "@ngfi/angular",
+  "description": "Helpers and bricks that tie firebase into angular and are useful to any project with those two.",
+
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iote/ngsolid-mono"
+  },
+  "author": {
+    "name": "Jente Rosseel",
+    "email": "jente@elewa.co.ke",
+    "url": "https://italanta.net"
+  },
+  "peerDependencies": {
+    "@angular/common": "^12.2.0",
+    "@angular/core": "^12.2.0",
+    "@angular/material": "^12.2.0",
+    "@angular/material-moment-adapter": "^12.2.0",
+    "@angular/flex-layout": "^12.0.0-beta.35",
+    "@angular/fire": "^6.1.4",
+    "firebase": "^8.2.1",
+    "@iote/bricks": "^1.0.0",
+    "@ngfi/firestore-qbuilder": "^1.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
+}

@@ -1,4 +1,4 @@
-import { IObject } from '../db';
+import { IObject } from '../db/i-object.interface';
 
 import { Roles } from './roles.interface';
 import { UserProfile } from './user-profile.interface';

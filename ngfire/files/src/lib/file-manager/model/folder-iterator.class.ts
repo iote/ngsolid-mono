@@ -13,7 +13,7 @@ export class FolderIterator
               public level: number,
               public isFolder: boolean,
               private _factory: FolderIteratorFactory,
-              public parent: FolderIterator = null,
+              public parent: FolderIterator | null = null,
               public hasExpanded: boolean = false,
               public children: FolderIterator[] = [])
   { }
@@ -26,6 +26,7 @@ export class FolderIterator
                  .getChildren(this)
                  .pipe(map(children =>{ this.children = children ? children : this.children; this.hasExpanded = true; }));
     }
+    return;
   }
 
   updateName(newName: string, newType: string) {

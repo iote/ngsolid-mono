@@ -29,7 +29,7 @@ export class FileManagerComponent implements OnInit
 
   root: FolderIterator;
 
-  currentPosition$$ = new BehaviorSubject<FolderIterator>(null);
+  currentPosition$$ = new BehaviorSubject<FolderIterator>(null as any);
   currentPosition$ = this.currentPosition$$.asObservable().pipe(filter(pos => pos != null));
 
   isLoaded = false;

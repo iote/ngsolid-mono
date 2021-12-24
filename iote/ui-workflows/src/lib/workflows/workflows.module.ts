@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MultiLangModule } from '@ngfire/multi-lang';
+import { MultiLangModule } from '@ngfi/multi-lang';
 import { MaterialBricksModule } from '@iote/bricks-angular';
 import { FlexLayoutModule } from '@angular/flex-layout';
 

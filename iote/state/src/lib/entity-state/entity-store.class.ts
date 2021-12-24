@@ -1,11 +1,13 @@
+import * as _ from 'lodash';
+
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { SubSink } from 'subsink';
 
 import { StoreEventTypes } from '../state/store.class';
 import { EntityState } from './entity-state.interface';
 import { Stateful } from '../state/stateful.interface';
-import { SubSink } from 'subsink';
-import { BehaviorSubject, Observable } from 'rxjs';
-import * as _ from 'lodash';
 
 export abstract class EntityStore<T> implements Stateful<T[]>
 {

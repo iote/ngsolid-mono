@@ -1,5 +1,5 @@
-import { Predicate } from "./predicate.interface";
 import { Query as FirestoreQuery } from '@firebase/firestore-types';
+import { Predicate } from "./predicate.interface";
 
 export class MinPredicate extends Predicate
 {

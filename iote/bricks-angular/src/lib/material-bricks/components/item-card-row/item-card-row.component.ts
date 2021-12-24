@@ -11,12 +11,10 @@ export class ItemCardRowComponent
 
   @Input() icon:   string;
   @Input() label:  string;
-  
+
   @Input() actionIcon: string;
 
   @Output() rowClicked = new EventEmitter();
-
-  constructor() { }
 
   onClick() {
     this.rowClicked.emit();

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { __DateToStorage } from '@ngfire/time';
+import { __DateToStorage } from '@ngfi/time';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Logger } from '@iote/bricks-angular';
 
@@ -53,7 +53,7 @@ export class FileManagerService
                     .then(contents => ({ folder: path, contents })));
   }
 
-  public movePath(oldPath, newPath) {
+  public movePath(oldPath: string, newPath: string) {
     return from(__MoveFirebaseFile(this._storage, oldPath, newPath));
   }
 

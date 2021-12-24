@@ -1,8 +1,8 @@
-import { Injectable, Input } from "@angular/core";
+import { Injectable } from "@angular/core";
 
 import { AngularFirestore } from '@angular/fire/firestore';
 import { User } from '@iote/bricks';
-import {  Repository, UserService } from '@ngfire/angular';
+import {  Repository, UserService } from '@ngfi/angular';
 
 import { IFile } from '../model/file.interface';
 import { AngularFireStorage } from '@angular/fire/storage';
@@ -25,13 +25,13 @@ export class FileStorageService
 
 
 
-  uploadSingleFile(event, n) {
+  uploadSingleFile(event: any, n: number) {
     const file = event.target.files[0];
     const task = this.fireStorage.upload(`profileImages/${n}`, file);
     return task.snapshotChanges()
   }
 
-  createFileRef(path, name, type, description)
+  createFileRef(path: string, name: string, type: any, description:string)
   {
     const file: any = { name, path, type };
     if (description)
