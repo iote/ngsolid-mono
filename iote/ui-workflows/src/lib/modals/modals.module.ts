@@ -11,11 +11,10 @@ import { PDFModalComponent } from './components/pdf-modal/pdf-modal.component';
  * Library can later be split in more modules as workflows become more specific.
  */
 @NgModule({
-  imports: [CommonModule,
-            MaterialDesignModule, FlexLayoutModule],
-  declarations: [UIModalComponent, PDFModalComponent],
-  providers: [],
-  entryComponents: [PDFModalComponent],
-  exports: [UIModalComponent]
+    imports: [CommonModule,
+        MaterialDesignModule, FlexLayoutModule],
+    declarations: [UIModalComponent, PDFModalComponent],
+    providers: [],
+    exports: [UIModalComponent]
 })
 export class UIModalsModule { }

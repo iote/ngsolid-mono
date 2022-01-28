@@ -28,17 +28,14 @@ import { ItemContextMenuComponent } from './components/item-context-menu/item-co
  * Module that contains a file manager.
  */
 @NgModule({
-  imports: [CommonModule, FlexLayoutModule, FormsModule, ReactiveFormsModule,MultiLangModule,
-            MaterialDesignModule, MaterialBricksModule, FilesModule, UIModalsModule,
-            AngularFireStorageModule, UIWorkflowModule],
-
-  declarations: [FileManagerComponent, FileManagerNavComponent, FileDragUploadDirective,
-                 FileManagerPaneComponent, FileManagerItemComponent, FileManagerCrumbComponent,
-                 FileDetailsPaneComponent, FileDetailsPathComponent, FileIconComponent, AddFolderModalComponent,
-                 ItemContextMenuComponent],
-  entryComponents: [AddFolderModalComponent],
-  providers: [FileManagerService, FileManagerInitalisationService],
-
-  exports: [FileManagerComponent, FileDragUploadDirective]
+    imports: [CommonModule, FlexLayoutModule, FormsModule, ReactiveFormsModule, MultiLangModule,
+        MaterialDesignModule, MaterialBricksModule, FilesModule, UIModalsModule,
+        AngularFireStorageModule, UIWorkflowModule],
+    declarations: [FileManagerComponent, FileManagerNavComponent, FileDragUploadDirective,
+        FileManagerPaneComponent, FileManagerItemComponent, FileManagerCrumbComponent,
+        FileDetailsPaneComponent, FileDetailsPathComponent, FileIconComponent, AddFolderModalComponent,
+        ItemContextMenuComponent],
+    providers: [FileManagerService, FileManagerInitalisationService],
+    exports: [FileManagerComponent, FileDragUploadDirective]
 })
 export class FileManagerModule { }

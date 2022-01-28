@@ -15,11 +15,10 @@ import { ConfirmationDialogComponent } from './components/confirmation-modal/con
  * Library can later be split in more modules as workflows become more specific.
  */
 @NgModule({
-  imports: [CommonModule, MaterialDesignModule, MultiLangModule, MaterialBricksModule, FlexLayoutModule],
-                                                    // Belongs more in a Layout Module, but temp stored here.
-  declarations: [DeleteConfirmationDialogComponent, InfoPanelComponent, ConfirmationDialogComponent],
-  providers: [],
-  entryComponents: [DeleteConfirmationDialogComponent],
-  exports: [DeleteConfirmationDialogComponent, ConfirmationDialogComponent]
+    imports: [CommonModule, MaterialDesignModule, MultiLangModule, MaterialBricksModule, FlexLayoutModule],
+    // Belongs more in a Layout Module, but temp stored here.
+    declarations: [DeleteConfirmationDialogComponent, InfoPanelComponent, ConfirmationDialogComponent],
+    providers: [],
+    exports: [DeleteConfirmationDialogComponent, ConfirmationDialogComponent]
 })
 export class UIWorkflowModule { }

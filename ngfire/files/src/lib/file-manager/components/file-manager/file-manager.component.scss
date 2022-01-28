@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@use '@angular/material' as mat;
 @import 'libs/theming/default-theme.scss';
 
 .explorer-container {
@@ -17,7 +17,7 @@ mat-drawer-container {
   border-top-left-radius:  5px;
   border-top-right-radius: 5px;
   padding: 20px 20px 15px 20px;
-  background-color: mat-color($primary, A400);
+  background-color: mat.get-color-from-palette($primary, A400);
   color: white;
   text-align: left;
   width: 100%;
