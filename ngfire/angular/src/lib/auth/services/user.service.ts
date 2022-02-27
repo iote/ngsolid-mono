@@ -8,9 +8,9 @@ import { map, tap } from "rxjs/operators";
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { User } from "@iote/bricks";
-import { Logger } from "@iote/bricks-angular";
-import { Query } from '@ngfi/firestore-qbuilder';
+import { User } from "@s4y/external/iote/bricks";
+import { Logger } from "@s4y/external/iote/bricks-angular";
+import { Query } from '@s4y/external/ngfire/firestore-qbuilder';
 
 /**
  * Wrapper around Firebase User Services. RxJS subscriptions.

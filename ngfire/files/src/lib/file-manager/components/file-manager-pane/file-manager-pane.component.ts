@@ -6,7 +6,7 @@ import { SubSink } from 'subsink';
 import { Observable, Subscription, fromEvent } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 
-import { Logger } from '@iote/bricks-angular';
+import { Logger } from '@s4y/external/iote/bricks-angular';
 
 import { FolderIterator } from '../../model/folder-iterator.class';
 

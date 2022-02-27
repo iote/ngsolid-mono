@@ -1,4 +1,4 @@
-import { Environment } from "@iote/cqrs";
+import { Environment } from "@s4y/external/iote/cqrs";
 import { FunctionContext } from "./context.interface";
 
 /**

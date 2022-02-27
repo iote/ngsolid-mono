@@ -1,7 +1,7 @@
 import { CloudFunction, HttpsFunction } from "firebase-functions";
 
-import { Logger, getLogger } from '@iote/cqrs';
-import { CustomException } from '@iote/exceptions';
+import { Logger, getLogger } from '@s4y/external/iote/cqrs';
+import { CustomException } from '@s4y/external/iote/exceptions';
 
 import { FunctionContext } from '../context/context.interface';
 

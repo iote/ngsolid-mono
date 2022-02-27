@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AngularFireStorageModule } from '@angular/fire/storage';
-import { MaterialDesignModule, FlexLayoutModule } from '@iote/bricks-angular';
+import { MaterialDesignModule, FlexLayoutModule } from '@s4y/external/iote/bricks-angular';
 
 import { UploadFileComponent } from "./components/upload-file/upload-file.component";
 import { FileStorageService } from './services/file-storage.service';

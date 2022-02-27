@@ -4,8 +4,8 @@ import { SubSink } from 'subsink';
 import * as _ from 'lodash';
 import { MatDialog } from '@angular/material/dialog';
 
-import { Logger } from '@iote/bricks-angular';
-import { DeleteConfirmationDialogComponent, DELETE_DIALOG_WIDTH, PDFModalComponent } from '@iote/ui-workflows';
+import { Logger } from '@s4y/external/iote/bricks-angular';
+import { DeleteConfirmationDialogComponent, DELETE_DIALOG_WIDTH, PDFModalComponent } from '@s4y/external/iote/ui-workflows';
 
 import { FolderIterator } from '../../model/folder-iterator.class';
 import { take } from 'rxjs/operators';

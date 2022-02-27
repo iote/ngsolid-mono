@@ -1,5 +1,5 @@
 {
-  "name": "@ngfi/firestore-qbuilder",
+  "name": "@s4y/external/ngfire/firestore-qbuilder",
   "description": "Predicate pattern on top of firestore which loosens dependency on firestore in DB-layer",
 
   "version": "1.0.0",

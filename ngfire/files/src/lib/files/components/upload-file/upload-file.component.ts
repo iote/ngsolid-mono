@@ -5,7 +5,7 @@ import { SubSink } from 'subsink';
 import { Observable, of } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
-import { Logger } from '@iote/bricks-angular';
+import { Logger } from '@s4y/external/iote/bricks-angular';
 
 import { IFile } from '../../model/file.interface';
 import { FileStorageService } from '../../services/file-storage.service';

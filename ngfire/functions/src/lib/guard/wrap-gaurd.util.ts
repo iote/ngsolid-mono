@@ -1,7 +1,7 @@
 import { reduce as __reduce } from 'lodash';
 
 import { FunctionContext } from '../context/context.interface';
-import { Logger } from '@iote/cqrs';
+import { Logger } from '@s4y/external/iote/cqrs';
 
 import { Guard } from './guard.interface';
 

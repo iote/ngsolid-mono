@@ -1,5 +1,5 @@
-import { AdminRepositoryFactory } from '@ngfi/admin-data';
-import { DbFactory, Logger, getLogger } from '@iote/cqrs';
+import { AdminRepositoryFactory } from '@s4y/external/ngfire/admin-data';
+import { DbFactory, Logger, getLogger } from '@s4y/external/iote/cqrs';
 
 export abstract class NestService
 {

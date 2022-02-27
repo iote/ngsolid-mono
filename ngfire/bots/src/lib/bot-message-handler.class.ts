@@ -1,5 +1,5 @@
-import { Handler, HandlerTools, getLogger } from '@iote/cqrs';
-import { AdminRepositoryFactory } from '@ngfi/admin-data';
+import { Handler, HandlerTools, getLogger } from '@s4y/external/iote/cqrs';
+import { AdminRepositoryFactory } from '@s4y/external/ngfire/admin-data';
 import { BotHandlerContext } from './bot-handler-context.interface';
 /**
  * Handler of a message T. Executes logic

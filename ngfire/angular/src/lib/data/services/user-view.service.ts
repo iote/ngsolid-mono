@@ -4,7 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { UserService } from '../../auth/services/user.service';
 
 import { UserViewRepository } from '../repositories/userview-repository.model';
-import { IUserObject, User } from '@iote/bricks';
+import { IUserObject, User } from '@s4y/external/iote/bricks';
 
 /**
  * Service that creates UserView Repositories

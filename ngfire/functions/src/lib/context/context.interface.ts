@@ -1,4 +1,4 @@
-import { Environment, HandlerContext } from '@iote/cqrs';
+import { Environment, HandlerContext } from '@s4y/external/iote/cqrs';
 
 /** Execution context.
  *

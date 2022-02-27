@@ -1,7 +1,7 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 
 import { TranslateService } from './services/translate.service';
-import { LocalPersistanceModule } from '@iote/local-persistance';
+import { LocalPersistanceModule } from '@s4y/external/iote/local-persistance';
 
 import { TRANSLOCO_LOADER, TRANSLOCO_CONFIG, translocoConfig, TranslocoModule} from '@ngneat/transloco';
 

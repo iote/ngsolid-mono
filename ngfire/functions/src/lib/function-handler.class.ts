@@ -1,4 +1,4 @@
-import { Handler, HandlerTools } from '@iote/cqrs';
+import { Handler, HandlerTools } from '@s4y/external/iote/cqrs';
 
 import { FunctionContext } from './context/context.interface';
 

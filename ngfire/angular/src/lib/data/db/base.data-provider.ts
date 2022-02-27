@@ -1,4 +1,4 @@
-import { User, IObject } from '@iote/bricks';
+import { User, IObject } from '@s4y/external/iote/bricks';
 
 import { AngularFirestore } from '@angular/fire/firestore';
 

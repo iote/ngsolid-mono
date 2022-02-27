@@ -1,5 +1,5 @@
 {
-  "name": "@iote/cqrs",
+  "name": "@s4y/external/iote/cqrs",
   "description": "Package containing the shared- & backend infrastructure for multi-tenant serverless environments.",
 
   "version": "1.0.0",
@@ -14,7 +14,7 @@
     "url": "https://italanta.net"
   },
   "peerDependencies": {
-    "@iote/bricks": "1.0.0",
-    "@ngfi/firestore-qbuilder": "1.0.0"
+    "@s4y/external/iote/bricks": "1.0.0",
+    "@s4y/external/ngfire/firestore-qbuilder": "1.0.0"
   }
 }

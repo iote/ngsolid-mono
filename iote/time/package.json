@@ -1,5 +1,5 @@
 {
-  "name": "@iote/time",
+  "name": "@s4y/external/iote/time",
   "description": "Abstraction time conversion between Date/Timestamps to AppDate (based on momentjs at this point).",
 
   "version": "1.0.0",

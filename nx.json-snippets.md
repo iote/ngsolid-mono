@@ -1,30 +1,30 @@
 # Add below snippets to nx.json upon install of libs/external
 ````javascript
-"@iote/bricks": {
+"@s4y/external/iote/bricks": {
   "tags": []
 },
-"@ngfi/firestore-qbuilder": {
+"@s4y/external/ngfire/firestore-qbuilder": {
   "tags": [],
-  "implicitDependencies": ["@iote/bricks"]
+  "implicitDependencies": ["@s4y/external/iote/bricks"]
 },
-"@iote/bricks-angular": {
+"@s4y/external/iote/bricks-angular": {
   "tags": [],
-  "implicitDependencies": ["@iote/bricks"]
+  "implicitDependencies": ["@s4y/external/iote/bricks"]
 },
-"@ngfi/angular": {
+"@s4y/external/ngfire/angular": {
   "tags": [],
-  "implicitDependencies": ["@iote/bricks", "@iote/bricks-angular", "@ngfi/firestore-qbuilder"]
+  "implicitDependencies": ["@s4y/external/iote/bricks", "@s4y/external/iote/bricks-angular", "@s4y/external/ngfire/firestore-qbuilder"]
 },
-"@ngfi/time": {
+"@s4y/external/ngfire/time": {
   "tags": [],
-  "implicitDependencies": ["@ngfi/firestore-qbuilder"]
+  "implicitDependencies": ["@s4y/external/ngfire/firestore-qbuilder"]
 },
 "@ngfire/files": {
   "tags": [],
-  "implicitDependencies": ["@iote/bricks"]
+  "implicitDependencies": ["@s4y/external/iote/bricks"]
 },
-"@iote/ui-workflows": {
+"@s4y/external/iote/ui-workflows": {
   "tags": [],
-  "implicitDependencies": ["@iote/bricks-angular"]
+  "implicitDependencies": ["@s4y/external/iote/bricks-angular"]
 }
 ````

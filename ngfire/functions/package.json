@@ -1,5 +1,5 @@
 {
-  "name": "@ngfi/functions",
+  "name": "@s4y/external/ngfire/functions",
   "version": "1.0.0",
   "description": "Library that defines a framework for the development of serverless functions and seperates their logic from their deployment setup.",
 

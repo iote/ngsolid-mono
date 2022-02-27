@@ -1,15 +1,15 @@
-import { Repository } from '@ngfi/angular';
+import { Repository } from '@s4y/external/ngfire/angular';
 
 import * as _ from 'lodash';
 import { Observable, combineLatest, throwError } from 'rxjs';
 import { catchError, map, filter, debounceTime } from 'rxjs/operators';
 
-import { EntityStore } from '@iote/state';
+import { EntityStore } from '@s4y/external/iote/state';
 
-import { IObject } from '@iote/bricks';
-import { Logger } from '@iote/bricks-angular';
+import { IObject } from '@s4y/external/iote/bricks';
+import { Logger } from '@s4y/external/iote/bricks-angular';
 
-// import { ToastService } from '@iote/bricks-angular';
+// import { ToastService } from '@s4y/external/iote/bricks-angular';
 
 /**
  * @export

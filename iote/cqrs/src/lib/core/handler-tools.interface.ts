@@ -1,5 +1,5 @@
 import { Logger } from "../util/logger/logger.interface";
-import { IObject } from "@iote/bricks";
+import { IObject } from "@s4y/external/iote/bricks";
 
 import { Repository } from "../data/repositories/repository.interface";
 

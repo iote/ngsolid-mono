@@ -1,5 +1,5 @@
 {
-  "name": "@ngfi/files",
+  "name": "@s4y/external/ngfire/files",
   "version": "1.0.0",
   "description": "Helpers for file management with firebase storage",
   "peerDependencies": {

@@ -1,5 +1,5 @@
-import { Handler, HandlerContext, HandlerTools, getLogger } from '@iote/cqrs';
-import { AdminRepositoryFactory } from '@ngfi/admin-data';
+import { Handler, HandlerContext, HandlerTools, getLogger } from '@s4y/external/iote/cqrs';
+import { AdminRepositoryFactory } from '@s4y/external/ngfire/admin-data';
 
 /**
  * Handler of an event T. Executes logic

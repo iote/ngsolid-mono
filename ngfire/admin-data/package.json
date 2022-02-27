@@ -1,5 +1,5 @@
 {
-  "name": "@ngfi/admin-data",
+  "name": "@s4y/external/ngfire/admin-data",
   "version": "1.0.0",
   "description": "Tools and repository abstractions for connecting with google firestore through a NodeJS backend.",
 

@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireStorageModule } from '@angular/fire/storage';
-import { UIWorkflowModule, UIModalsModule } from '@iote/ui-workflows';
+import { UIWorkflowModule, UIModalsModule } from '@s4y/external/iote/ui-workflows';
 
-import { MaterialDesignModule, FlexLayoutModule, MaterialBricksModule } from '@iote/bricks-angular';
+import { MaterialDesignModule, FlexLayoutModule, MaterialBricksModule } from '@s4y/external/iote/bricks-angular';
 
 import { FilesModule } from '../files';
-import { MultiLangModule } from '@ngfi/multi-lang';
+import { MultiLangModule } from '@s4y/external/ngfire/multi-lang';
 
 import { FileManagerComponent } from './components/file-manager/file-manager.component';
 import { FileManagerNavComponent } from './components/file-manager-nav/file-manager-nav.component';

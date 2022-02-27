@@ -1,4 +1,4 @@
-import { IObject } from "@iote/bricks";
+import { IObject } from "@s4y/external/iote/bricks";
 
 export interface IFile extends IObject
 {

@@ -2,7 +2,7 @@
 // import { flatMap, map, catchError } from 'rxjs/operators';
 // import { AngularFirestore } from '@angular/fire/firestore';
 
-// import { IObject, User } from '@iote/bricks';
+// import { IObject, User } from '@s4y/external/iote/bricks';
 
 // import { UserService } from '../../auth/services/user.service';
 

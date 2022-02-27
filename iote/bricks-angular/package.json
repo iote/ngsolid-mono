@@ -1,5 +1,5 @@
 {
-  "name": "@iote/bricks-angular",
+  "name": "@s4y/external/iote/bricks-angular",
   "description": "Base angular reusable frontend components for ngsolid application.",
 
   "version": "1.0.1",

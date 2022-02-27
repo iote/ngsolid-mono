@@ -1,6 +1,6 @@
 # Add below snippets to angular.json upon install of libs/external
 ````
-"@iote/bricks": {
+"@s4y/external/iote/bricks": {
   "root": "libs/external/iote/bricks",
   "sourceRoot": "libs/external/iote/bricks/src",
   "projectType": "library",
@@ -26,7 +26,7 @@
     }
   }
 },
-"@iote/bricks-angular": {
+"@s4y/external/iote/bricks-angular": {
   "projectType": "library",
   "root": "libs/external/iote/bricks-angular",
   "sourceRoot": "libs/external/iote/bricks-angular/src",
@@ -61,7 +61,7 @@
     }
   }
 },
-"@ngfi/angular": {
+"@s4y/external/ngfire/angular": {
   "projectType": "library",
   "root": "libs/external/ngfire/angular",
   "sourceRoot": "libs/external/ngfire/angular/src",
@@ -96,7 +96,7 @@
     }
   }
 },
-"@ngfi/time": {
+"@s4y/external/ngfire/time": {
   "projectType": "library",
   "root": "libs/external/ngfire/time",
   "sourceRoot": "libs/external/ngfire/time/src",
@@ -160,7 +160,7 @@
     }
   }
 },
-"@ngfi/firestore-qbuilder": {
+"@s4y/external/ngfire/firestore-qbuilder": {
   "projectType": "library",
   "root": "libs/external/ngfire/firestore-qbuilder",
   "sourceRoot": "libs/external/ngfire/firestore-qbuilder/src",
@@ -195,7 +195,7 @@
     }
   }
 },
-"@iote/ui-workflows": {
+"@s4y/external/iote/ui-workflows": {
   "projectType": "library",
   "root": "libs/external/iote/ui-workflows",
   "sourceRoot": "libs/external/iote/ui-workflows/src",
@@ -230,7 +230,7 @@
     }
   }
 },
-"@iote/cqrs": {
+"@s4y/external/iote/cqrs": {
   "root": "libs/external/iote/cqrs",
   "sourceRoot": "libs/external/iote/cqrs/src",
   "projectType": "library",
@@ -256,7 +256,7 @@
     }
   }
 },
-"@ngfi/admin-data": {
+"@s4y/external/ngfire/admin-data": {
   "root": "libs/external/ngfire/admin-data",
   "sourceRoot": "libs/external/ngfire/admin-data/src",
   "projectType": "library",

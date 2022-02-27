@@ -1,0 +1,7 @@
+{
+  "$schema": "../../../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../../../dist/libs/external/ngfire/firestore-qbuilder",
+  "lib": {
+    "entryFile": "src/index.ts"
+  }
+}

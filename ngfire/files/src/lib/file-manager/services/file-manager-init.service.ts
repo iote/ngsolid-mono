@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { from } from 'rxjs';
 
-import { Logger } from '@iote/bricks-angular';
+import { Logger } from '@s4y/external/iote/bricks-angular';
 
 import { MultiLangFolder } from '../model/multi-lang-folder.interface';
 import { IStorageReference, IStorageContents } from '../file-manager-types.types';

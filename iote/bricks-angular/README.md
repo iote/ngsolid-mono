@@ -1,3 +1,3 @@
-# @iote/bricks-angular
+# @s4y/external/iote/bricks-angular
 
 Angular layout and common components of ngsolid-mono

@@ -6,8 +6,8 @@ import firebase from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreDocument } from "@angular/fire/firestore";
 
-import { User, UserProfile, Roles, } from "@iote/bricks";
-import { ToastService, Logger } from '@iote/bricks-angular';
+import { User, UserProfile, Roles, } from "@s4y/external/iote/bricks";
+import { ToastService, Logger } from '@s4y/external/iote/bricks-angular';
 
 
 /**

@@ -6,8 +6,8 @@ import { SubSink } from 'subsink';
 import { take } from 'rxjs/operators';
 
 
-import { DeleteConfirmationDialogComponent, DELETE_DIALOG_WIDTH } from '@iote/ui-workflows';
-import { Logger } from '@iote/bricks-angular';
+import { DeleteConfirmationDialogComponent, DELETE_DIALOG_WIDTH } from '@s4y/external/iote/ui-workflows';
+import { Logger } from '@s4y/external/iote/bricks-angular';
 
 import { FolderIterator } from '../../model/folder-iterator.class';
 

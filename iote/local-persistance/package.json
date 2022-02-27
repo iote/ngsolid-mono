@@ -1,5 +1,5 @@
 {
-  "name": "@iote/local-persistance",
+  "name": "@s4y/external/iote/local-persistance",
   "description": "Angular module & provider that puts wrapper around local persistance in browsers and PWAs. Falls back gracefully.",
 
   "version": "1.0.0",

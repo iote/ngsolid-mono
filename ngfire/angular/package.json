@@ -1,5 +1,5 @@
 {
-  "name": "@ngfi/angular",
+  "name": "@s4y/external/ngfire/angular",
   "description": "Helpers and bricks that tie firebase into angular and are useful to any project with those two.",
 
   "version": "1.0.0",
@@ -21,8 +21,8 @@
     "@angular/flex-layout": "^12.0.0-beta.35",
     "@angular/fire": "^6.1.4",
     "firebase": "^8.2.1",
-    "@iote/bricks": "^1.0.0",
-    "@ngfi/firestore-qbuilder": "^1.0.0"
+    "@s4y/external/iote/bricks": "^1.0.0",
+    "@s4y/external/ngfire/firestore-qbuilder": "^1.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"

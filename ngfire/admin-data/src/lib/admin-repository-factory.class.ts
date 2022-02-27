@@ -1,8 +1,8 @@
 import * as admin from 'firebase-admin';
 
-import { IObject } from '@iote/bricks';
+import { IObject } from '@s4y/external/iote/bricks';
 import { AdminRepository } from './admin-repository.class';
-import { DbFactory } from '@iote/cqrs';
+import { DbFactory } from '@s4y/external/iote/cqrs';
 
 let store: any;
 

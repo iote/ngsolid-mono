@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { __DateToStorage } from '@ngfi/time';
+import { __DateToStorage } from '@s4y/external/ngfire/time';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { Logger } from '@iote/bricks-angular';
+import { Logger } from '@s4y/external/iote/bricks-angular';
 
 import firebase from 'firebase/app';
 import { Observable, from } from 'rxjs';

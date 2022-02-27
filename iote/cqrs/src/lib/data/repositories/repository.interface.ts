@@ -1,7 +1,7 @@
 import { Transaction, FirebaseFirestore } from '@firebase/firestore-types';
 
-import { IObject } from '@iote/bricks';
-import { Query } from '@ngfi/firestore-qbuilder';
+import { IObject } from '@s4y/external/iote/bricks';
+import { Query } from '@s4y/external/ngfire/firestore-qbuilder';
 
 /**
  * Repository to be used inside of Handlers.

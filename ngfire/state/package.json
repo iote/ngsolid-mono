@@ -1,5 +1,5 @@
 {
-  "name": "@ngfi/state",
+  "name": "@s4y/external/ngfire/state",
   "version": "1.0.0",
   "peerDependencies": {
     "@angular/common": "^12.2.0",

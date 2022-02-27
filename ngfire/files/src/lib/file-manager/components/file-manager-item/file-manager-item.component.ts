@@ -1,11 +1,11 @@
 
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { TranslateService } from '@ngfi/multi-lang'
+import { TranslateService } from '@s4y/external/ngfire/multi-lang'
 
 import * as translations from '../../model/folder-root-structure.const';
 
 import { FolderIterator } from '../../model/folder-iterator.class';
-import { Logger } from '@iote/bricks-angular';
+import { Logger } from '@s4y/external/iote/bricks-angular';
 import * as _ from 'lodash';
 
 /** Component that displays a single item in a file manager setup. */

@@ -9,7 +9,7 @@ import { FileManagerCrumb } from './file-manager-crumb.interface';
 import { FolderIterator } from '../../model/folder-iterator.class';
 import { MatDialog } from '@angular/material/dialog';
 import { AddFolderModalComponent } from '../add-folder-modal/add-folder-modal.component';
-import { DELETE_DIALOG_WIDTH } from '@iote/ui-workflows';
+import { DELETE_DIALOG_WIDTH } from '@s4y/external/iote/ui-workflows';
 import { SubSink } from 'subsink';
 
 @Component({

@@ -1,11 +1,11 @@
 {
-  "name": "@ngfi/time",
+  "name": "@s4y/external/ngfire/time",
   "version": "1.0.0",
   "description": "Angular + Firebase pipes to handle date and time.",
   "peerDependencies": {
     "@angular/common": "^12.2.0",
     "@angular/core": "^12.2.0",
-    "@iote/time": "^1.0.0"
+    "@s4y/external/iote/time": "^1.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"

@@ -2,7 +2,7 @@
 import { Component, Input } from '@angular/core';
 
 import { FolderIterator } from '../../model/folder-iterator.class';
-import { Logger } from '@iote/bricks-angular';
+import { Logger } from '@s4y/external/iote/bricks-angular';
 import * as _ from 'lodash';
 
 /** Component that displays a single item in a file manager setup. */

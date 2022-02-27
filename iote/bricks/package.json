@@ -1,5 +1,5 @@
 {
-  "name": "@iote/bricks",
+  "name": "@s4y/external/iote/bricks",
   "description": "Base building blocks for any ngsolid application.",
 
   "version": "1.0.0",

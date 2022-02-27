@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators, ValidationErrors, ControlContainer 
 import { ValidatorFn, AbstractControl } from '@angular/forms';
 
 import * as _ from 'lodash';
-import { Logger } from '@iote/bricks-angular';
+import { Logger } from '@s4y/external/iote/bricks-angular';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 

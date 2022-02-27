@@ -1,5 +1,5 @@
 {
-  "name": "@iote/state",
+  "name": "@s4y/external/iote/state",
 
   "version": "1.0.0",
   "description": "NgSolid state layer implementation. Interpretation of Akita Pattern",

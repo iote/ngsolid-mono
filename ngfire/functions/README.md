@@ -1,4 +1,4 @@
-# @ngfi/functions
+# @s4y/external/ngfire/functions
 
 Library that defines a framework for the development of serverless functions and seperates their logic from their deployment setup.
 

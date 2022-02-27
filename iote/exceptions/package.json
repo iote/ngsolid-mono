@@ -1,5 +1,5 @@
 {
-  "name": "@iote/exceptions",
+  "name": "@s4y/external/iote/exceptions",
   "description": "Base interfaces for custom exception management for @iote and @ngfi infrastructure.",
 
   "version": "1.0.0",
