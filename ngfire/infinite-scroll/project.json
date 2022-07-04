@@ -1,0 +1,31 @@
+{
+    "name": "ngfire/infinite-scroll",
+    "scripts": {
+        "test": "jest",
+        "build": "tsc -p tsconfig.lib.json"
+    },
+    "nx": {
+        "targets": {
+            "build": {
+                "outputs": [
+                    "dist/libs/external/ngfire/infinite-scroll"
+                ],
+                "dependsOn": [
+                    {
+                        "target": "build",
+                        "projects": "dependencies"
+                    }
+                ]
+            },
+            "test": {
+                "outputs": [],
+                "dependsOn": [
+                    {
+                        "target": "build",
+                        "projects": "self"
+                    }
+                ]
+            }
+        }
+    }
+}

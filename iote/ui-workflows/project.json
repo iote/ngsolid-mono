@@ -1,0 +1,31 @@
+{
+  "name": "iote/ui-workflows",
+  "scripts": {
+    "test": "jest",
+    "build": "tsc -p tsconfig.lib.json"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "outputs": [
+          "dist/libs/external/iote/ui-workflows"
+        ],
+        "dependsOn": [
+          {
+            "target": "build",
+            "projects": "dependencies"
+          }
+        ]
+      },
+      "test": {
+        "outputs": [],
+        "dependsOn": [
+          {
+            "target": "build",
+            "projects": "self"
+          }
+        ]
+      }
+    }
+  }
+}
