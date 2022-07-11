@@ -30,4 +30,20 @@ export class CacheService {
 
     return false;
   }
+
+  getValueByKey<T>(key: string): T | false {
+    /*Use this function to access the value of a key in localStorage.
+      The function will return the value of the key if it exists else returns false.
+    */
+      const val = localStorage.getItem(key);
+  
+      if(val) {
+        const parsed = JSON.parse(val);
+  
+        if(parsed)
+          return parsed;
+      }
+  
+      return false;
+    }
 }
