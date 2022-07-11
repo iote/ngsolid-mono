@@ -46,6 +46,7 @@ Swap out pathNames
 
 <b>In NX root tsconfig.json</b>
 ````javascript
+"@proj-name/external/iote/analytics": [ "libs/external/iote/analytics/src/index.ts" ],
 "@proj-name/external/iote/bricks": [ "libs/external/iote/bricks/src/index.ts" ],
 "@proj-name/external/ngfire/firestore-qbuilder": [ "libs/external/ngfire/firestore-qbuilder/src/index.ts" ],
 "@proj-name/external/iote/bricks-angular": [ "libs/external/iote/bricks-angular/src/index.ts" ],
@@ -57,6 +58,7 @@ Swap out pathNames
 
 Change into
 ````javascript
+"@iote/analytics": [ "libs/external/iote/analytics/src/index.ts" ],
 "@iote/bricks": [ "libs/external/iote/bricks/src/index.ts" ],
 "@iote/bricks-angular": [ "libs/external/iote/bricks-angular/src/index.ts" ],
 "@iote/ui-workflows": [ "libs/external/iote/ui-workflows/src/index.ts" ],
