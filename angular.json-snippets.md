@@ -1,5 +1,31 @@
 # Add below snippets to angular.json upon install of libs/external
 ````
+"@iote/analytics": {
+  "root": "libs/external/iote/analytics",
+  "sourceRoot": "libs/external/iote/analytics/src",
+  "projectType": "library",
+  "schematics": {},
+  "architect": {
+    "lint": {
+      "builder": "@angular-devkit/build-angular:tslint",
+      "options": {
+        "tsConfig": [
+          "libs/external/iote/analytics/tsconfig.lib.json",
+          "libs/external/iote/analytics/tsconfig.spec.json"
+        ],
+        "exclude": ["**/node_modules/**", "!libs/external/iote/analytics/**"]
+      }
+    },
+    "test": {
+      "builder": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/external/iote/analytics/jest.config.js",
+        "tsConfig": "libs/external/iote/analytics/tsconfig.spec.json",
+        "passWithNoTests": true
+      }
+    }
+  }
+},
 "@iote/bricks": {
   "root": "libs/external/iote/bricks",
   "sourceRoot": "libs/external/iote/bricks/src",
