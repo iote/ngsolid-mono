@@ -1,5 +1,8 @@
 # Add below snippets to nx.json upon install of libs/external
 ````javascript
+"@iote/analytics": {
+  "tags": []
+},
 "@iote/bricks": {
   "tags": []
 },
