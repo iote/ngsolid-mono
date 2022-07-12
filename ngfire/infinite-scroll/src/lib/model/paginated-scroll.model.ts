@@ -1,11 +1,11 @@
-import { CollectionReference } from '@firebase/firestore-types';
+import { CollectionReference, QuerySnapshot } from '@firebase/firestore-types';
 import { Injectable } from '@angular/core';
 
 import { BehaviorSubject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import * as _ from 'lodash';
 
-import { AngularFirestore, AngularFirestoreCollection, DocumentData, QuerySnapshot } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, DocumentData } from '@angular/fire/firestore';
 import { IObject } from '@iote/bricks';
 import { __DateFromStorage } from '@ngfi/time';
 
@@ -71,14 +71,14 @@ export class PaginatedScroll<T extends IObject>
     return this.docs$$.asObservable().pipe(filter(o => o != null));
   }
 
-  more() : void
+  more(newPageSize?: number) : void
   {
     const collection = this._getMessageCollection();
 
     // 1. Configure next query behaviour
     const docs$ = collection.orderBy(this._opts.orderByField, this._opts.reverse ? 'desc' : 'asc')
                                 .startAt(this.start)
-                                .limit(this._opts.limit).get();
+                                .limit(newPageSize ?? this._opts.limit).get();
 
     // 2. Get the next snapshot. Will only fire once on get!
     docs$.then((snapshots) => {
